@@ -11,68 +11,6 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:BooleanToVisibilityInverseConverter x:Key="BooleanToVisibilityInverseConverter"/>
-
-        <!-- Set style for the toggle menu buttons -->
-        <Style x:Key="FlatToggleButton" TargetType="{x:Type ToggleButton}">
-            <Setter Property="Background" Value="DimGray"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToggleButton}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="DimGray" BorderThickness="0">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="DimGray"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        
-        <!-- Set style for the toggle buttons in the listview -->
-        <Style x:Key="ListViewToggleButton" TargetType="{x:Type ToggleButton}">
-            <Setter Property="Background" Value="DimGray"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToggleButton}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="DimGray" BorderThickness="0">
-                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="DimGray"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Set style for buttons in the search listview -->
-        <Style x:Key="ListViewButton" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="DimGray"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="DimGray" BorderThickness="0">
-                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="DimGray"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
     </UserControl.Resources>
     
     <Grid>
@@ -84,7 +22,7 @@
         <esriUI:MapView x:Name="MapBookMapView" Map="{Binding Map}" Grid.Row="1"/>
         
         <!-- Make top bar with buttons -->
-        <Grid Background="DimGray">
+        <Grid Background="#3F51B5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="*"/>
@@ -93,17 +31,17 @@
             </Grid.ColumnDefinitions>
             <!-- Back Button -->
             <Button Style="{StaticResource FlatButton}" Command="{Binding ClickCommand}" Grid.Column="0">
-                <TextBlock Text="&#xE0A6;" FontFamily="Segoe MDL2 Assets" FontSize="50"/>
+                <TextBlock Text="&#xE0A6;" Style="{StaticResource SymbolButton}"/>
             </Button>
             <!-- Map Title -->
-            <TextBlock Text="{Binding Map.Item.Title}" VerticalAlignment="Center" Foreground="White" FontSize="30" Grid.Column="1"/>
+            <TextBlock Text="{Binding Map.Item.Title}" VerticalAlignment="Center" Style="{StaticResource WhiteText}" FontSize="30" Grid.Column="1"/>
             <!-- Search Button -->
             <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleSearch"  Grid.Column="2">
-                <TextBlock Text="&#xE721;" FontFamily="Segoe MDL2 Assets" FontSize="50"/>
+                <TextBlock Text="&#xE721;" Style="{StaticResource SymbolButton}"/>
             </ToggleButton>
             <!-- Legend Button -->
             <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleLegend" Grid.Column="3">
-                <TextBlock Text="&#xE81E;" FontFamily="Segoe MDL2 Assets" FontSize="50"/>
+                <TextBlock Text="&#xE81E;" Style="{StaticResource SymbolButton}"/>
             </ToggleButton>
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
@@ -115,7 +53,7 @@
                 <!-- Search Box and Button-->
                 <Border BorderBrush="White" BorderThickness="1"> 
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="SearchBox" Width="260" Height="40" Background="LightGray" BorderBrush="DimGray" 
+                        <TextBox x:Name="SearchBox" Width="260" Height="40" Background="#F4F4F4" BorderBrush="#3F51B5" 
                                  BorderThickness="5" FontSize="20" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Button Style="{StaticResource FlatButton}" Width="40" Height="40" Command="{Binding SearchCommand}" CommandParameter="{Binding SearchText, Mode=TwoWay}">
                             <TextBlock Text="&#xE721;" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
@@ -123,10 +61,11 @@
                     </StackPanel>
                 </Border>
                 <!-- Autocomplete Listbox-->
-                <ListView Width="300" ItemsSource="{Binding SuggestionsList}" Background="DimGray">
+                <ListView Width="300" ItemsSource="{Binding SuggestionsList}" Background="#3F51B5">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Button Content="{Binding Label}" Style="{StaticResource ListViewButton}" FontSize="20" Command="{Binding DataContext.SearchCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+                            <Button Content="{Binding Label}" Style="{StaticResource ListViewButton}" FontSize="20" 
+                                    Command="{Binding DataContext.SearchCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     <ListView.ItemContainerStyle>
@@ -145,7 +84,7 @@
             </StackPanel>
 
             <!-- Set Legend -->
-            <ListView  Width="300" ItemsSource="{Binding Map.AllLayers}" Background="DimGray"
+            <ListView  Width="300" ItemsSource="{Binding Map.AllLayers}" Background="#3F51B5"
                       Visibility="{Binding IsChecked, ElementName=toggleLegend, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

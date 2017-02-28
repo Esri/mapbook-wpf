@@ -9,9 +9,6 @@ namespace OfflineMapBook.ViewModels
 {
     class MainViewModel : BaseViewModel
     {
-        private string mmpkName;
-        private string mmpkThumbnail;
-        private string mmpkDescription;
         private IReadOnlyList<Map> mapItems;
         private Map map;
         private LocatorTask locator;
@@ -88,8 +85,6 @@ namespace OfflineMapBook.ViewModels
                 return _clickCommand ?? (_clickCommand = new ParameterCommand((x) => SubmitButtonAction((Map)x), true));
             }
         }
-
-        private bool _canExecute;
 
         public void SubmitButtonAction(Map map)
         {

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:OfflineMapBook"
         Title="Map Book" 
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        ResizeMode="CanMinimize"
         Height="480" 
         Width="640">
     <Window.Resources>
