@@ -6,9 +6,7 @@
         xmlns:local="clr-namespace:OfflineMapBook"
         Title="Map Book" 
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
-        ResizeMode="CanMinimize"
-        Height="480" 
-        Width="640">
+        ResizeMode="CanMinimize">
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewmodels:MainViewModel}">
             <local:MainView />
@@ -17,6 +15,7 @@
             <local:MapView />
         </DataTemplate>
     </Window.Resources>
+    <!-- View model for the active user control -->
     <ContentControl Content="{Binding DisplayViewModel}"/>
 </Window>
 

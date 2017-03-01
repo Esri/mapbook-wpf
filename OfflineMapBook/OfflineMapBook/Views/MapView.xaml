@@ -18,6 +18,7 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
         <!-- Set mapview with map -->
         <esriUI:MapView x:Name="MapBookMapView" Map="{Binding Map}" Grid.Row="1"/>
         
@@ -29,27 +30,33 @@
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
+            
             <!-- Back Button -->
             <Button Style="{StaticResource FlatButton}" Command="{Binding BackCommand}" Grid.Column="0">
                 <TextBlock Text="&#xE0A6;" Style="{StaticResource SymbolButton}"/>
             </Button>
+            
             <!-- Map Title -->
             <TextBlock Text="{Binding Map.Item.Title}" VerticalAlignment="Center" Style="{StaticResource WhiteText}" FontSize="30" Grid.Column="1"/>
+            
             <!-- Search Button -->
             <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleSearch"  Grid.Column="2">
                 <TextBlock Text="&#xE721;" Style="{StaticResource SymbolButton}"/>
             </ToggleButton>
+            
             <!-- Legend Button -->
             <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleLegend" Grid.Column="3">
                 <TextBlock Text="&#xE81E;" Style="{StaticResource SymbolButton}"/>
             </ToggleButton>
         </Grid>
+        <!-- Panel area opening over the map -->
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
-
+            
             <!-- Search Panel -->
             <StackPanel Orientation="Vertical" Visibility="{Binding IsChecked, ElementName=toggleSearch, 
                 Converter={StaticResource BooleanToVisibilityConverter}}"
                 FocusManager.FocusedElement="{Binding ElementName=SearchBox}">
+                
                 <!-- Search Box and Button-->
                 <Border BorderBrush="White" BorderThickness="1"> 
                     <StackPanel Orientation="Horizontal">
@@ -60,7 +67,8 @@
                         </Button>
                     </StackPanel>
                 </Border>
-                <!-- Autocomplete Listbox-->
+                
+                <!-- Search Autocomplete Listbox-->
                 <ListView Width="300" ItemsSource="{Binding SuggestionsList}" Background="#3F51B5">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -83,7 +91,7 @@
                 </ListView>
             </StackPanel>
 
-            <!-- Set Legend -->
+            <!-- Legend Panel -->
             <ListView  Width="300" ItemsSource="{Binding Map.AllLayers}" Background="#3F51B5"
                       Visibility="{Binding IsChecked, ElementName=toggleLegend, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <ListView.ItemTemplate>
@@ -110,8 +118,6 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-
-            
         </StackPanel>
     </Grid>
 </UserControl>

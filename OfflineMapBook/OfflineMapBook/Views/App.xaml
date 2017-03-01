@@ -4,6 +4,7 @@
              StartupUri="MainWindow.xaml"
 			 Startup="Application_Startup">
 	<Application.Resources>
+        
         <!-- Set style for the regular buttons -->
         <Style x:Key="FlatButton" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#3F51B5"/>
@@ -23,6 +24,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        
         <!-- Set style for the toggle menu buttons -->
         <Style x:Key="FlatToggleButton" TargetType="{x:Type ToggleButton}">
             <Setter Property="Background" Value="#3F51B5"/>
@@ -42,6 +44,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        
         <!-- Set style for the toggle buttons in the listview -->
         <Style x:Key="ListViewToggleButton" TargetType="{x:Type ToggleButton}">
             <Setter Property="Background" Value="#3F51B5"/>
@@ -61,6 +64,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        
         <!-- Set style for buttons in the search listview -->
         <Style x:Key="ListViewButton" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#3F51B5"/>
@@ -80,6 +84,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        
         <!-- Set styles for text blocks -->
         <Style x:Key="WhiteText" TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>

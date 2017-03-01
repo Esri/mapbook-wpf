@@ -18,10 +18,12 @@
                     <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical">
-                    <!-- Mmpk name and details area -->
+                    
+                    <!-- Mmpk name area-->
                     <TextBlock Text="{Binding MmpkItem.Title}" Grid.Row="0" Style="{StaticResource WhiteText}"
                             FontSize="27" FontWeight="DemiBold" VerticalAlignment="Top" TextWrapping="Wrap"
                                    Margin="25,25,0,25" Foreground="#3D5AFE"/>
+                    
                     <!-- Mmpk Thumbnail area -->
                     <Image Name="Thumbnail" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="120" Stretch="UniformToFill"
                            Source="{Binding MmpkItem.Thumbnail, Converter={StaticResource RuntimeImageConverter}}"
@@ -55,7 +57,7 @@
                 </StackPanel>
             </Grid>
 
-            <!-- Map Items -->
+            <!-- Map Items Panel -->
             <ItemsControl ItemsSource="{Binding MapItems}" Margin="20, 50, 20, 50" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -81,11 +83,8 @@
                             </Button>
                         </Grid>
                     </DataTemplate>
-
                 </ItemsControl.ItemTemplate>
-
             </ItemsControl>
-
         </StackPanel>
     </Grid>
 </UserControl>
