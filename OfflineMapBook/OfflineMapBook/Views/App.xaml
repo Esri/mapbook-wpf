@@ -8,8 +8,6 @@
         <Style x:Key="FlatButton" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#3F51B5"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Height" Value="80"/>
-            <Setter Property="Width" Value="80"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">

@@ -1,62 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="DownloadViewModel.cs" company="Esri">
+//      Copyright (c) 2017 Esri. All rights reserved.
+//
+//      Licensed under the Apache License, Version 2.0 (the "License");
+//      you may not use this file except in compliance with the License.
+//      You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//      Unless required by applicable law or agreed to in writing, software
+//      distributed under the License is distributed on an "AS IS" BASIS,
+//      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//      See the License for the specific language governing permissions and
+//      limitations under the License.
+// </copyright>
+// <author>Mara Stoica</author>
 
 namespace OfflineMapBook.ViewModels
 {
-    class DownloadViewModel : BaseViewModel
+    /// <summary>
+    /// View model to perform the mmpk download
+    /// </summary>
+    internal class DownloadViewModel : BaseViewModel
     {
-        //         try
-        //            {
-        //                DownloadRemoteImageFile(thumbnailUri.ToString(), localFilename);
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                Debug.WriteLine(ex.StackTrace.ToString());
-        //            }
-        //var map = mmpk.Maps[0];
-        //var mapName = map.Item.Title;
-
-        //var itemData = map.Item as Item;
-
-
-        //var mapThumbnailFile = @"C:\Users\mara8799\Documents\visual studio 2015\Projects\OfflineMapBook\OfflineMapBook\Images\mapthumbnail.png";
-        //            //DownloadRemoteImageFile(mapThumbnailUri.ToString(), mapThumbnailFile);
-
-        private static void DownloadRemoteImageFile(string uri, string fileName)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            // Check that the remote file was found. The ContentType
-            // check is performed since a request for a non-existent
-            // image file might be redirected to a 404-page, which would
-            // yield the StatusCode "OK", even though the image was not
-            // found.
-            if ((response.StatusCode == HttpStatusCode.OK ||
-                response.StatusCode == HttpStatusCode.Moved ||
-                response.StatusCode == HttpStatusCode.Redirect) &&
-                response.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
-            {
-
-                // if the remote file was found, download oit
-                using (Stream inputStream = response.GetResponseStream())
-                using (Stream outputStream = File.OpenWrite(fileName))
-                {
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-                    do
-                    {
-                        bytesRead = inputStream.Read(buffer, 0, buffer.Length);
-                        outputStream.Write(buffer, 0, bytesRead);
-                    } while (bytesRead != 0);
-                }
-            }
-        }
-
+        // TODO: add mmpk download here
     }
 }

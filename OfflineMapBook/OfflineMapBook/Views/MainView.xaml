@@ -75,7 +75,7 @@
                                 <TextBlock Text="{Binding Item.Created.DateTime}" Style="{StaticResource WhiteText}" Margin="0,0,0,10"/>
                                 <TextBlock Text="{Binding Item.Description}" Style="{StaticResource WhiteText}" TextWrapping="Wrap" Margin="0,0,0,10"/>
                             </StackPanel>
-                            <Button Style="{StaticResource FlatButton}" Command="{Binding DataContext.ClickCommand, RelativeSource = {RelativeSource AncestorType = UserControl}}" 
+                            <Button Style="{StaticResource FlatButton}" Command="{Binding DataContext.OpenMapCommand, RelativeSource = {RelativeSource AncestorType = UserControl}}" 
                                     CommandParameter ="{Binding}" Grid.Row="1" Width="180" Height="120">
                                 <Image Stretch="Uniform" Source="{Binding Item.Thumbnail, Converter={StaticResource RuntimeImageConverter}}"/>
                             </Button>

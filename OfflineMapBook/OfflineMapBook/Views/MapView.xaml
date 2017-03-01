@@ -30,7 +30,7 @@
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <!-- Back Button -->
-            <Button Style="{StaticResource FlatButton}" Command="{Binding ClickCommand}" Grid.Column="0">
+            <Button Style="{StaticResource FlatButton}" Command="{Binding BackCommand}" Grid.Column="0">
                 <TextBlock Text="&#xE0A6;" Style="{StaticResource SymbolButton}"/>
             </Button>
             <!-- Map Title -->
