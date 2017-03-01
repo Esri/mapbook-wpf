@@ -49,7 +49,7 @@
                 <TextBlock Text="&#xE81E;" Style="{StaticResource SymbolButton}"/>
             </ToggleButton>
         </Grid>
-        <!-- Panel area opening over the map -->
+        <!-- Right panel area opening over the map -->
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
             
             <!-- Search Panel -->
@@ -94,6 +94,51 @@
             <!-- Legend Panel -->
             <ListView  Width="300" ItemsSource="{Binding Map.AllLayers}" Background="#3F51B5"
                       Visibility="{Binding IsChecked, ElementName=toggleLegend, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ToggleButton Style="{StaticResource ListViewToggleButton}" IsChecked="{Binding IsVisible, Mode=TwoWay}" >
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <TextBlock Text="&#xE739;" FontFamily="Segoe MDL2 Assets" FontSize="30" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityInverseConverter}}"/>
+                                <TextBlock Text="&#xE73A;" FontFamily="Segoe MDL2 Assets" FontSize="30" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                <TextBlock Text="{Binding Name}" FontSize="20" />
+                            </StackPanel>
+                        </ToggleButton>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </StackPanel>
+        
+        <!-- Left Identify Panel area opening over map -->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Left" Background="#3F51B5">
+            <Grid Width="300">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource FlatButton}" Width="20" Height="20" Grid.Column="0">
+                    <TextBlock Text="&#xE0E2;" FontFamily="Segoe MDL2 Assets" FontSize="15"/>
+                </Button>
+                <Button Style="{StaticResource FlatButton}" Width="20" Height="20" Grid.Column="1">
+                    <TextBlock Text="&#xE0E3;" FontFamily="Segoe MDL2 Assets" FontSize="15"/>
+                </Button>
+                <Button Style="{StaticResource FlatButton}" Width="20" Height="20" Grid.Column="2">
+                    <TextBlock Text="&#xE894;" FontFamily="Segoe MDL2 Assets" FontSize="15"/>
+                </Button>
+            </Grid>
+            <ListView>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ToggleButton Style="{StaticResource ListViewToggleButton}" IsChecked="{Binding IsVisible, Mode=TwoWay}" >

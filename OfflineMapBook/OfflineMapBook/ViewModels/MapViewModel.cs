@@ -40,6 +40,7 @@ namespace OfflineMapBook.ViewModels
         private Viewpoint viewPoint;
         private ICommand backCommand;
         private ICommand searchCommand;
+        private ICommand identifyCommand;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MapViewModel"/> class.
@@ -168,6 +169,21 @@ namespace OfflineMapBook.ViewModels
                     async (x) =>
                 {
                     await this.GetSearchedLocationAsync((string)x);
+                }, true));
+            }
+        }
+
+        /// <summary>
+        /// Gets the command to identify features
+        /// </summary>
+        public ICommand IdentifyCommand
+        {
+            get
+            {
+                return this.identifyCommand ?? (this.identifyCommand = new ParameterCommand(
+                    async (x) =>
+                {
+                    await this.GetIdentifyInfoAsync((IReadOnlyList<IdentifyLayerResult>)x);
                 }, true));
             }
         }
@@ -355,6 +371,16 @@ namespace OfflineMapBook.ViewModels
             {
                 featureLayer.IsVisible = true;
             }
+        }
+
+        /// <summary>
+        /// Gets the info to be displayed about the identified features
+        /// </summary>
+        /// <param name="identifyResult">List of results returned from the Map View</param>
+        /// <returns>Async Task</returns>
+        private async Task GetIdentifyInfoAsync(IReadOnlyList<IdentifyLayerResult> identifyResults)
+        {
+            var x = identifyResults[0].Popups;
         }
 
         /// <summary>

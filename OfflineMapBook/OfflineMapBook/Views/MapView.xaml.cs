@@ -16,7 +16,11 @@
 // <author>Mara Stoica</author>
 namespace OfflineMapBook
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using System.Windows;
     using System.Windows.Controls;
+    using Esri.ArcGISRuntime.Data;
     using ViewModels;
 
     /// <summary>
@@ -24,6 +28,8 @@ namespace OfflineMapBook
     /// </summary>
     public partial class MapView : UserControl
     {
+        private bool isViewDoubleTapped;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MapView"/> class.
         /// </summary>
@@ -39,6 +45,12 @@ namespace OfflineMapBook
                     this.ViewModel = this.DataContext as MapViewModel;
                     this.ViewModel.PropertyChanged += this.ViewModel_PropertyChanged;
                 }
+            };
+
+            this.MapBookMapView.GeoViewTapped += this.MapBookMapView_GeoViewTapped;
+            this.MapBookMapView.GeoViewDoubleTapped += (s, e) =>
+            {
+                this.isViewDoubleTapped = true;
             };
         }
 
@@ -61,6 +73,38 @@ namespace OfflineMapBook
                     }
 
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Gets called when user taps on the map
+        /// </summary>
+        /// <param name="sender">Sender control</param>
+        /// <param name="e">event args</param>
+        private async void MapBookMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        {
+            // Wait for double tap to fire
+            await Task.Delay(500);
+
+            // If view has been double tapped, set tapped to handled and flag back to false
+            // If view has been tapped just once, perform identify
+            if (this.isViewDoubleTapped == true)
+            {
+                e.Handled = true;
+                this.isViewDoubleTapped = false;
+            }
+            else
+            {
+                // get the tap location in screen units
+                Point tapScreenPoint = e.Position;
+
+                var pixelTolerance = 20;
+                var returnPopupsOnly = false;
+                var maxLayerResults = 5;
+
+                // identify all layers in the MapView, passing the tap point, tolerance, types to return, and max results
+                IReadOnlyList<IdentifyLayerResult> idLayerResults = await this.MapBookMapView.IdentifyLayersAsync(tapScreenPoint, pixelTolerance, returnPopupsOnly, maxLayerResults);
+                this.ViewModel.IdentifyCommand.Execute(idLayerResults);
             }
         }
     }
