@@ -11,6 +11,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:BooleanToVisibilityInverseConverter x:Key="BooleanToVisibilityInverseConverter"/>
+        <converters:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
     </UserControl.Resources>
     
     <Grid>
@@ -53,14 +54,15 @@
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
             
             <!-- Search Panel -->
-            <StackPanel Orientation="Vertical" Visibility="{Binding IsChecked, ElementName=toggleSearch, 
+            <StackPanel x:Name="SearchPanel" Orientation="Vertical" Visibility="{Binding IsChecked, ElementName=toggleSearch, 
                 Converter={StaticResource BooleanToVisibilityConverter}}"
-                FocusManager.FocusedElement="{Binding ElementName=SearchBox}">
+                FocusManager.FocusedElement="{Binding ElementName=SearchBox}"
+                        IsVisibleChanged="SearchPanel_IsVisibleChanged">
                 
                 <!-- Search Box and Button-->
                 <Border BorderBrush="White" BorderThickness="1"> 
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="SearchBox" Width="260" Height="40" Background="#F4F4F4" BorderBrush="#3F51B5" 
+                        <TextBox x:Name="SearchTextBox" Width="260" Height="40" Background="#F4F4F4" BorderBrush="#3F51B5" 
                                  BorderThickness="5" FontSize="20" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Button Style="{StaticResource FlatButton}" Width="40" Height="40" Command="{Binding SearchCommand}" CommandParameter="{Binding SearchText, Mode=TwoWay}">
                             <TextBlock Text="&#xE721;" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
@@ -121,48 +123,75 @@
         </StackPanel>
         
         <!-- Left Identify Panel area opening over map -->
-        <StackPanel Grid.Row="1" HorizontalAlignment="Left" Background="#3F51B5">
-            <Grid Width="300">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
-                <Button Style="{StaticResource FlatButton}" Width="20" Height="20" Grid.Column="0">
-                    <TextBlock Text="&#xE0E2;" FontFamily="Segoe MDL2 Assets" FontSize="15"/>
-                </Button>
-                <Button Style="{StaticResource FlatButton}" Width="20" Height="20" Grid.Column="1">
-                    <TextBlock Text="&#xE0E3;" FontFamily="Segoe MDL2 Assets" FontSize="15"/>
-                </Button>
-                <Button Style="{StaticResource FlatButton}" Width="20" Height="20" Grid.Column="2">
-                    <TextBlock Text="&#xE894;" FontFamily="Segoe MDL2 Assets" FontSize="15"/>
-                </Button>
-            </Grid>
-            <ListView>
-                <ListView.ItemTemplate>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Left" Background="#3F51B5" Width="300" Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}}">
+            <Border BorderBrush="White" BorderThickness="0,1,0,0" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource FlatButton}" Width="100" Height="40" Grid.Column="0" 
+                            Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=chevron}">
+                        <TextBlock Text="&#xE0E2;" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
+                    </Button>
+                    <Button Style="{StaticResource FlatButton}" Width="100" Height="40" Grid.Column="1"
+                            Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=chevron}">
+                        <TextBlock Text="&#xE0E3;" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
+                    </Button>
+                    <!-- Close button -->
+                    <Button Style="{StaticResource FlatButton}" Width="100" Height="40" Grid.Column="2" Command="{Binding CloseIdentifyCommand}">
+                        <TextBlock Text="&#xE894;" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
+                    </Button>
+                </Grid>
+            </Border>
+            <ItemsControl x:Name="virtualItemsControl" ItemsSource="{Binding IdentifyModelsList}" Background="#3F51B5" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ToggleButton Style="{StaticResource ListViewToggleButton}" IsChecked="{Binding IsVisible, Mode=TwoWay}" >
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                <TextBlock Text="&#xE739;" FontFamily="Segoe MDL2 Assets" FontSize="30" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityInverseConverter}}"/>
-                                <TextBlock Text="&#xE73A;" FontFamily="Segoe MDL2 Assets" FontSize="30" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                                <TextBlock Text="{Binding Name}" FontSize="20" />
-                            </StackPanel>
-                        </ToggleButton>
+                        <StackPanel Orientation="Vertical">
+                            <Border BorderBrush="White" BorderThickness="0,1,0,0">
+                                <TextBlock Text="{Binding LayerName}" Style="{StaticResource WhiteText}" 
+                                           FontSize="20" FontWeight="SemiBold" Margin="5,10,5,10" TextWrapping="Wrap"/>
+                            </Border>
+                            <ListView ItemsSource="{Binding Attributes}" Background="Transparent" Padding="5">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="200"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border BorderBrush="White" BorderThickness="0,0,1,0">
+                                                <TextBlock Text="{Binding Key}" Grid.Column="0" Style="{StaticResource WhiteText}" 
+                                                           FontSize="15" FontWeight="SemiBold" Margin="0,5,0,0"/>
+                                            </Border>
+                                            <TextBlock Text="{Binding Value}" Grid.Column="1" Style="{StaticResource WhiteText}" 
+                                                       FontSize="15" FontWeight="Thin" TextWrapping="Wrap" Margin="5,5,0,0"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListViewItem}">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                    <ContentPresenter />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+                        </StackPanel>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Background" Value="Transparent" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                    <ContentPresenter />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -19,15 +19,15 @@ namespace OfflineMapBook.ViewModels
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Windows;
     using System.Windows.Input;
     using Commands;
     using Esri.ArcGISRuntime.Data;
     using Esri.ArcGISRuntime.Mapping;
     using Esri.ArcGISRuntime.Tasks.Geocoding;
-    using System.Windows;
 
     /// <summary>
     /// View model performs logic related to the map screen
@@ -41,6 +41,8 @@ namespace OfflineMapBook.ViewModels
         private ICommand backCommand;
         private ICommand searchCommand;
         private ICommand identifyCommand;
+        private ICommand closeIdentifyCommand;
+        private ObservableCollection<IdentifyModel> identifyModelsList = new ObservableCollection<IdentifyModel>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MapViewModel"/> class.
@@ -147,6 +149,26 @@ namespace OfflineMapBook.ViewModels
         }
 
         /// <summary>
+        /// Gets the list of Identify models to be used to populate the identify control
+        /// </summary>
+        public ObservableCollection<IdentifyModel> IdentifyModelsList
+        {
+            get
+            {
+                return this.identifyModelsList;
+            }
+
+            private set
+            {
+                if (this.identifyModelsList != value)
+                {
+                    this.identifyModelsList = value;
+                    this.OnPropertyChanged(nameof(this.IdentifyModelsList));
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the command to go back to the main screen
         /// </summary>
         public ICommand BackCommand
@@ -181,10 +203,18 @@ namespace OfflineMapBook.ViewModels
             get
             {
                 return this.identifyCommand ?? (this.identifyCommand = new ParameterCommand(
-                    async (x) =>
+                     (x) =>
                 {
-                    await this.GetIdentifyInfoAsync((IReadOnlyList<IdentifyLayerResult>)x);
+                    this.GetIdentifyInfoAsync((IReadOnlyList<IdentifyLayerResult>)x);
                 }, true));
+            }
+        }
+
+        public ICommand CloseIdentifyCommand
+        {
+            get
+            {
+                return this.closeIdentifyCommand ?? (this.closeIdentifyCommand = new SimpleCommand(() => this.IdentifyModelsList.Clear(), true));
             }
         }
 
@@ -201,11 +231,12 @@ namespace OfflineMapBook.ViewModels
         /// <returns>Async task</returns>
         private async Task GetInfoFromLocatorAsync()
         {
-            // Load locator
+            // Load locator and get locator info
             await this.Locator.LoadAsync();
             this.LocatorInfo = this.Locator.LocatorInfo;
 
-            // Get list of all the locators
+            // Get list of all the locators from the locator properties
+            // There will be more than one locator if this is a composite locator
             var locatorProperties = this.LocatorInfo.Properties;
             var locatorNames = locatorProperties["CL.Locator"].Split('|').ToList();
 
@@ -316,7 +347,9 @@ namespace OfflineMapBook.ViewModels
                 else if (queryResult.Count() == 1)
                 {
                     // Select found feature
-                    this.SelectAndZoomToFeature(queryResult.FirstOrDefault(), featureTable.FeatureLayer);
+                    var foundFeature = queryResult.FirstOrDefault();
+                    this.SelectAndZoomToFeature(foundFeature, featureTable.FeatureLayer);
+                    this.AddFeatureToIdentifyModel(layer.Name, foundFeature.Attributes);
                 }
                 else
                 {
@@ -328,8 +361,10 @@ namespace OfflineMapBook.ViewModels
                             if (attribute.Value.ToString() == locatedFeature.Label)
                             {
                                 // When an attribute matching the search string is found
-                                // Select feature and exit
+                                // Select feature, Add feature to the Identify Window, Then exit
                                 this.SelectAndZoomToFeature(feature, featureTable.FeatureLayer);
+                                this.AddFeatureToIdentifyModel(layer.Name, feature.Attributes);
+
                                 return;
                             }
                         }
@@ -339,6 +374,26 @@ namespace OfflineMapBook.ViewModels
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Placeholder method to populate identify panel with results from the locator until panel is modified to handle multiple results
+        /// </summary>
+        /// <param name="layerName">Layer Name</param>
+        /// <param name="attributes">Feature Attributes</param>
+        private void AddFeatureToIdentifyModel(string layerName, IDictionary<string, object> attributes)
+        {
+            this.IdentifyModelsList = new ObservableCollection<IdentifyModel>();
+
+            // Set the layer name
+            var identifyModel = new IdentifyModel();
+            identifyModel.LayerName = layerName;
+
+            // Set attribute values
+            identifyModel.Attributes = attributes;
+
+            // Add new value to the list
+            this.IdentifyModelsList.Add(identifyModel);
         }
 
         /// <summary>
@@ -363,8 +418,8 @@ namespace OfflineMapBook.ViewModels
             // Select feature
             featureLayer.SelectFeature(feature);
 
-            // Set viewpoint to the feature's center point, and a zoom scale of 300
-            this.ViewPoint = new Viewpoint(feature.Geometry.Extent.GetCenter(), 300);
+            // Set viewpoint to the feature's center point, and a zoom scale of 500
+            this.ViewPoint = new Viewpoint(feature.Geometry.Extent.GetCenter(), 500);
 
             // Turn on the feature layer if it is not, otherwise the feature selection will not be visible
             if (featureLayer.IsVisible == false)
@@ -376,11 +431,34 @@ namespace OfflineMapBook.ViewModels
         /// <summary>
         /// Gets the info to be displayed about the identified features
         /// </summary>
-        /// <param name="identifyResult">List of results returned from the Map View</param>
-        /// <returns>Async Task</returns>
-        private async Task GetIdentifyInfoAsync(IReadOnlyList<IdentifyLayerResult> identifyResults)
+        /// <param name="identifyResults">List of results returned from the Map View</param>
+        private void GetIdentifyInfoAsync(IReadOnlyList<IdentifyLayerResult> identifyResults)
         {
-            var x = identifyResults[0].Popups;
+            if (identifyResults != null)
+            {
+                // Get each result and put them in the IdentifyModelsList
+                this.IdentifyModelsList = new ObservableCollection<IdentifyModel>();
+                foreach (var result in identifyResults)
+                {
+                    foreach (var geoelement in result.GeoElements)
+                    {
+                        // Set the layer name
+                        var identifyModel = new IdentifyModel();
+                        identifyModel.LayerName = result.LayerContent.Name;
+
+                        // Set attribute values
+                        identifyModel.Attributes = geoelement.Attributes;
+
+                        // Add new value to the list
+                        this.IdentifyModelsList.Add(identifyModel);
+
+                        // Return after first identify result is added. This insures only the top most result is displayed and selected
+                        // TODO: Remove these lines once view is modified to handle multiple results
+                        this.SelectAndZoomToFeature(geoelement as Feature, result.LayerContent as FeatureLayer);
+                        return;
+                    }
+                }
+            }
         }
 
         /// <summary>

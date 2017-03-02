@@ -81,6 +81,8 @@
     </ApplicationDefinition>
     <Compile Include="Commands\SimpleCommand.cs" />
     <Compile Include="Converters\BooleanToVisibilityInverseConverter.cs" />
+    <Compile Include="Converters\CountToVisibilityConverter.cs" />
+    <Compile Include="Models\IdentifyModel.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

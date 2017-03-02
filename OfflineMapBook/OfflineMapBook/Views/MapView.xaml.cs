@@ -16,10 +16,13 @@
 // <author>Mara Stoica</author>
 namespace OfflineMapBook
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Threading;
     using Esri.ArcGISRuntime.Data;
     using ViewModels;
 
@@ -55,6 +58,26 @@ namespace OfflineMapBook
         }
 
         private MapViewModel ViewModel { get; set; }
+
+        /// <summary>
+        /// Handles moving focus to the Search text box when the Search Panel becomes visible
+        /// </summary>
+        /// <param name="sender">sender control</param>
+        /// <param name="e">event args</param>
+        private void SearchPanel_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.Visibility == Visibility.Visible)
+            {
+                if (this.Visibility == Visibility.Visible)
+                {
+                    this.Dispatcher.BeginInvoke(
+                        (Action)delegate
+                    {
+                        Keyboard.Focus(this.SearchTextBox);
+                    }, DispatcherPriority.Render);
+                }
+            }
+        }
 
         /// <summary>
         /// Property changed event handler for the view
@@ -98,7 +121,7 @@ namespace OfflineMapBook
                 // get the tap location in screen units
                 Point tapScreenPoint = e.Position;
 
-                var pixelTolerance = 20;
+                var pixelTolerance = 10;
                 var returnPopupsOnly = false;
                 var maxLayerResults = 5;
 

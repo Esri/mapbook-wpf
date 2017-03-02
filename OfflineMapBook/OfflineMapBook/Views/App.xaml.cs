@@ -36,7 +36,7 @@ namespace OfflineMapBook
             {
                 // Deployed applications must be licensed at the Basic level or greater (https://developers.arcgis.com/licensing).
                 // To enable Basic level functionality set the Client ID property before initializing the ArcGIS Runtime.
-                // ArcGISRuntimeEnvironment.ClientId = "<Your Client ID>";
+                // ArcGISRuntimeEnvironment.SetLicense("license key here");
 
                 // Initialize the ArcGIS Runtime before any components are created.
                 ArcGISRuntimeEnvironment.Initialize();

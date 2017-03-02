@@ -47,12 +47,12 @@
 
                 <!-- Sync Button Area -->
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="25,0,0,20">
-                    <Button Style="{StaticResource FlatButton}">
+                    <Button Style="{StaticResource FlatButton}" Width="80" Height="80">
                         <TextBlock Text="&#xE895;" Style="{StaticResource SymbolButton}"/>
                     </Button>
                     <StackPanel Orientation="Vertical" Margin="20,0,0,0" VerticalAlignment="Center">
                         <TextBlock Text="Downloaded" Style="{StaticResource GrayText}" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                        <TextBlock Text="Bind to download date" Style="{StaticResource GrayText}" HorizontalAlignment="Center"/>
+                        <TextBlock Text="3/6/2017 8:44:02 AM" Style="{StaticResource GrayText}" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -75,7 +75,8 @@
                                 <TextBlock Margin="0,0,0,20" Text="{Binding Item.Title}" Style="{StaticResource WhiteText}" FontSize="15"
                                            FontWeight="Bold" Grid.Row="0" TextWrapping="Wrap" />
                                 <TextBlock Text="{Binding Item.Created.DateTime}" Style="{StaticResource WhiteText}" Margin="0,0,0,10"/>
-                                <TextBlock Text="{Binding Item.Description}" Style="{StaticResource WhiteText}" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                                <TextBlock Text="{Binding Item.Description}" Style="{StaticResource WhiteText}" TextWrapping="Wrap" 
+                                           Margin="0,0,0,10" />
                             </StackPanel>
                             <Button Style="{StaticResource FlatButton}" Command="{Binding DataContext.OpenMapCommand, RelativeSource = {RelativeSource AncestorType = UserControl}}" 
                                     CommandParameter ="{Binding}" Grid.Row="1" Width="180" Height="120">
