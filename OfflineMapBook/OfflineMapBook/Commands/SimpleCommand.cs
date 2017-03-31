@@ -60,7 +60,7 @@ namespace OfflineMapBook.Commands
         /// <param name="parameter">Command Parameter</param>
         public void Execute(object parameter)
         {
-            this.action();
+            this.action?.Invoke();
         }
     }
 }

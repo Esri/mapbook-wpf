@@ -42,7 +42,7 @@ namespace OfflineMapBook.Converters
         {
             if (value is RuntimeImage && value != null)
             {
-                return this.GetImageAsync(value as RuntimeImage).Result;
+                return this.GetImageAsync((RuntimeImage)value).Result;
             }
 
             return value;
@@ -68,26 +68,31 @@ namespace OfflineMapBook.Converters
         /// <returns>Bitmap Image</returns>
         private async Task<BitmapImage> GetImageAsync(RuntimeImage rtImage)
         {
-            if (rtImage.LoadStatus != Esri.ArcGISRuntime.LoadStatus.Loaded)
+            if (rtImage != null)
             {
-                await rtImage.LoadAsync();
+                try
+                {
+                    if (rtImage.LoadStatus != Esri.ArcGISRuntime.LoadStatus.Loaded)
+                    {
+                        await rtImage.LoadAsync();
+                    }
+
+                    var stream = await rtImage.GetEncodedBufferAsync();
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    stream.Seek(0, SeekOrigin.Begin);
+                    image.StreamSource = stream;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.EndInit();
+                    return image;
+                }
+                catch
+                {
+                    return null;
+                }
             }
 
-            try
-            {
-                var stream = await rtImage.GetEncodedBufferAsync();
-                var image = new BitmapImage();
-                image.BeginInit();
-                stream.Seek(0, SeekOrigin.Begin);
-                image.StreamSource = stream;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.EndInit();
-                return image;
-            }
-            catch
-            {
-                return null;
-            }
+            return null;
         }
     }
 }

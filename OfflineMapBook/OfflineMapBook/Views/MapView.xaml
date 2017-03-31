@@ -21,8 +21,8 @@
         </Grid.RowDefinitions>
         
         <!-- Set mapview with map -->
-        <esriUI:MapView x:Name="MapBookMapView" Map="{Binding Map}" Grid.Row="1"/>
-        
+        <esriUI:MapView x:Name="MapBookMapView" Map="{Binding Map}" GraphicsOverlays="{Binding GraphicsOverlays}" Grid.Row="1"/>
+
         <!-- Make top bar with buttons -->
         <Grid Background="#3F51B5">
             <Grid.ColumnDefinitions>
@@ -102,7 +102,7 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                 <TextBlock Text="&#xE739;" FontFamily="Segoe MDL2 Assets" FontSize="30" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityInverseConverter}}"/>
                                 <TextBlock Text="&#xE73A;" FontFamily="Segoe MDL2 Assets" FontSize="30" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                                <TextBlock Text="{Binding Name}" FontSize="20" />
+                                <TextBlock Text="{Binding Name}" FontSize="20" Margin="5,0,0,0" />
                             </StackPanel>
                         </ToggleButton>
                     </DataTemplate>
@@ -163,8 +163,8 @@
                                     <DataTemplate>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="100"/>
-                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="150"/>
                                             </Grid.ColumnDefinitions>
                                             <Border BorderBrush="White" BorderThickness="0,0,1,0">
                                                 <TextBlock Text="{Binding Key}" Grid.Column="0" Style="{StaticResource WhiteText}" 
