@@ -10,7 +10,6 @@
     <Grid>
         <Grid.Resources>
             <converters:RuntimeImageConverter x:Key="RuntimeImageConverter"/>
-            <converters:IndexToImageConverter x:Key="IndexToImageConverter"/>
         </Grid.Resources>
         <StackPanel Orientation="Horizontal">
             <Grid Background="#F4F4F4" Width="300">

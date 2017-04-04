@@ -63,7 +63,7 @@ namespace OfflineMapBook.Converters
                 }
             }
 
-            throw new InvalidOperationException("Converter can only convert to value of type Visibility.");
+            throw new NotSupportedException("Converter can only convert to value of type Visibility.");
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace OfflineMapBook.Converters
         /// <returns>Visibility status</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new InvalidOperationException("Converter cannot convert back.");
+            throw new NotSupportedException("Converter cannot convert back.");
         }
     }
 }

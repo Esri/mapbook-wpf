@@ -61,16 +61,6 @@ namespace OfflineMapBook.ViewModels
         }
 
         /// <summary>
-        /// Gets the locator for the map
-        /// </summary>
-        public LocatorTask Locator { get; private set; }
-
-        /// <summary>
-        /// Gets the locator info
-        /// </summary>
-        internal LocatorInfo LocatorInfo { get; private set; }
-
-        /// <summary>
         /// Gets or sets the map
         /// </summary>
         public Map Map
@@ -90,6 +80,9 @@ namespace OfflineMapBook.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the graphics overlays collection to hold all graphics overlays
+        /// </summary>
         public GraphicsOverlayCollection GraphicsOverlays
         {
             get
@@ -97,7 +90,7 @@ namespace OfflineMapBook.ViewModels
                 return this.graphicsOverlays;
             }
 
-            set
+            private set
             {
                 if (value != null)
                 {
@@ -212,9 +205,9 @@ namespace OfflineMapBook.ViewModels
             {
                 return this.searchCommand ?? (this.searchCommand = new ParameterCommand(
                     async (x) =>
-                {
-                    await this.GetSearchedLocationAsync((string)x);
-                }, true));
+                    {
+                        await this.GetSearchedLocationAsync((string)x);
+                    }, true));
             }
         }
 
@@ -227,12 +220,15 @@ namespace OfflineMapBook.ViewModels
             {
                 return this.identifyCommand ?? (this.identifyCommand = new ParameterCommand(
                      (x) =>
-                {
-                    this.GetIdentifyInfoAsync((IReadOnlyList<IdentifyLayerResult>)x);
-                }, true));
+                     {
+                         this.GetIdentifyInfoAsync((IReadOnlyList<IdentifyLayerResult>)x);
+                     }, true));
             }
         }
 
+        /// <summary>
+        /// Gets the command to close the identify popup
+        /// </summary>
         public ICommand CloseIdentifyCommand
         {
             get
@@ -240,6 +236,16 @@ namespace OfflineMapBook.ViewModels
                 return this.closeIdentifyCommand ?? (this.closeIdentifyCommand = new SimpleCommand(() => this.IdentifyModelsList.Clear(), true));
             }
         }
+
+        /// <summary>
+        /// Gets the locator for the map
+        /// </summary>
+        public LocatorTask Locator { get; private set; }
+
+        /// <summary>
+        /// Gets the locator info
+        /// </summary>
+        internal LocatorInfo LocatorInfo { get; private set; }
 
         /// <summary>
         /// Loads the locator and gets locator info
@@ -307,6 +313,7 @@ namespace OfflineMapBook.ViewModels
                         });
                     }
 
+                    // TODO: replace red circle with pin
                     var graphic = new Graphic(bestMatch.DisplayLocation, new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Red, 10));
                     this.GraphicsOverlays["PinsGraphicsOverlay"].Graphics.Clear();
                     this.GraphicsOverlays["PinsGraphicsOverlay"].Graphics.Add(graphic);
@@ -319,39 +326,6 @@ namespace OfflineMapBook.ViewModels
             catch (Exception ex)
             {
                 MessageBox.Show(string.Format("An error occured during your search. Please try again. If error persists, please contact your GIS Administrator"));
-            }
-        }
-
-        /// <summary>
-        /// Perform feature selection and create viewpoint around feature
-        /// </summary>
-        /// <param name="feature">Feature to be selected</param>
-        /// <param name="featureLayer">Feature layer containing the feature</param>
-        private void SelectAndZoomToFeature(Feature feature, FeatureLayer featureLayer)
-        {
-
-            // Clear all selected features in all map feature layers
-            foreach (var layer in this.Map.OperationalLayers.OfType<FeatureLayer>())
-            {
-                layer.ClearSelection();
-            }
-
-            // Set selection parameters
-            featureLayer.SelectionWidth = 5;
-
-            // Select feature
-            if (feature != null)
-            {
-                featureLayer.SelectFeature(feature);
-
-                // Set viewpoint to the feature's extent
-                this.ViewPoint = new Viewpoint(feature.Geometry?.Extent);
-
-                // Turn on the feature layer if it is not, otherwise the feature selection will not be visible
-                if (featureLayer.IsVisible == false)
-                {
-                    featureLayer.IsVisible = true;
-                }
             }
         }
 
@@ -397,6 +371,32 @@ namespace OfflineMapBook.ViewModels
                         return;
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Perform feature selection and create viewpoint around feature
+        /// </summary>
+        /// <param name="feature">Feature to be selected</param>
+        /// <param name="featureLayer">Feature layer containing the feature</param>
+        private void SelectAndZoomToFeature(Feature feature, FeatureLayer featureLayer)
+        {
+            // Clear all selected features in all map feature layers
+            foreach (var layer in this.Map.OperationalLayers.OfType<FeatureLayer>())
+            {
+                layer.ClearSelection();
+            }
+
+            // Set selection parameters
+            featureLayer.SelectionWidth = 5;
+
+            // Select feature
+            if (feature != null)
+            {
+                featureLayer.SelectFeature(feature);
+
+                // Set viewpoint to the feature's extent
+                this.ViewPoint = new Viewpoint(feature.Geometry?.Extent);
             }
         }
 

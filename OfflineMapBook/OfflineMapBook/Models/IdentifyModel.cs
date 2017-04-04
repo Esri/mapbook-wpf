@@ -23,9 +23,6 @@ namespace OfflineMapBook
     /// </summary>
     internal class IdentifyModel
     {
-        private string layerName;
-        private IDictionary<string, object> attributes;
-
         /// <summary>
         /// Gets or sets the name of the layer identified
         /// </summary>
