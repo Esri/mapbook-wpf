@@ -154,16 +154,6 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.0-beta001\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\MmpkThumbnail.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\MapThumbnail1.png" />
-    <Resource Include="Images\MapThumbnail2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\MapThumbnail0.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\MapPin.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

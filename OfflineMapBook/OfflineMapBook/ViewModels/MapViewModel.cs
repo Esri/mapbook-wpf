@@ -24,13 +24,13 @@ namespace OfflineMapBook.ViewModels
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Media;
     using Commands;
     using Esri.ArcGISRuntime.Data;
     using Esri.ArcGISRuntime.Mapping;
+    using Esri.ArcGISRuntime.Symbology;
     using Esri.ArcGISRuntime.Tasks.Geocoding;
     using Esri.ArcGISRuntime.UI;
-    using Esri.ArcGISRuntime.Symbology;
-    using System.Windows.Media;
 
     /// <summary>
     /// View model performs logic related to the map screen

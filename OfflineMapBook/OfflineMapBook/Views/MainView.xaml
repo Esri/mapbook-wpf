@@ -22,11 +22,9 @@
 
                     <!-- Mmpk Thumbnail area -->
                     <Grid>
-                        <!--<Image Name="Thumbnail" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Height="100"
-                           Source="{Binding MmpkItem.Thumbnail, Converter={StaticResource RuntimeImageConverter}}"
-                           Grid.Row="0"/>-->
                         <Image Name="Thumbnail" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Height="100"
-                           Source="/Images/MmpkThumbnail.png" Grid.Row="0"/>
+                           Source="{Binding MmpkItem.Thumbnail, Converter={StaticResource RuntimeImageConverter}}"
+                           Grid.Row="0"/>
                     </Grid>
 
                     <!-- Mmpk name area-->
@@ -83,8 +81,7 @@
                                 </Grid.RowDefinitions>
                                 <Button Style="{StaticResource FlatButton}" Command="{Binding DataContext.OpenMapCommand, RelativeSource = {RelativeSource AncestorType = UserControl}}" 
                                             CommandParameter ="{Binding}" Width="300" Height="100" Grid.Row="0">
-                                    <!--<Image Stretch="UniformToFill"  Source="{Binding Item.Thumbnail, Converter={StaticResource RuntimeImageConverter}}"/>-->
-                                    <Image Source="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IndexToImageConverter}}"/>
+                                    <Image Stretch="UniformToFill"  Source="{Binding Item.Thumbnail, Converter={StaticResource RuntimeImageConverter}}"/>                        
                                 </Button>
                                 <StackPanel Background="#3F51B5" Orientation="Vertical" Grid.Row="1">
 
@@ -92,11 +89,11 @@
                                                FontWeight="DemiBold" TextWrapping="WrapWithOverflow"/>
                                     <TextBlock Margin="15,20,15,20" Text="{Binding Item.Description}" FontSize="12" LineHeight="20" Grid.Row="1" Style="{StaticResource WhiteText}" TextWrapping="Wrap" />
                                    
-                                    <!-- Map layers section -->
-                                    <!--<Border BorderBrush="#004575" BorderThickness="0,1,0,0">
+                                     <!-- Map layers section -->
+                                    <Border BorderBrush="#004575" BorderThickness="0,1,0,0">
                                         <TextBlock Margin="15,20,15,0" Text="Layers" Style="{StaticResource WhiteText}" FontWeight="DemiBold"/>
                                     </Border>
-                                        <ListView ItemsSource="{Binding AllLayers}" Background="#3F51B5" Margin="15,0,15,20" BorderThickness="0">
+                                    <ListView ItemsSource="{Binding AllLayers}" Background="#3F51B5" Margin="15,0,15,20" BorderThickness="0">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding Name}" Style="{StaticResource WhiteText}" Margin="0, 20, 0, 0"/>
@@ -114,8 +111,7 @@
                                                 </Setter>
                                             </Style>
                                         </ListView.ItemContainerStyle>
-                                    </ListView>-->
-                                      
+                                    </ListView>
                                 </StackPanel>
                             </Grid>
                         </Border>
