@@ -47,7 +47,7 @@ namespace OfflineMapBook
         internal async Task LoadMmpkAsync()
         {
             // TODO: Remove hard coded mmpk path when DownloadViewModel is implemented
-            var mmpk = await MobileMapPackage.OpenAsync(@"C:\Users\mara8799\Downloads\OfflineMapbook_v3.mmpk");
+            var mmpk = await MobileMapPackage.OpenAsync(@"C:\Users\mara8799\Downloads\OfflineMapbook_v11.mmpk");
             AppViewModel.Instance = AppViewModel.Create(mmpk);
 
             // Set data context for the main screen and load main screen

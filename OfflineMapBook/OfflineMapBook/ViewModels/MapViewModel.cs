@@ -19,15 +19,18 @@ namespace OfflineMapBook.ViewModels
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Media;
     using Commands;
     using Esri.ArcGISRuntime.Data;
     using Esri.ArcGISRuntime.Mapping;
+    using Esri.ArcGISRuntime.Symbology;
     using Esri.ArcGISRuntime.Tasks.Geocoding;
-    using System.Windows;
+    using Esri.ArcGISRuntime.UI;
 
     /// <summary>
     /// View model performs logic related to the map screen
@@ -35,11 +38,15 @@ namespace OfflineMapBook.ViewModels
     internal class MapViewModel : BaseViewModel
     {
         private Map map;
+        private GraphicsOverlayCollection graphicsOverlays;
         private string searchText;
         private List<SuggestResult> suggestionsList;
         private Viewpoint viewPoint;
         private ICommand backCommand;
         private ICommand searchCommand;
+        private ICommand identifyCommand;
+        private ICommand closeIdentifyCommand;
+        private ObservableCollection<IdentifyModel> identifyModelsList = new ObservableCollection<IdentifyModel>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MapViewModel"/> class.
@@ -49,18 +56,9 @@ namespace OfflineMapBook.ViewModels
         {
             this.Map = map;
             this.Locator = AppViewModel.Instance.Mmpk.LocatorTask;
+            this.GraphicsOverlays = new GraphicsOverlayCollection();
             this.GetInfoFromLocatorAsync();
         }
-
-        /// <summary>
-        /// Gets the locator for the map
-        /// </summary>
-        public LocatorTask Locator { get; private set; }
-
-        /// <summary>
-        /// Gets the locator info
-        /// </summary>
-        internal LocatorInfo LocatorInfo { get; private set; }
 
         /// <summary>
         /// Gets or sets the map
@@ -80,6 +78,27 @@ namespace OfflineMapBook.ViewModels
                     this.OnPropertyChanged(nameof(this.Map));
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets the graphics overlays collection to hold all graphics overlays
+        /// </summary>
+        public GraphicsOverlayCollection GraphicsOverlays
+        {
+            get
+            {
+                return this.graphicsOverlays;
+            }
+
+            private set
+            {
+                if (value != null)
+                {
+                    this.graphicsOverlays = value;
+                    this.OnPropertyChanged(nameof(this.GraphicsOverlays));
+                }
+            }
+
         }
 
         /// <summary>
@@ -146,6 +165,26 @@ namespace OfflineMapBook.ViewModels
         }
 
         /// <summary>
+        /// Gets the list of Identify models to be used to populate the identify control
+        /// </summary>
+        public ObservableCollection<IdentifyModel> IdentifyModelsList
+        {
+            get
+            {
+                return this.identifyModelsList;
+            }
+
+            private set
+            {
+                if (this.identifyModelsList != value)
+                {
+                    this.identifyModelsList = value;
+                    this.OnPropertyChanged(nameof(this.IdentifyModelsList));
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the command to go back to the main screen
         /// </summary>
         public ICommand BackCommand
@@ -166,16 +205,47 @@ namespace OfflineMapBook.ViewModels
             {
                 return this.searchCommand ?? (this.searchCommand = new ParameterCommand(
                     async (x) =>
-                {
-                    await this.GetSearchedLocationAsync((string)x);
-                }, true));
+                    {
+                        await this.GetSearchedLocationAsync((string)x);
+                    }, true));
             }
         }
 
         /// <summary>
-        /// Gets the list of layers used in the locator
+        /// Gets the command to identify features
         /// </summary>
-        internal Dictionary<string, string> LocatorLayers { get; private set; }
+        public ICommand IdentifyCommand
+        {
+            get
+            {
+                return this.identifyCommand ?? (this.identifyCommand = new ParameterCommand(
+                     (x) =>
+                     {
+                         this.GetIdentifyInfoAsync((IReadOnlyList<IdentifyLayerResult>)x);
+                     }, true));
+            }
+        }
+
+        /// <summary>
+        /// Gets the command to close the identify popup
+        /// </summary>
+        public ICommand CloseIdentifyCommand
+        {
+            get
+            {
+                return this.closeIdentifyCommand ?? (this.closeIdentifyCommand = new SimpleCommand(() => this.IdentifyModelsList.Clear(), true));
+            }
+        }
+
+        /// <summary>
+        /// Gets the locator for the map
+        /// </summary>
+        public LocatorTask Locator { get; private set; }
+
+        /// <summary>
+        /// Gets the locator info
+        /// </summary>
+        internal LocatorInfo LocatorInfo { get; private set; }
 
         /// <summary>
         /// Loads the locator and gets locator info
@@ -185,21 +255,9 @@ namespace OfflineMapBook.ViewModels
         /// <returns>Async task</returns>
         private async Task GetInfoFromLocatorAsync()
         {
-            // Load locator
+            // Load locator and get locator info
             await this.Locator.LoadAsync();
             this.LocatorInfo = this.Locator.LocatorInfo;
-
-            // Get list of all the locators
-            var locatorProperties = this.LocatorInfo.Properties;
-            var locatorNames = locatorProperties["CL.Locator"].Split('|').ToList();
-
-            // Get layer associated with each locator
-            this.LocatorLayers = new Dictionary<string, string>();
-            foreach (var locatorName in locatorNames)
-            {
-                var layerName = locatorProperties[string.Format("CL.{0}.Name", locatorName)];
-                this.LocatorLayers.Add(locatorName, layerName);
-            }
         }
 
         /// <summary>
@@ -243,83 +301,74 @@ namespace OfflineMapBook.ViewModels
                 // If no feature was located, show a message to the user
                 if (bestMatch != null)
                 {
-                    await this.SelectLocatedFeature(bestMatch);
+                    // Set viewpoint to the feature's extent
+                    this.ViewPoint = new Viewpoint(bestMatch.Extent);
+
+                    // Set pin in feature
+                    if (this.GraphicsOverlays["PinsGraphicsOverlay"] == null)
+                    {
+                        this.GraphicsOverlays.Add(new GraphicsOverlay()
+                        {
+                            Id = "PinsGraphicsOverlay",
+                        });
+                    }
+
+                    // TODO: replace red circle with pin
+                    var graphic = new Graphic(bestMatch.DisplayLocation, new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Red, 10));
+                    this.GraphicsOverlays["PinsGraphicsOverlay"].Graphics.Clear();
+                    this.GraphicsOverlays["PinsGraphicsOverlay"].Graphics.Add(graphic);
                 }
                 else
                 {
-                    MessageBox.Show(string.Format("{0} was not found"));
+                    MessageBox.Show(string.Format("{0} was not found", searchString));
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("An error occured during your search. Please try again. If error persists, please contact yoru GIS Administrator"));
+                MessageBox.Show(string.Format("An error occured during your search. Please try again. If error persists, please contact your GIS Administrator"));
             }
         }
 
         /// <summary>
-        /// Select the located feature
+        /// Gets the info to be displayed about the identified features
         /// </summary>
-        /// <param name="locatedFeature">Located feature</param>
-        /// <returns>Async task</returns>
-        private async Task SelectLocatedFeature(GeocodeResult locatedFeature)
+        /// <param name="identifyResults">List of results returned from the Map View</param>
+        private void GetIdentifyInfoAsync(IReadOnlyList<IdentifyLayerResult> identifyResults)
         {
-            // Get the locator that was used to find the feature
-            var locatorName = locatedFeature.Attributes["Loc_name"];
-            var locatorLayer = this.LocatorLayers[locatorName.ToString()];
-
-            // Get the layer from the map matching the locator layer
-            // Remove spaces from the layer names coming from the map
-            // This is to account for discrepancy between layer names in the map with spaces and layer names in the locator without spaces
-            var layers = from lyr in this.Map.OperationalLayers where lyr.Name.Replace(" ", string.Empty) == locatorLayer select lyr;
-            var layer = layers.First();
-
-            // Test to make sure layer is feature layer
-            if (layer is FeatureLayer)
+            if (identifyResults != null)
             {
-                // Get feature table to perform the query
-                var featureTable = ((FeatureLayer)layer).FeatureTable;
-
-                // Set up query parameters using geometry intersection to find the located feature
-                // This is because the locator does not provide the searched field and we cannot do an attribute query
-                var queryParams = new QueryParameters()
+                // Get each result and put them in the IdentifyModelsList
+                this.IdentifyModelsList = new ObservableCollection<IdentifyModel>();
+                foreach (var result in identifyResults)
                 {
-                    Geometry = locatedFeature.DisplayLocation,
-                    SpatialRelationship = SpatialRelationship.Intersects,
-                    ReturnGeometry = true,
-                };
-
-                // Run the query
-                var queryResult = await featureTable.QueryFeaturesAsync(queryParams);
-
-                // Handle the returned results
-                if (queryResult.Count() == 0)
-                {
-                    // If no feature is returned, just show user what the locator returned
-                    // TODO: Zoom to location and place a pin in it
-                }
-                else if (queryResult.Count() == 1)
-                {
-                    // Select found feature
-                    this.SelectAndZoomToFeature(queryResult.FirstOrDefault(), featureTable.FeatureLayer);
-                }
-                else
-                {
-                    // If multiple results return, check the attributes to find the searched feature
-                    foreach (var feature in queryResult)
+                    foreach (var geoelement in result.GeoElements)
                     {
-                        foreach (var attribute in feature.Attributes)
+                        // Set the layer name
+                        var identifyModel = new IdentifyModel();
+                        identifyModel.LayerName = result.LayerContent.Name;
+
+                        identifyModel.Attributes = new Dictionary<string, object>();
+
+                        // Set attribute values
+                        foreach (var attribute in geoelement.Attributes)
                         {
-                            if (attribute.Value.ToString() == locatedFeature.Label)
+                            if (attribute.Value is DateTimeOffset)
                             {
-                                // When an attribute matching the search string is found
-                                // Select feature and exit
-                                this.SelectAndZoomToFeature(feature, featureTable.FeatureLayer);
-                                return;
+                                identifyModel.Attributes.Add(new KeyValuePair<string, object>(attribute.Key, ((DateTimeOffset)attribute.Value).ToString("d")));
+                            }
+                            else
+                            {
+                                identifyModel.Attributes.Add(attribute);
                             }
                         }
 
-                        // If no matching features were found, just show user what the locator returned
-                        // TODO: Zoom to location and place a pin in it
+                        // Add new value to the list
+                        this.IdentifyModelsList.Add(identifyModel);
+
+                        // Return after first identify result is added. This insures only the top most result is displayed and selected
+                        // TODO: Remove these lines once view is modified to handle multiple results
+                        this.SelectAndZoomToFeature(geoelement as Feature, result.LayerContent as FeatureLayer);
+                        return;
                     }
                 }
             }
@@ -333,27 +382,21 @@ namespace OfflineMapBook.ViewModels
         private void SelectAndZoomToFeature(Feature feature, FeatureLayer featureLayer)
         {
             // Clear all selected features in all map feature layers
-            foreach (var layer in this.Map.OperationalLayers)
+            foreach (var layer in this.Map.OperationalLayers.OfType<FeatureLayer>())
             {
-                if (layer is FeatureLayer)
-                {
-                    ((FeatureLayer)layer).ClearSelection();
-                }
+                layer.ClearSelection();
             }
 
             // Set selection parameters
             featureLayer.SelectionWidth = 5;
 
             // Select feature
-            featureLayer.SelectFeature(feature);
-
-            // Set viewpoint to the feature's center point, and a zoom scale of 300
-            this.ViewPoint = new Viewpoint(feature.Geometry.Extent.GetCenter(), 300);
-
-            // Turn on the feature layer if it is not, otherwise the feature selection will not be visible
-            if (featureLayer.IsVisible == false)
+            if (feature != null)
             {
-                featureLayer.IsVisible = true;
+                featureLayer.SelectFeature(feature);
+
+                // Set viewpoint to the feature's extent
+                this.ViewPoint = new Viewpoint(feature.Geometry?.Extent);
             }
         }
 

@@ -36,7 +36,7 @@ namespace OfflineMapBook
             {
                 // Deployed applications must be licensed at the Basic level or greater (https://developers.arcgis.com/licensing).
                 // To enable Basic level functionality set the Client ID property before initializing the ArcGIS Runtime.
-                // ArcGISRuntimeEnvironment.ClientId = "<Your Client ID>";
+                ArcGISRuntimeEnvironment.SetLicense("runtimelite,1000,rud2672252234,none,D7MFA0PL4P2SPF002031");
 
                 // Initialize the ArcGIS Runtime before any components are created.
                 ArcGISRuntimeEnvironment.Initialize();
@@ -46,7 +46,7 @@ namespace OfflineMapBook
                 // 1. Allow the app user to authenticate with ArcGIS Online or Portal for ArcGIS then call the set license method with their license info.
                 // ArcGISRuntimeEnvironment.License.SetLicense(LicenseInfo object returned from an ArcGIS Portal instance)
                 // 2. Call the set license method with a license string obtained from Esri Customer Service or your local Esri distributor.
-                // ArcGISRuntimeEnvironment.License.SetLicense("<Your License String or Strings (extensions) Here>");
+                // ArcGISRuntimeEnvironment.License.SetLicense("<Your LiC:\Projects\mapbook-wpf\OfflineMapBook\OfflineMapBook\ViewModels\MapViewModel.cscense String or Strings (extensions) Here>");
             }
             catch (Exception ex)
             {

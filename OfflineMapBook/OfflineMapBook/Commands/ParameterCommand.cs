@@ -27,7 +27,6 @@ namespace OfflineMapBook.Commands
     {
         private Action<object> action;
         private bool canExecute;
-        private object paramObject;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ParameterCommand"/> class.
@@ -61,8 +60,7 @@ namespace OfflineMapBook.Commands
         /// <param name="parameter">Command Parameter</param>
         public void Execute(object parameter)
         {
-            this.paramObject = parameter as object;
-            this.action(this.paramObject);
+            this.action?.Invoke(parameter);
         }
     }
 }

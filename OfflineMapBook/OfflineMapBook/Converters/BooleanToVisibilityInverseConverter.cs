@@ -38,14 +38,13 @@ namespace OfflineMapBook.Converters
         /// <returns>Visibility status</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType == typeof(Visibility))
+            if (value is bool && targetType == typeof(Visibility))
             {
-                var visible = System.Convert.ToBoolean(value, culture);
-                visible = !visible;
-                return visible ? Visibility.Visible : Visibility.Collapsed;
+                var visible = (bool)value;
+                return visible ? Visibility.Collapsed : Visibility.Visible;
             }
 
-            throw new InvalidOperationException("Converter can only convert to value of type Visibility.");
+            throw new NotSupportedException("Converter can only convert to value of type Visibility.");
         }
 
         /// <summary>
@@ -58,7 +57,7 @@ namespace OfflineMapBook.Converters
         /// <returns>Visibility status</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new InvalidOperationException("Converter cannot convert back.");
+            throw new NotSupportedException("Converter cannot convert back.");
         }
     }
 }

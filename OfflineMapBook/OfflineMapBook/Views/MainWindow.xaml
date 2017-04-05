@@ -4,7 +4,7 @@
         xmlns:esriUI="http://schemas.esri.com/arcgis/runtime/2013" 
         xmlns:viewmodels="clr-namespace:OfflineMapBook.ViewModels"
         xmlns:local="clr-namespace:OfflineMapBook"
-        Title="Map Book" 
+        Title="Mapbook"
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
         ResizeMode="CanMinimize">
     <Window.Resources>

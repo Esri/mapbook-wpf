@@ -88,11 +88,11 @@
         <!-- Set styles for text blocks -->
         <Style x:Key="WhiteText" TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+            <Setter Property="FontFamily" Value="Tahoma"/>
         </Style>
         <Style x:Key="GrayText" TargetType="TextBlock">
             <Setter Property="Foreground" Value="#282828"/>
-            <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+            <Setter Property="FontFamily" Value="Tahoma"/>
         </Style>
         <Style x:Key="SymbolButton" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
