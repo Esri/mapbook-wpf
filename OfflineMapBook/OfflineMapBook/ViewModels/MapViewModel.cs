@@ -204,9 +204,9 @@ namespace OfflineMapBook.ViewModels
             get
             {
                 return this.searchCommand ?? (this.searchCommand = new ParameterCommand(
-                    async (x) =>
+                    (x) =>
                     {
-                        await this.GetSearchedLocationAsync((string)x);
+                        this.GetSearchedLocationAsync((string)x);
                     }, true));
             }
         }
@@ -350,6 +350,7 @@ namespace OfflineMapBook.ViewModels
                         identifyModel.Attributes = new Dictionary<string, object>();
 
                         // Set attribute values
+                        // Datetime attributes are being formatted to display date only
                         foreach (var attribute in geoelement.Attributes)
                         {
                             if (attribute.Value is DateTimeOffset)
@@ -367,7 +368,7 @@ namespace OfflineMapBook.ViewModels
 
                         // Return after first identify result is added. This insures only the top most result is displayed and selected
                         // TODO: Remove these lines once view is modified to handle multiple results
-                        this.SelectAndZoomToFeature(geoelement as Feature, result.LayerContent as FeatureLayer);
+                        this.SelectFeature(geoelement as Feature, result.LayerContent as FeatureLayer);
                         return;
                     }
                 }
@@ -375,11 +376,11 @@ namespace OfflineMapBook.ViewModels
         }
 
         /// <summary>
-        /// Perform feature selection and create viewpoint around feature
+        /// Perform feature selection 
         /// </summary>
         /// <param name="feature">Feature to be selected</param>
         /// <param name="featureLayer">Feature layer containing the feature</param>
-        private void SelectAndZoomToFeature(Feature feature, FeatureLayer featureLayer)
+        private void SelectFeature(Feature feature, FeatureLayer featureLayer)
         {
             // Clear all selected features in all map feature layers
             foreach (var layer in this.Map.OperationalLayers.OfType<FeatureLayer>())
@@ -394,9 +395,6 @@ namespace OfflineMapBook.ViewModels
             if (feature != null)
             {
                 featureLayer.SelectFeature(feature);
-
-                // Set viewpoint to the feature's extent
-                this.ViewPoint = new Viewpoint(feature.Geometry?.Extent);
             }
         }
 
