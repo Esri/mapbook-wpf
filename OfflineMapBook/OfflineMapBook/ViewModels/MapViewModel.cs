@@ -45,6 +45,7 @@ namespace OfflineMapBook.ViewModels
         private ICommand backCommand;
         private ICommand searchCommand;
         private ICommand identifyCommand;
+        private ICommand zoomToBookmarkCommand;
         private ICommand closeIdentifyCommand;
         private ObservableCollection<IdentifyModel> identifyModelsList = new ObservableCollection<IdentifyModel>();
 
@@ -223,6 +224,21 @@ namespace OfflineMapBook.ViewModels
                      {
                          this.GetIdentifyInfoAsync((IReadOnlyList<IdentifyLayerResult>)x);
                      }, true));
+            }
+        }
+
+        /// <summary>
+        /// Gets the command to zoom to selected bookmark
+        /// </summary>
+        public ICommand ZoomToBookmarkCommand
+        {
+            get
+            {
+                return this.zoomToBookmarkCommand ?? (this.zoomToBookmarkCommand = new ParameterCommand(
+                (x) =>
+                {
+                    this.ViewPoint = (Viewpoint)x;
+                }, true));
             }
         }
 
