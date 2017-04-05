@@ -114,7 +114,7 @@ namespace OfflineMapBook.ViewModels
 
             private set
             {
-                if (this.viewPoint != value)
+                if (this.viewPoint != value && value != null)
                 {
                     this.viewPoint = value;
                     this.OnPropertyChanged(nameof(this.ViewPoint));

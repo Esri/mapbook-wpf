@@ -40,7 +40,8 @@
             
             <!-- Map Title -->
             <TextBlock Text="{Binding Map.Item.Title}" VerticalAlignment="Center" Style="{StaticResource WhiteText}" FontSize="30" Grid.Column="1"/>
-            <!-- Search Button -->
+            
+            <!-- Bookmarks Button -->
             <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleBookmarks"  Grid.Column="2">
                 <TextBlock Text="&#xE8A4;" Style="{StaticResource SymbolButton}"/>
             </ToggleButton>
@@ -55,6 +56,7 @@
                 <TextBlock Text="&#xE81E;" Style="{StaticResource SymbolButton}"/>
             </ToggleButton>
         </Grid>
+        
         <!-- Right panel area opening over the map -->
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
             
@@ -149,7 +151,6 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-
         </StackPanel>
         
         <!-- Left Identify Panel area opening over map -->
