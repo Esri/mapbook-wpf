@@ -41,26 +41,8 @@ namespace OfflineMapBook.Converters
             {
                 var count = System.Convert.ToInt32(value, culture);
 
-                if (count == 0)
-                {
-                    return Visibility.Collapsed;
-                }
-                else if (count == 1)
-                {
-                    // Do not show the chevron buttons if only one value is present, but do show the items control
-                    if (parameter != null && parameter.ToString() == "chevron")
-                    {
-                        return Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        return Visibility.Visible;
-                    }
-                }
-                else
-                {
-                    return Visibility.Visible;
-                }
+                // Do not show the chevron buttons if only one value is present, but do show the items control
+                return (count == 0 || (count == 1 && parameter?.ToString() == "chevron")) ? Visibility.Collapsed : Visibility.Visible;
             }
 
             throw new NotSupportedException("Converter can only convert to value of type Visibility.");

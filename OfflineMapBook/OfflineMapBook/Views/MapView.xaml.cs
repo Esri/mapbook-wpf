@@ -68,14 +68,11 @@ namespace OfflineMapBook
         {
             if (this.Visibility == Visibility.Visible)
             {
-                if (this.Visibility == Visibility.Visible)
+                this.Dispatcher.BeginInvoke(
+                    (Action)delegate
                 {
-                    this.Dispatcher.BeginInvoke(
-                        (Action)delegate
-                    {
-                        Keyboard.Focus(this.SearchTextBox);
-                    }, DispatcherPriority.Render);
-                }
+                    Keyboard.Focus(this.SearchTextBox);
+                }, DispatcherPriority.Render);
             }
         }
 
@@ -107,6 +104,7 @@ namespace OfflineMapBook
         private async void MapBookMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             // Wait for double tap to fire
+            // Identify is only peformed on single tap. The delay is used to detect and ignore double taps
             await Task.Delay(500);
 
             // If view has been double tapped, set tapped to handled and flag back to false

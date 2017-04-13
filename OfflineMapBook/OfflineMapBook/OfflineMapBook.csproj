@@ -59,6 +59,10 @@
       <HintPath>..\packages\Esri.ArcGISRuntime.WPF.100.1.0-daily1651\lib\net452\Esri.ArcGISRuntime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Esri.ArcGISRuntime.Toolkit, Version=100.0.0.1631, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Esri.ArcGISRuntime.Toolkit.WPF.100.0.0-beta1\lib\net452\Esri.ArcGISRuntime.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -126,6 +130,7 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
