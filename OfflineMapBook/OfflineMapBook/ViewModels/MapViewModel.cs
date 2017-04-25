@@ -99,7 +99,6 @@ namespace OfflineMapBook.ViewModels
                     this.OnPropertyChanged(nameof(this.GraphicsOverlays));
                 }
             }
-
         }
 
         /// <summary>
@@ -193,7 +192,6 @@ namespace OfflineMapBook.ViewModels
             get
             {
                 return this.backCommand ?? (this.backCommand = new SimpleCommand(() => this.BackToMainView(), true));
-
             }
         }
 
