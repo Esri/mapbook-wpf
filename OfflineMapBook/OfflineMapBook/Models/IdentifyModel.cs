@@ -30,10 +30,8 @@ namespace OfflineMapBook
         public string LayerName { get; set; }
 
         /// <summary>
-        /// Gets or sets the attributes of the feature identified
+        /// Gets or sets the feature identified
         /// </summary>
-        //public IDictionary<string, object> Attributes { get; set; }
-
         public GeoElement IdentifiedGeoElement { get; set; }
     }
 }

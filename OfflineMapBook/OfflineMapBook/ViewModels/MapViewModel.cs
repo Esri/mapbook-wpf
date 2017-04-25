@@ -438,7 +438,7 @@ namespace OfflineMapBook.ViewModels
                         this.IdentifyModelsList.Add(identifyModel);
                     }
 
-                    // Set first feature as the active feature and select it
+                    // Set first feature as the active feature and set the index to use in the UI
                     if (this.IdentifyModelsList.Count > 0)
                     {
                         this.ActiveIdentifiedFeature = this.IdentifyModelsList.FirstOrDefault();
@@ -452,7 +452,6 @@ namespace OfflineMapBook.ViewModels
         /// Perform feature selection 
         /// </summary>
         /// <param name="feature">Feature to be selected</param>
-        /// <param name="featureLayer">Feature layer containing the feature</param>
         private void SelectFeature(Feature feature)
         {
             if (feature != null)
@@ -500,7 +499,7 @@ namespace OfflineMapBook.ViewModels
 
         /// <summary>
         /// Command attached to the button to go back to the main page
-        /// </summary>fire 
+        /// </summary>
         private void BackToMainView()
         {
             AppViewModel.Instance.DisplayViewModel = new MainViewModel();
