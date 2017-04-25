@@ -16,6 +16,7 @@
 // <author>Mara Stoica</author>
 namespace OfflineMapBook
 {
+    using Esri.ArcGISRuntime.Data;
     using System.Collections.Generic;
 
     /// <summary>
@@ -31,6 +32,8 @@ namespace OfflineMapBook
         /// <summary>
         /// Gets or sets the attributes of the feature identified
         /// </summary>
-        public IDictionary<string, object> Attributes { get; set; }
+        //public IDictionary<string, object> Attributes { get; set; }
+
+        public GeoElement IdentifiedGeoElement { get; set; }
     }
 }

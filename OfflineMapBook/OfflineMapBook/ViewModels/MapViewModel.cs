@@ -46,7 +46,11 @@ namespace OfflineMapBook.ViewModels
         private ICommand searchCommand;
         private ICommand identifyCommand;
         private ICommand zoomToBookmarkCommand;
+        private ICommand movePreviousCommand;
+        private ICommand moveNextCommand;
         private ICommand closeIdentifyCommand;
+        private IdentifyModel activeIdentifiedFeature;
+        private int activeIdentifiedFeatureIndex;
         private ObservableCollection<IdentifyModel> identifyModelsList = new ObservableCollection<IdentifyModel>();
 
         /// <summary>
@@ -185,6 +189,48 @@ namespace OfflineMapBook.ViewModels
         }
 
         /// <summary>
+        /// Gets the feature currently displayed as the actively identified feature
+        /// </summary>
+        public IdentifyModel ActiveIdentifiedFeature
+        {
+            get
+            {
+                return this.activeIdentifiedFeature;
+            }
+
+            private set
+            {
+                if (this.activeIdentifiedFeature != value && value != null)
+                {
+                    this.activeIdentifiedFeature = value;
+                    this.OnPropertyChanged(nameof(this.ActiveIdentifiedFeature));
+                    this.SelectFeature((Feature)this.ActiveIdentifiedFeature.IdentifiedGeoElement);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the index of the actively identified feature to be used to display to user and for navigation to previous and next features
+        /// </summary>
+        public int ActiveIdentifiedFeatureIndex
+        {
+            get
+            {
+                return this.activeIdentifiedFeatureIndex;
+            }
+
+            private set
+            {
+                if (this.activeIdentifiedFeatureIndex != value)
+                {
+                    this.activeIdentifiedFeatureIndex = value;
+                    this.OnPropertyChanged(nameof(this.ActiveIdentifiedFeatureIndex));
+                    this.ActiveIdentifiedFeature = this.IdentifyModelsList[this.activeIdentifiedFeatureIndex - 1];
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the command to go back to the main screen
         /// </summary>
         public ICommand BackCommand
@@ -252,8 +298,30 @@ namespace OfflineMapBook.ViewModels
         }
 
         /// <summary>
-        /// Gets the locator for the map
+        /// Gets the command to move to the previously identified feature
         /// </summary>
+        public ICommand MovePrevious
+        {
+            get
+            {
+                return this.movePreviousCommand ?? (this.movePreviousCommand = new SimpleCommand(() => this.NavigateIdentifiedFeatures(-1), true));
+            }
+        }
+
+        /// <summary>
+        /// Gets the command to move to the next identified feature
+        /// </summary>
+        public ICommand MoveNext
+        {
+            get
+            {
+                return this.moveNextCommand ?? (this.moveNextCommand = new SimpleCommand(() => this.NavigateIdentifiedFeatures(1), true));
+            }
+        }
+
+        /// <summary>
+        /// Gets the locator for the map
+        /// </summary>yea
         public LocatorTask Locator { get; private set; }
 
         /// <summary>
@@ -349,6 +417,9 @@ namespace OfflineMapBook.ViewModels
         /// <param name="identifyResults">List of results returned from the Map View</param>
         private void GetIdentifyInfoAsync(IReadOnlyList<IdentifyLayerResult> identifyResults)
         {
+            // Current IdentifyCommand only handles FeatureLayer identified results (under GeoElements)
+            // Developers to handle other types of identified results 
+            // ArcGISMapImageLayer would have results in SublayerResults.
             if (identifyResults != null)
             {
                 // Get each result and put them in the IdentifyModelsList
@@ -361,29 +432,17 @@ namespace OfflineMapBook.ViewModels
                         var identifyModel = new IdentifyModel();
                         identifyModel.LayerName = result.LayerContent.Name;
 
-                        identifyModel.Attributes = new Dictionary<string, object>();
-
-                        // Set attribute values
-                        // Datetime attributes are being formatted to display date only
-                        foreach (var attribute in geoelement.Attributes)
-                        {
-                            if (attribute.Value is DateTimeOffset)
-                            {
-                                identifyModel.Attributes.Add(new KeyValuePair<string, object>(attribute.Key, ((DateTimeOffset)attribute.Value).ToString("d")));
-                            }
-                            else
-                            {
-                                identifyModel.Attributes.Add(attribute);
-                            }
-                        }
+                        identifyModel.IdentifiedGeoElement = geoelement;
 
                         // Add new value to the list
                         this.IdentifyModelsList.Add(identifyModel);
+                    }
 
-                        // Return after first identify result is added. This insures only the top most result is displayed and selected
-                        // TODO: Remove these lines once view is modified to handle multiple results
-                        this.SelectFeature(geoelement as Feature, result.LayerContent as FeatureLayer);
-                        return;
+                    // Set first feature as the active feature and select it
+                    if (this.IdentifyModelsList.Count > 0)
+                    {
+                        this.ActiveIdentifiedFeature = this.IdentifyModelsList.FirstOrDefault();
+                        this.ActiveIdentifiedFeatureIndex = 1;
                     }
                 }
             }
@@ -394,27 +453,54 @@ namespace OfflineMapBook.ViewModels
         /// </summary>
         /// <param name="feature">Feature to be selected</param>
         /// <param name="featureLayer">Feature layer containing the feature</param>
-        private void SelectFeature(Feature feature, FeatureLayer featureLayer)
+        private void SelectFeature(Feature feature)
         {
-            // Clear all selected features in all map feature layers
-            foreach (var layer in this.Map.OperationalLayers.OfType<FeatureLayer>())
-            {
-                layer.ClearSelection();
-            }
-
-            // Set selection parameters
-            featureLayer.SelectionWidth = 5;
-
-            // Select feature
             if (feature != null)
             {
+                var featureLayer = feature.FeatureTable.FeatureLayer;
+
+                // Clear all selected features in all map feature layers
+                foreach (var layer in this.Map.OperationalLayers.OfType<FeatureLayer>())
+                {
+                    try
+                    {
+                        layer.ClearSelection();
+                    }
+                    catch { }
+                }
+
+                // Set selection parameters
+                featureLayer.SelectionWidth = 5;
+
+                // Select feature
                 featureLayer.SelectFeature(feature);
+            }
+        }
+
+        private void NavigateIdentifiedFeatures(int direction)
+        {
+            var actualIndex = this.ActiveIdentifiedFeatureIndex - 1;
+            var newIndex = actualIndex + direction;
+
+            // if we were already at the first feature, loop back around to the end
+            // if we are already at the last feature, loop back to the beginning
+            if (newIndex < 0)
+            {
+                this.ActiveIdentifiedFeatureIndex = this.IdentifyModelsList.Count();
+            }
+            else if (newIndex == this.IdentifyModelsList.Count())
+            {
+                this.ActiveIdentifiedFeatureIndex = 1;
+            }
+            else
+            {
+                this.ActiveIdentifiedFeatureIndex = newIndex + 1;
             }
         }
 
         /// <summary>
         /// Command attached to the button to go back to the main page
-        /// </summary>
+        /// </summary>fire 
         private void BackToMainView()
         {
             AppViewModel.Instance.DisplayViewModel = new MainViewModel();
