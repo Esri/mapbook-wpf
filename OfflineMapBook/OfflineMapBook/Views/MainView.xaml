@@ -4,13 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OfflineMapBook"
+             xmlns:viewModels="clr-namespace:OfflineMapBook.ViewModels"
              xmlns:converters="clr-namespace:OfflineMapBook.Converters"
+             xmlns:properties="clr-namespace:OfflineMapBook.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.Resources>
             <converters:RuntimeImageConverter x:Key="RuntimeImageConverter"/>
+            <viewModels:DownloadViewModel x:Key="DownloadViewModel"/>
         </Grid.Resources>
+
+        <StackPanel Orientation="Vertical" Background="Purple" VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{StaticResource DownloadViewModel}">
+            <TextBlock Text="{Binding StatusMessage}"/>
+        </StackPanel>
+        
         <StackPanel Orientation="Horizontal">
             <Grid Background="#F4F4F4" Width="300">
                 <Grid.RowDefinitions>
@@ -56,7 +64,7 @@
                         <StackPanel Orientation="Vertical" Margin="20,0,0,0" VerticalAlignment="Center">
                             <TextBlock Text="Downloaded" Style="{StaticResource GrayText}" HorizontalAlignment="Left" 
                                        FontSize="12" LineHeight="20"/>
-                            <TextBlock Text="3/6/2017 8:44:02 AM" Style="{StaticResource GrayText}" HorizontalAlignment="Left"
+                            <TextBlock Text="{Binding Source={x:Static properties:Settings.Default}, Path=MmpkDownloadDate}" Style="{StaticResource GrayText}" HorizontalAlignment="Left"
                                        FontSize="12" LineHeight="20"/>
                         </StackPanel>
                     </StackPanel>

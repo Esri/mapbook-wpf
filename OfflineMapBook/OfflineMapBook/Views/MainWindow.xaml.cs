@@ -16,9 +16,13 @@
 // <author>Mara Stoica</author>
 namespace OfflineMapBook
 {
+    using System;
+    using System.IO;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Forms;
     using Esri.ArcGISRuntime.Mapping;
+    using Properties;
     using ViewModels;
 
     /// <summary>
@@ -32,11 +36,47 @@ namespace OfflineMapBook
         public MainWindow()
         {
             this.InitializeComponent();
+            this.InitializeAsync();
+        }
+
+        private async Task InitializeAsync()
+        {
+            // Test if download path has been specified by user, if not, prompt
+            // If download path exists, check if valid
+            if (string.IsNullOrEmpty(Settings.Default.DownloadPath) || !Directory.Exists(Settings.Default.DownloadPath))
+            {
+                this.PromptUserForDownloadDirectory();
+            }
+
+            var downloadViewModel = new DownloadViewModel();
+            await downloadViewModel.ConnectToPortalAsync();
 
             // Test if singleton instance exists
             if (AppViewModel.Instance == null)
             {
-                this.LoadMmpkAsync();
+                await this.LoadMmpkAsync();
+            }
+        }
+
+        private void PromptUserForDownloadDirectory()
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                var result = dialog.ShowDialog();
+
+                // TODO: Test that user has write permissions to the directory
+                // Test that the user selected a valid directory
+                if (Directory.Exists(dialog.SelectedPath))
+                {
+                    Settings.Default.DownloadPath = dialog.SelectedPath;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Please select a valid folder for the data to be stored in. The application cannot continue until a valid folder is selected.");
+                    this.PromptUserForDownloadDirectory();
+                }
             }
         }
 
@@ -44,11 +84,33 @@ namespace OfflineMapBook
         /// Loads the Mobile Map Package and creates single instance of the AppViewModel
         /// </summary>
         /// <returns>Async task</returns>
-        internal async Task LoadMmpkAsync()
+        private async Task LoadMmpkAsync()
         {
-            // TODO: Remove hard coded mmpk path when DownloadViewModel is implemented
-            var mmpk = await MobileMapPackage.OpenAsync(@"C:\Users\mara8799\Downloads\OfflineMapbook_v12.mmpk");
-            AppViewModel.Instance = AppViewModel.Create(mmpk);
+            // Open mmpk if it exists
+            // If no mmpk is found, alert the user and shut down the application
+            var mmpkFullPath = Path.Combine(Settings.Default.DownloadPath, Settings.Default.MmpkFileName);
+
+            if (File.Exists(mmpkFullPath))
+            {
+                try
+                {
+                    var mmpk = await MobileMapPackage.OpenAsync(mmpkFullPath);
+                    AppViewModel.Instance = AppViewModel.Create(mmpk);
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.Message, "Error opening map", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show(
+                    "Application will now exit. Please restart application to re-try the map download",
+                    "No Map Found",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                Environment.Exit(0);
+            }
 
             // Set data context for the main screen and load main screen
             this.DataContext = AppViewModel.Instance;

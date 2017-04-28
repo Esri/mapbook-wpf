@@ -1,6 +1,21 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="OfflineMapBook.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MmpkDownloadDate" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">1900-01-02</Value>
+    </Setting>
+    <Setting Name="MmpkFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">OfflineMapbookTest.mmpk</Value>
+    </Setting>
+    <Setting Name="PortalUri" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://rpubs120027.ags.esri.com/portal/sharing/rest</Value>
+    </Setting>
+    <Setting Name="PortalItemID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ea8f987ac8bb429ebcfc773c6eb6cabf</Value>
+    </Setting>
+    <Setting Name="DownloadPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
 </SettingsFile>
