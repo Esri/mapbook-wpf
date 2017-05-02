@@ -49,8 +49,8 @@ namespace OfflineMapBook.ViewModels
         private ICommand movePreviousCommand;
         private ICommand moveNextCommand;
         private ICommand closeIdentifyCommand;
-        private IdentifyModel activeIdentifiedFeature;
-        private int activeIdentifiedFeatureIndex;
+        private IdentifyModel currentIdentifiedFeature;
+        private int currentIdentifiedFeatureIndex;
         private ObservableCollection<IdentifyModel> identifyModelsList = new ObservableCollection<IdentifyModel>();
 
         /// <summary>
@@ -191,20 +191,20 @@ namespace OfflineMapBook.ViewModels
         /// <summary>
         /// Gets the feature currently displayed as the actively identified feature
         /// </summary>
-        public IdentifyModel ActiveIdentifiedFeature
+        public IdentifyModel CurrentIdentifiedFeature
         {
             get
             {
-                return this.activeIdentifiedFeature;
+                return this.currentIdentifiedFeature;
             }
 
             private set
             {
-                if (this.activeIdentifiedFeature != value && value != null)
+                if (this.currentIdentifiedFeature != value && value != null)
                 {
-                    this.activeIdentifiedFeature = value;
-                    this.OnPropertyChanged(nameof(this.ActiveIdentifiedFeature));
-                    this.SelectFeature((Feature)this.ActiveIdentifiedFeature.IdentifiedGeoElement);
+                    this.currentIdentifiedFeature = value;
+                    this.OnPropertyChanged(nameof(this.CurrentIdentifiedFeature));
+                    this.SelectFeature(this.CurrentIdentifiedFeature.IdentifiedFeature);
                 }
             }
         }
@@ -212,20 +212,20 @@ namespace OfflineMapBook.ViewModels
         /// <summary>
         /// Gets the index of the actively identified feature to be used to display to user and for navigation to previous and next features
         /// </summary>
-        public int ActiveIdentifiedFeatureIndex
+        public int CurrentIdentifiedFeatureIndex
         {
             get
             {
-                return this.activeIdentifiedFeatureIndex;
+                return this.currentIdentifiedFeatureIndex;
             }
 
             private set
             {
-                if (this.activeIdentifiedFeatureIndex != value)
+                if (this.currentIdentifiedFeatureIndex != value && this.IdentifyModelsList.ElementAt(value - 1) != null)
                 {
-                    this.activeIdentifiedFeatureIndex = value;
-                    this.OnPropertyChanged(nameof(this.ActiveIdentifiedFeatureIndex));
-                    this.ActiveIdentifiedFeature = this.IdentifyModelsList[this.activeIdentifiedFeatureIndex - 1];
+                    this.currentIdentifiedFeatureIndex = value;
+                    this.OnPropertyChanged(nameof(this.CurrentIdentifiedFeatureIndex));
+                    this.CurrentIdentifiedFeature = this.IdentifyModelsList[this.currentIdentifiedFeatureIndex - 1];
                 }
             }
         }
@@ -418,7 +418,7 @@ namespace OfflineMapBook.ViewModels
         private void GetIdentifyInfoAsync(IReadOnlyList<IdentifyLayerResult> identifyResults)
         {
             // Current IdentifyCommand only handles FeatureLayer identified results (under GeoElements)
-            // Developers to handle other types of identified results 
+            // Developers to handle other types of identified results
             // ArcGISMapImageLayer would have results in SublayerResults.
             if (identifyResults != null)
             {
@@ -428,21 +428,24 @@ namespace OfflineMapBook.ViewModels
                 {
                     foreach (var geoelement in result.GeoElements)
                     {
-                        // Set the layer name
-                        var identifyModel = new IdentifyModel();
-                        identifyModel.LayerName = result.LayerContent.Name;
+                        if (geoelement is Feature)
+                        {
+                            // Set the layer name
+                            var identifyModel = new IdentifyModel();
+                            identifyModel.LayerName = result.LayerContent.Name;
 
-                        identifyModel.IdentifiedGeoElement = geoelement;
+                            identifyModel.IdentifiedFeature = (Feature)geoelement;
 
-                        // Add new value to the list
-                        this.IdentifyModelsList.Add(identifyModel);
+                            // Add new value to the list
+                            this.IdentifyModelsList.Add(identifyModel);
+                        }
                     }
 
-                    // Set first feature as the active feature and set the index to use in the UI
+                    // Set first feature as the current feature and set the index to use in the UI
                     if (this.IdentifyModelsList.Count > 0)
                     {
-                        this.ActiveIdentifiedFeature = this.IdentifyModelsList.FirstOrDefault();
-                        this.ActiveIdentifiedFeatureIndex = 1;
+                        this.CurrentIdentifiedFeature = this.IdentifyModelsList[0];
+                        this.CurrentIdentifiedFeatureIndex = 1;
                     }
                 }
             }
@@ -478,22 +481,22 @@ namespace OfflineMapBook.ViewModels
 
         private void NavigateIdentifiedFeatures(int direction)
         {
-            var actualIndex = this.ActiveIdentifiedFeatureIndex - 1;
-            var newIndex = actualIndex + direction;
+            var index = this.CurrentIdentifiedFeatureIndex - 1;
+            var newIndex = index + direction;
 
             // if we were already at the first feature, loop back around to the end
             // if we are already at the last feature, loop back to the beginning
             if (newIndex < 0)
             {
-                this.ActiveIdentifiedFeatureIndex = this.IdentifyModelsList.Count();
+                this.CurrentIdentifiedFeatureIndex = this.IdentifyModelsList.Count();
             }
             else if (newIndex == this.IdentifyModelsList.Count())
             {
-                this.ActiveIdentifiedFeatureIndex = 1;
+                this.CurrentIdentifiedFeatureIndex = 1;
             }
             else
             {
-                this.ActiveIdentifiedFeatureIndex = newIndex + 1;
+                this.CurrentIdentifiedFeatureIndex = newIndex + 1;
             }
         }
 

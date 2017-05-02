@@ -31,6 +31,6 @@ namespace OfflineMapBook
         /// <summary>
         /// Gets or sets the feature identified
         /// </summary>
-        public GeoElement IdentifiedGeoElement { get; set; }
+        public Feature IdentifiedFeature { get; set; }
     }
 }
