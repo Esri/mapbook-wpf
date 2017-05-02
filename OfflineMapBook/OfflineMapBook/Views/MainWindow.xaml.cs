@@ -83,6 +83,7 @@ namespace OfflineMapBook
         {
             using (var dialog = new FolderBrowserDialog())
             {
+                dialog.Description = "Offline MapBook app needs to download a Mobile Map Package on your device. Please select the folder where the Mobile Map Package can be stored.";
                 var result = dialog.ShowDialog();
 
                 // TODO: Test that user has write permissions to the directory
