@@ -55,12 +55,10 @@ namespace OfflineMapBook.ViewModels
         /// <summary>
         /// Creates instance of AppViewModel
         /// </summary>
-        /// <param name="mmpk">Mobile Map Package</param>
         /// <returns>Instance of AppViewModel</returns>
         internal static AppViewModel Create()
         {
             var appViewModel = new AppViewModel();
-            //appViewModel.Mmpk = mmpk;
             return appViewModel;
         }
     }

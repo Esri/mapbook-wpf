@@ -31,6 +31,8 @@ namespace OfflineMapBook.ViewModels
     using Esri.ArcGISRuntime.Symbology;
     using Esri.ArcGISRuntime.Tasks.Geocoding;
     using Esri.ArcGISRuntime.UI;
+    using System.Drawing;
+    using System.Windows.Media.Imaging;
 
     /// <summary>
     /// View model performs logic related to the map screen
@@ -395,8 +397,9 @@ namespace OfflineMapBook.ViewModels
                         });
                     }
 
-                    // TODO: replace red circle with pin
-                    var graphic = new Graphic(bestMatch.DisplayLocation, new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Red, 10));
+                    var mapPin = new PictureMarkerSymbol(new Uri("pack://application:,,,/OfflineMapBook;component/Resources/MapPin.png"));
+                    mapPin.OffsetY = 17;
+                    var graphic = new Graphic(bestMatch.DisplayLocation, mapPin);
                     this.GraphicsOverlays["PinsGraphicsOverlay"].Graphics.Clear();
                     this.GraphicsOverlays["PinsGraphicsOverlay"].Graphics.Add(graphic);
                 }
@@ -405,7 +408,7 @@ namespace OfflineMapBook.ViewModels
                     MessageBox.Show(string.Format("{0} was not found", searchString));
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show(string.Format("An error occured during your search. Please try again. If error persists, please contact your GIS Administrator"));
             }
