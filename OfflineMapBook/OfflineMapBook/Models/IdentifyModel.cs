@@ -17,7 +17,6 @@
 namespace OfflineMapBook
 {
     using Esri.ArcGISRuntime.Data;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Holds the Identify information for a feature

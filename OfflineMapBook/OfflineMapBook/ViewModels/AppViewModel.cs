@@ -48,19 +48,19 @@ namespace OfflineMapBook.ViewModels
         internal static AppViewModel Instance { get; set; }
 
         /// <summary>
-        /// Gets the Mobile Map Package
+        /// Gets or sets the Mobile Map Package
         /// </summary>
-        internal MobileMapPackage Mmpk { get; private set; }
+        internal MobileMapPackage Mmpk { get; set; }
 
         /// <summary>
         /// Creates instance of AppViewModel
         /// </summary>
         /// <param name="mmpk">Mobile Map Package</param>
         /// <returns>Instance of AppViewModel</returns>
-        internal static AppViewModel Create(MobileMapPackage mmpk)
+        internal static AppViewModel Create()
         {
             var appViewModel = new AppViewModel();
-            appViewModel.Mmpk = mmpk;
+            //appViewModel.Mmpk = mmpk;
             return appViewModel;
         }
     }

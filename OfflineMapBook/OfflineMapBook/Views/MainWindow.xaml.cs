@@ -48,11 +48,32 @@ namespace OfflineMapBook
                 this.PromptUserForDownloadDirectory();
             }
 
-            var downloadViewModel = new DownloadViewModel();
-            await downloadViewModel.ConnectToPortalAsync();
-
-            // Test if singleton instance exists
+            // Test if AppViewModel singleton instance exists
             if (AppViewModel.Instance == null)
+            {
+                // Set data context for the main screen and load main screen
+                AppViewModel.Instance = AppViewModel.Create();
+                this.DataContext = AppViewModel.Instance;
+            }
+
+            // Make instance of the DownloadViewModel and set it as datacontext.
+            // This will set the active view as the DownloadView
+            try
+            {
+                var downloadViewModel = new DownloadViewModel();
+                AppViewModel.Instance.DisplayViewModel = downloadViewModel;
+                await downloadViewModel.ConnectToPortalAsync();
+            }
+            catch (Exception ex)
+            {
+                // If unexpected exception happens during download, ignore it and load existing map
+                System.Windows.MessageBox.Show(
+                    "An error has occured during the map download: " + ex.Message + " The previously downloaded map will now be loaded.",
+                    "Unhandled Exception",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            finally
             {
                 await this.LoadMmpkAsync();
             }
@@ -95,7 +116,7 @@ namespace OfflineMapBook
                 try
                 {
                     var mmpk = await MobileMapPackage.OpenAsync(mmpkFullPath);
-                    AppViewModel.Instance = AppViewModel.Create(mmpk);
+                    AppViewModel.Instance.Mmpk = mmpk;
                 }
                 catch (Exception ex)
                 {
@@ -105,7 +126,7 @@ namespace OfflineMapBook
             else
             {
                 System.Windows.MessageBox.Show(
-                    "Application will now exit. Please restart application to re-try the map download",
+                    "Map could not be downloaded and no locally stored map was found. Application will now exit. Please restart application to re-try the map download",
                     "No Map Found",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);

@@ -59,7 +59,7 @@ namespace OfflineMapBook.ViewModels
         /// <returns> Authenticated Portal credential </returns>
         public async Task ConnectToPortalAsync()
         {
-            this.StatusMessage = "Connecting to Portal";
+            this.StatusMessage = "Connecting to Portal ...";
 
             // Set uri for Portal with IWA authentication enabled
             // Note that this will not work if you do not have passthrough authentication enabled
@@ -89,60 +89,74 @@ namespace OfflineMapBook.ViewModels
         /// <returns>The map data.</returns>
         public async Task GetDataAsync()
         {
-            // TODO: Test if device is online
-            // If offline, test if mmpk exists and load it
-            // If offline and no mmpk, show error
-            // Show error message if unable to downoad the mmpk. This is usually when the device is online but signal isn't strong enough and connection to Portal times out
-            try
+            if (Resources.TestConnection.IsConnectedToInternet())
             {
-                // Get portal item
-                var portal = await ArcGISPortal.CreateAsync(new Uri(Settings.Default.PortalUri)).ConfigureAwait(false);
-                var item = await PortalItem.CreateAsync(portal, Settings.Default.PortalItemID).ConfigureAwait(false);
-
-                var mmpkFullPath = Path.Combine(Settings.Default.DownloadPath, Settings.Default.MmpkFileName);
-
-                // Test if mmpk is not already downloaded or is older than current portal version
-                if (!File.Exists(mmpkFullPath) || item.Modified.LocalDateTime > Settings.Default.MmpkDownloadDate)
+                try
                 {
-                    this.StatusMessage = "Downloading map";
+                    // Get portal item
+                    var portal = await ArcGISPortal.CreateAsync(new Uri(Settings.Default.PortalUri)).ConfigureAwait(false);
+                    var item = await PortalItem.CreateAsync(portal, Settings.Default.PortalItemID).ConfigureAwait(false);
 
-                    try
+                    var mmpkFullPath = Path.Combine(Settings.Default.DownloadPath, Settings.Default.MmpkFileName);
+
+                    // Test if mmpk is not already downloaded or is older than current portal version
+                    if (!File.Exists(mmpkFullPath) || item.Modified.LocalDateTime > Settings.Default.MmpkDownloadDate)
                     {
-                        // Download new file and store in temp location
-                        var tempFile = Path.GetTempFileName();
-                        using (var stream = await item.GetDataAsync().ConfigureAwait(false))
+                        this.StatusMessage = "Downloading map ...";
+
+                        try
                         {
-                            using (var file = File.Create(tempFile))
+                            // Download new file and store in temp location
+                            var tempFile = Path.GetTempFileName();
+                            using (var stream = await item.GetDataAsync().ConfigureAwait(false))
                             {
-                                await stream.CopyToAsync(file).ConfigureAwait(false);
-                                Settings.Default.MmpkDownloadDate = DateTime.Now;
-                                Settings.Default.Save();
-                                Settings.Default.Reload();
+                                using (var file = File.Create(tempFile))
+                                {
+                                    await stream.CopyToAsync(file).ConfigureAwait(false);
+                                    Settings.Default.MmpkDownloadDate = DateTime.Now;
+                                    Settings.Default.Save();
+                                    Settings.Default.Reload();
+                                }
                             }
-                        }
 
-                        // Once download was successful, delete mmpk file if it already exists
-                        if (File.Exists(Settings.Default.MmpkFileName))
+                            this.StatusMessage = "Finalizing download ...";
+
+                            // Once download was successful, delete mmpk file if it already exists
+                            if (File.Exists(Settings.Default.MmpkFileName))
+                            {
+                                File.Delete(Settings.Default.MmpkFileName);
+                            }
+
+                            // Rename temp file to replace the mmpk file
+                            File.Move(tempFile, mmpkFullPath);
+                        }
+                        catch (Exception ex)
                         {
-                            File.Delete(Settings.Default.MmpkFileName);
+                            MessageBox.Show(
+                                "Connection to Portal was successful. However, the application was unable to download the map. " + ex.Message,
+                                "Error downloading map",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
                         }
-
-                        // Rename temp file to replace the mmpk file
-                        File.Move(tempFile, mmpkFullPath);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Application was unable to download the map. " + ex.Message);
-
-                        // TODO: Alert user app was unable to download new file and old file will be used, if available
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        ex.Message + " Application will attempt to use previously downloaded version of the map, if available.",
+                        "Error downloading map",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(
+                    "Device does not seem to be connected to the internet. Application will attempt to use previously downloaded version of the map, if available.",
+                    "No Internet Connection",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Exclamation);
             }
         }
-
     }
 }

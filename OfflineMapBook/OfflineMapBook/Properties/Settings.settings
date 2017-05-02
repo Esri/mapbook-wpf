@@ -12,7 +12,7 @@
       <Value Profile="(Default)">https://rpubs120027.ags.esri.com/portal/sharing/rest</Value>
     </Setting>
     <Setting Name="PortalItemID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">ea8f987ac8bb429ebcfc773c6eb6cabf</Value>
+      <Value Profile="(Default)">769c9e16b2ed43dbbd2d95b43ae3d54c</Value>
     </Setting>
     <Setting Name="DownloadPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

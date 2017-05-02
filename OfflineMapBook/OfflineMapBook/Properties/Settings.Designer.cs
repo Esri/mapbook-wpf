@@ -61,7 +61,7 @@ namespace OfflineMapBook.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ea8f987ac8bb429ebcfc773c6eb6cabf")]
+        [global::System.Configuration.DefaultSettingValueAttribute("769c9e16b2ed43dbbd2d95b43ae3d54c")]
         public string PortalItemID {
             get {
                 return ((string)(this["PortalItemID"]));

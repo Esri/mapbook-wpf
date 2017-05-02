@@ -8,6 +8,9 @@
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
         ResizeMode="CanMinimize">
     <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:DownloadViewModel}">
+            <local:DownloadView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:MainViewModel}">
             <local:MainView />
         </DataTemplate>
@@ -15,6 +18,7 @@
             <local:MapView />
         </DataTemplate>
     </Window.Resources>
+    
     <!-- View model for the active user control -->
     <ContentControl Content="{Binding DisplayViewModel}"/>
 </Window>
