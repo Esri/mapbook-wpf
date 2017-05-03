@@ -132,6 +132,7 @@ namespace OfflineMapBook.ViewModels
                         }
                         catch (Exception ex)
                         {
+                            this.StatusMessage = "Download failed";
                             MessageBox.Show(
                                 "Connection to Portal was successful. However, the application was unable to download the map. " + ex.Message,
                                 "Error downloading map",
@@ -142,6 +143,7 @@ namespace OfflineMapBook.ViewModels
                 }
                 catch (Exception ex)
                 {
+                    this.StatusMessage = "Download failed";
                     MessageBox.Show(
                         ex.Message + " Application will attempt to use previously downloaded version of the map, if available.",
                         "Error downloading map",

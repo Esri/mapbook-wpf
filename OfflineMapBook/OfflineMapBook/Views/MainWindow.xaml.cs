@@ -88,7 +88,7 @@ namespace OfflineMapBook
 
                 // TODO: Test that user has write permissions to the directory
                 // Test that the user selected a valid directory
-                if (Directory.Exists(dialog.SelectedPath))
+                if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     Settings.Default.DownloadPath = dialog.SelectedPath;
                     Settings.Default.Save();
@@ -96,8 +96,12 @@ namespace OfflineMapBook
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Please select a valid folder for the data to be stored in. The application cannot continue until a valid folder is selected.");
-                    this.PromptUserForDownloadDirectory();
+                    System.Windows.MessageBox.Show(
+                        "The application requires a valid folder to be selected to continue. Application will now exit.",
+                        "No Folder Selected",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    Environment.Exit(0);
                 }
             }
         }

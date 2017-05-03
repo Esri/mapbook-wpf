@@ -408,9 +408,13 @@ namespace OfflineMapBook.ViewModels
                     MessageBox.Show(string.Format("{0} was not found", searchString));
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show(string.Format("An error occured during your search. Please try again. If error persists, please contact your GIS Administrator"));
+                MessageBox.Show(
+                    string.Format("An error occured during your search: {0} Please try again. If error persists, please contact your GIS Administrator", ex.Message),
+                    "Error During Search",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
