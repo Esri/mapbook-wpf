@@ -22,5 +22,65 @@ namespace OfflineMapBook.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1900-01-02")]
+        public global::System.DateTime MmpkDownloadDate {
+            get {
+                return ((global::System.DateTime)(this["MmpkDownloadDate"]));
+            }
+            set {
+                this["MmpkDownloadDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("OfflineMapbookTest.mmpk")]
+        public string MmpkFileName {
+            get {
+                return ((string)(this["MmpkFileName"]));
+            }
+            set {
+                this["MmpkFileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://rpubs120027.ags.esri.com/portal/sharing/rest")]
+        public string PortalUri {
+            get {
+                return ((string)(this["PortalUri"]));
+            }
+            set {
+                this["PortalUri"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("769c9e16b2ed43dbbd2d95b43ae3d54c")]
+        public string PortalItemID {
+            get {
+                return ((string)(this["PortalItemID"]));
+            }
+            set {
+                this["PortalItemID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DownloadPath {
+            get {
+                return ((string)(this["DownloadPath"]));
+            }
+            set {
+                this["DownloadPath"] = value;
+            }
+        }
     }
 }

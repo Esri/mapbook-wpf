@@ -4,13 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OfflineMapBook"
+             xmlns:viewModels="clr-namespace:OfflineMapBook.ViewModels"
              xmlns:converters="clr-namespace:OfflineMapBook.Converters"
+             xmlns:properties="clr-namespace:OfflineMapBook.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.Resources>
             <converters:RuntimeImageConverter x:Key="RuntimeImageConverter"/>
+            <viewModels:DownloadViewModel x:Key="DownloadViewModel"/>
         </Grid.Resources>
+
         <StackPanel Orientation="Horizontal">
             <Grid Background="#F4F4F4" Width="300">
                 <Grid.RowDefinitions>
@@ -33,31 +37,27 @@
 
                     <!-- Mmpk Description Area -->
                     <StackPanel Orientation="Vertical" Margin="10,0,10,0" Grid.Row="2">
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                            <TextBlock Text="Modified: " Style="{StaticResource GrayText}" FontStyle="Italic"/>
-                            <TextBlock Text="{Binding MmpkItem.Modified.DateTime}" Style="{StaticResource GrayText}"
-                                   Margin="0,0,0,5" FontStyle="Italic"/>
-                        </StackPanel>
+                        <TextBlock Text="{Binding MmpkItem.Description}" TextWrapping="Wrap" 
+                               Style="{StaticResource GrayText}" Margin="0,20,0,0" />
                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                             <TextBlock Text="Maps: " Style="{StaticResource GrayText}" FontStyle="Italic"/>
                             <TextBlock Text="{Binding MapItems.Count}" Style="{StaticResource GrayText}" FontStyle="Italic"/>
                         </StackPanel>
-                        <TextBlock Text="{Binding MmpkItem.Description}" TextWrapping="Wrap" 
-                               Style="{StaticResource GrayText}" Margin="0,20,0,0" />
                     </StackPanel>
                 </StackPanel>
 
                 <!-- Sync Button Area -->
                 <Border BorderBrush="#e7e7e7" BorderThickness="0,1,0,0" Grid.Row="3">
-                    <StackPanel Orientation="Horizontal"  Margin="20,20,0,20">
-                        <Button Style="{StaticResource FlatButton}" Width="48" Height="48">
-                            <TextBlock Text="&#xE895;" FontSize="30" Style="{StaticResource SymbolButton}"/>
-                        </Button>
-                        <StackPanel Orientation="Vertical" Margin="20,0,0,0" VerticalAlignment="Center">
-                            <TextBlock Text="Downloaded" Style="{StaticResource GrayText}" HorizontalAlignment="Left" 
-                                       FontSize="12" LineHeight="20"/>
-                            <TextBlock Text="3/6/2017 8:44:02 AM" Style="{StaticResource GrayText}" HorizontalAlignment="Left"
-                                       FontSize="12" LineHeight="20"/>
+                    <StackPanel Orientation="Vertical" Margin="10,0,10,0" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                            <TextBlock Text="Modified: " Style="{StaticResource GrayText}" FontStyle="Italic"/>
+                            <TextBlock Text="{Binding MmpkItem.Modified.DateTime}" Style="{StaticResource GrayText}"
+                                   Margin="0,0,0,5" FontStyle="Italic"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                            <TextBlock Text="Downloaded: " Style="{StaticResource GrayText}" FontStyle="Italic"/>
+                            <TextBlock Text="{Binding Source={x:Static properties:Settings.Default}, Path=MmpkDownloadDate}" Style="{StaticResource GrayText}"
+                                   Margin="0,0,0,5" FontStyle="Italic"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -80,15 +80,15 @@
                                 </Grid.RowDefinitions>
                                 <Button Style="{StaticResource FlatButton}" Command="{Binding DataContext.OpenMapCommand, RelativeSource = {RelativeSource AncestorType = UserControl}}" 
                                             CommandParameter ="{Binding}" Width="300" Height="100" Grid.Row="0">
-                                    <Image Stretch="UniformToFill"  Source="{Binding Item.Thumbnail, Converter={StaticResource RuntimeImageConverter}}"/>                        
+                                    <Image Stretch="UniformToFill"  Source="{Binding Item.Thumbnail, Converter={StaticResource RuntimeImageConverter}}"/>
                                 </Button>
                                 <StackPanel Background="#3F51B5" Orientation="Vertical" Grid.Row="1">
 
                                     <TextBlock Margin="15,20,15,0" VerticalAlignment="Center" Text="{Binding Item.Title}" Style="{StaticResource WhiteText}" FontSize="18" LineHeight="26"
                                                FontWeight="DemiBold" TextWrapping="WrapWithOverflow"/>
                                     <TextBlock Margin="15,20,15,20" Text="{Binding Item.Description}" FontSize="12" LineHeight="20" Grid.Row="1" Style="{StaticResource WhiteText}" TextWrapping="Wrap" />
-                                   
-                                     <!-- Map layers section -->
+
+                                    <!-- Map layers section -->
                                     <Border BorderBrush="#004575" BorderThickness="0,1,0,0">
                                         <TextBlock Margin="15,20,15,0" Text="Layers" Style="{StaticResource WhiteText}" FontWeight="DemiBold"/>
                                     </Border>

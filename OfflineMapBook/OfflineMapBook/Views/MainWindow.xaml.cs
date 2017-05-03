@@ -16,9 +16,13 @@
 // <author>Mara Stoica</author>
 namespace OfflineMapBook
 {
+    using System;
+    using System.IO;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Forms;
     using Esri.ArcGISRuntime.Mapping;
+    using Properties;
     using ViewModels;
 
     /// <summary>
@@ -32,11 +36,73 @@ namespace OfflineMapBook
         public MainWindow()
         {
             this.InitializeComponent();
+            this.InitializeAsync();
+        }
 
-            // Test if singleton instance exists
+        private async Task InitializeAsync()
+        {
+            // Test if download path has been specified by user, if not, prompt
+            // If download path exists, check if valid
+            if (string.IsNullOrEmpty(Settings.Default.DownloadPath) || !Directory.Exists(Settings.Default.DownloadPath))
+            {
+                this.PromptUserForDownloadDirectory();
+            }
+
+            // Test if AppViewModel singleton instance exists
             if (AppViewModel.Instance == null)
             {
-                this.LoadMmpkAsync();
+                // Set data context for the main screen and load main screen
+                AppViewModel.Instance = AppViewModel.Create();
+                this.DataContext = AppViewModel.Instance;
+            }
+
+            // Make instance of the DownloadViewModel and set it as datacontext.
+            // This will set the active view as the DownloadView
+            try
+            {
+                var downloadViewModel = new DownloadViewModel();
+                AppViewModel.Instance.DisplayViewModel = downloadViewModel;
+                await downloadViewModel.ConnectToPortalAsync();
+            }
+            catch (Exception ex)
+            {
+                // If unexpected exception happens during download, ignore it and load existing map
+                System.Windows.MessageBox.Show(
+                    "An error has occured during the map download: " + ex.Message + " The previously downloaded map will now be loaded.",
+                    "Unhandled Exception",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            finally
+            {
+                await this.LoadMmpkAsync();
+            }
+        }
+
+        private void PromptUserForDownloadDirectory()
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                dialog.Description = "Offline MapBook app needs to download a Mobile Map Package on your device. Please select the folder where the Mobile Map Package can be stored.";
+                var result = dialog.ShowDialog();
+
+                // TODO: Test that user has write permissions to the directory
+                // Test that the user selected a valid directory
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    Settings.Default.DownloadPath = dialog.SelectedPath;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show(
+                        "The application requires a valid folder to be selected to continue. Application will now exit.",
+                        "No Folder Selected",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    Environment.Exit(0);
+                }
             }
         }
 
@@ -44,11 +110,33 @@ namespace OfflineMapBook
         /// Loads the Mobile Map Package and creates single instance of the AppViewModel
         /// </summary>
         /// <returns>Async task</returns>
-        internal async Task LoadMmpkAsync()
+        private async Task LoadMmpkAsync()
         {
-            // TODO: Remove hard coded mmpk path when DownloadViewModel is implemented
-            var mmpk = await MobileMapPackage.OpenAsync(@"C:\Users\mara8799\Downloads\OfflineMapbook_v12.mmpk");
-            AppViewModel.Instance = AppViewModel.Create(mmpk);
+            // Open mmpk if it exists
+            // If no mmpk is found, alert the user and shut down the application
+            var mmpkFullPath = Path.Combine(Settings.Default.DownloadPath, Settings.Default.MmpkFileName);
+
+            if (File.Exists(mmpkFullPath))
+            {
+                try
+                {
+                    var mmpk = await MobileMapPackage.OpenAsync(mmpkFullPath);
+                    AppViewModel.Instance.Mmpk = mmpk;
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.Message, "Error opening map", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show(
+                    "Map could not be downloaded and no locally stored map was found. Application will now exit. Please restart application to re-try the map download",
+                    "No Map Found",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                Environment.Exit(0);
+            }
 
             // Set data context for the main screen and load main screen
             this.DataContext = AppViewModel.Instance;

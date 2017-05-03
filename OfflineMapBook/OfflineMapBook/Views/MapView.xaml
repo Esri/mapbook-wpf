@@ -292,7 +292,7 @@
                     </Grid.ColumnDefinitions>
                     <!-- Area showing number of features identified -->
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5,0,0,0">
-                        <TextBlock Text="{Binding ActiveIdentifiedFeatureIndex}" Style="{StaticResource WhiteText}" VerticalAlignment="Center" FontSize="15"
+                        <TextBlock Text="{Binding CurrentIdentifiedFeatureIndex}" Style="{StaticResource WhiteText}" VerticalAlignment="Center" FontSize="15"
                                    Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=chevron}"/>
                         <TextBlock Text=" of " Style="{StaticResource WhiteText}" VerticalAlignment="Center" FontSize="15"
                                    Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=chevron}"/>
@@ -318,10 +318,10 @@
             <!-- Area containing layer name and attributes -->
             <StackPanel Orientation="Vertical">
                 <Border BorderBrush="White" BorderThickness="0,1,0,0">
-                    <TextBlock Text="{Binding ActiveIdentifiedFeature.LayerName}" Style="{StaticResource WhiteText}" 
+                    <TextBlock Text="{Binding CurrentIdentifiedFeature.LayerName}" Style="{StaticResource WhiteText}" 
                                            FontSize="20" FontWeight="SemiBold" Margin="5,10,5,10" TextWrapping="Wrap"/>
                 </Border>
-                <ListView ItemsSource="{Binding ActiveIdentifiedFeature.IdentifiedGeoElement.Attributes}" Background="Transparent"
+                <ListView ItemsSource="{Binding CurrentIdentifiedFeature.IdentifiedFeature.Attributes}" Background="Transparent"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled" Padding="3">
                     <ListView.ItemTemplate>
                         <DataTemplate>
