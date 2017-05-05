@@ -59,31 +59,32 @@
         
         <!-- Right panel area opening over the map -->
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
+             <!--Bookmarks Panel-->
+            <StackPanel Orientation="Vertical">
+                <ListView Width="300" ItemsSource="{Binding Map.Bookmarks}" Background="#3F51B5" Visibility="{Binding IsChecked, ElementName=toggleBookmarks, 
+                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Name}" Style="{StaticResource ListViewButton}" FontSize="20" 
+                                        Command="{Binding DataContext.ZoomToBookmarkCommand, RelativeSource={RelativeSource AncestorType=ListView}}" 
+                                        CommandParameter="{Binding Path=Viewpoint}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </StackPanel>
 
-            <!-- Bookmarks Panel-->
-            <ListView Width="300" ItemsSource="{Binding Map.Bookmarks}" Background="#3F51B5" Visibility="{Binding IsChecked, ElementName=toggleBookmarks, 
-                Converter={StaticResource BooleanToVisibilityConverter}}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Button Content="{Binding Name}" Style="{StaticResource ListViewButton}" FontSize="20" 
-                                    Command="{Binding DataContext.ZoomToBookmarkCommand, RelativeSource={RelativeSource AncestorType=ListView}}" 
-                                    CommandParameter="{Binding Path=Viewpoint}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Background" Value="Transparent" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                    <ContentPresenter />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
-            
             <!-- Search Panel -->
             <StackPanel x:Name="SearchPanel" Orientation="Vertical" Visibility="{Binding IsChecked, ElementName=toggleSearch, 
                 Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -126,33 +127,33 @@
 
             <!-- Table of Contents Panel -->
             <Border BorderBrush="White" BorderThickness="0.5">
-            <esriUI:TableOfContents GeoView="{Binding ElementName=MapBookMapView}" ShowLegend="True"  
+                <esriUI:TableOfContents GeoView="{Binding ElementName=MapBookMapView}" ShowLegend="True"  
                                     Visibility="{Binding IsChecked, ElementName=toggleLegend, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Width="300" Style="{StaticResource TOC}">
-                <!-- Explicit styling of the checkbox required due to toolkit code overwriting any implicit styling  -->
-                <esriUI:TableOfContents.LayerItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Sublayers}">
-                        <Grid Margin="0,2">
-                            <Grid.Resources>
-                                <Style TargetType="MenuItem" x:Key="HideMenuItemWhenDisabled">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsEnabled" Value="False">
-                                            <Setter Property="Visibility" Value="Collapsed" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Grid.Resources>
-                            <Grid.Style>
-                                <Style TargetType="Grid">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsInScaleRange, Mode=OneWay}" Value="false">
-                                            <Setter Property="Opacity" Value=".5" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Grid.Style>
-                            <!--Useful for debugging purposes:-->
-                            <!--<Grid.ToolTip>
+                    <!-- Explicit styling of the checkbox required due to toolkit code overwriting any implicit styling  -->
+                    <esriUI:TableOfContents.LayerItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Sublayers}">
+                            <Grid Margin="0,2">
+                                <Grid.Resources>
+                                    <Style TargetType="MenuItem" x:Key="HideMenuItemWhenDisabled">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsInScaleRange, Mode=OneWay}" Value="false">
+                                                <Setter Property="Opacity" Value=".5" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <!--Useful for debugging purposes:-->
+                                <!--<Grid.ToolTip>
                             <StackPanel>
                                 <TextBlock Text="IsActive" />
                                 <TextBlock Text="{Binding IsActive}" />
@@ -165,118 +166,118 @@
                                 <TextBlock Text="{Binding IsInScaleRange}" />
                             </StackPanel>
                         </Grid.ToolTip>-->
-                            <Grid.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem IsCheckable="True" IsChecked="{Binding LayerContent.IsVisible, Mode=TwoWay}" Header="Enabled" IsEnabled="{Binding LayerContent.CanChangeVisibility}" Style="{StaticResource HideMenuItemWhenDisabled}" />
-                                    <MenuItem Command="{Binding ZoomToCommand}" Header="Zoom to" Style="{StaticResource HideMenuItemWhenDisabled}" />
-                                    <MenuItem Command="{Binding ReloadCommand}" Header="Reload" Style="{StaticResource HideMenuItemWhenDisabled}" />
-                                </ContextMenu>
-                            </Grid.ContextMenu>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <esriUI:SymbolDisplay Symbol="{Binding Symbol, Mode=OneTime}" Margin="0,0,5,0" >
-                                <esriUI:SymbolDisplay.Style>
-                                    <Style TargetType="esriUI:SymbolDisplay">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Symbol, Mode=OneTime}" Value="{x:Null}">
-                                                <Setter Property="Visibility" Value="Collapsed" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </esriUI:SymbolDisplay.Style>
-                            </esriUI:SymbolDisplay>
+                                <Grid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem IsCheckable="True" IsChecked="{Binding LayerContent.IsVisible, Mode=TwoWay}" Header="Enabled" IsEnabled="{Binding LayerContent.CanChangeVisibility}" Style="{StaticResource HideMenuItemWhenDisabled}" />
+                                        <MenuItem Command="{Binding ZoomToCommand}" Header="Zoom to" Style="{StaticResource HideMenuItemWhenDisabled}" />
+                                        <MenuItem Command="{Binding ReloadCommand}" Header="Reload" Style="{StaticResource HideMenuItemWhenDisabled}" />
+                                    </ContextMenu>
+                                </Grid.ContextMenu>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <esriUI:SymbolDisplay Symbol="{Binding Symbol, Mode=OneTime}" Margin="0,0,5,0" >
+                                    <esriUI:SymbolDisplay.Style>
+                                        <Style TargetType="esriUI:SymbolDisplay">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Symbol, Mode=OneTime}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </esriUI:SymbolDisplay.Style>
+                                </esriUI:SymbolDisplay>
 
-                            <CheckBox Grid.Column="1" IsChecked="{Binding LayerContent.IsVisible, Mode=TwoWay}">
-                                <CheckBox.LayoutTransform>
-                                    <ScaleTransform ScaleX="2.5" ScaleY="2.5" />
-                                </CheckBox.LayoutTransform>
-                                <CheckBox.Style>
-                                    <Style TargetType="CheckBox">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type CheckBox}">
-                                                    <BulletDecorator Background="Transparent">
-                                                        <BulletDecorator.Bullet>
-                                                            <Border x:Name="Border" 
+                                <CheckBox Grid.Column="1" IsChecked="{Binding LayerContent.IsVisible, Mode=TwoWay}">
+                                    <CheckBox.LayoutTransform>
+                                        <ScaleTransform ScaleX="2.5" ScaleY="2.5" />
+                                    </CheckBox.LayoutTransform>
+                                    <CheckBox.Style>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                                                        <BulletDecorator Background="Transparent">
+                                                            <BulletDecorator.Bullet>
+                                                                <Border x:Name="Border" 
                                                                Width="13" 
                                                                Height="13" 
                                                                CornerRadius="0" 
                                                                Background="#3F51B5"
                                                                BorderThickness="1"
                                                                BorderBrush="White">
-                                                                <Path 
+                                                                    <Path 
                                                                     Width="7" Height="7" 
                                                                     x:Name="CheckMark"
                                                                     SnapsToDevicePixels="False" 
                                                                     Stroke="White"
                                                                     StrokeThickness="1"
                                                                     Data="M 0 0 L 7 7 M 0 7 L 7 0" />
-                                                            </Border>
-                                                        </BulletDecorator.Bullet>
-                                                        <ContentPresenter Margin="4,0,0,0"
+                                                                </Border>
+                                                            </BulletDecorator.Bullet>
+                                                            <ContentPresenter Margin="4,0,0,0"
                                                           VerticalAlignment="Center"
                                                           HorizontalAlignment="Left"
                                                           RecognizesAccessKey="True"/>
-                                                    </BulletDecorator>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsChecked" Value="false">
-                                                            <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
-                                                        </Trigger>
-                                                        <Trigger Property="IsChecked" Value="{x:Null}">
-                                                            <Setter TargetName="CheckMark" Property="Data" Value="M 0 7 L 7 0" />
-                                                        </Trigger>
-                                                        <Trigger Property="IsMouseOver" Value="true">
-                                                            <Setter TargetName="Border" Property="Background" Value="#3F51B5" />
-                                                        </Trigger>
-                                                        <Trigger Property="IsPressed" Value="true">
-                                                            <Setter TargetName="Border" Property="Background" Value="#3F51B5" />
-                                                            <Setter TargetName="Border" Property="BorderBrush" Value="White" />
-                                                        </Trigger>
-                                                        <Trigger Property="IsEnabled" Value="false">
-                                                            <Setter TargetName="Border" Property="Background" Value="#3F51B5" />
-                                                            <Setter TargetName="Border" Property="BorderBrush" Value="White" />
-                                                            <Setter Property="Foreground" Value="#888888"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
+                                                        </BulletDecorator>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsChecked" Value="false">
+                                                                <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
+                                                            </Trigger>
+                                                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                                                <Setter TargetName="CheckMark" Property="Data" Value="M 0 7 L 7 0" />
+                                                            </Trigger>
+                                                            <Trigger Property="IsMouseOver" Value="true">
+                                                                <Setter TargetName="Border" Property="Background" Value="#3F51B5" />
+                                                            </Trigger>
+                                                            <Trigger Property="IsPressed" Value="true">
+                                                                <Setter TargetName="Border" Property="Background" Value="#3F51B5" />
+                                                                <Setter TargetName="Border" Property="BorderBrush" Value="White" />
+                                                            </Trigger>
+                                                            <Trigger Property="IsEnabled" Value="false">
+                                                                <Setter TargetName="Border" Property="Background" Value="#3F51B5" />
+                                                                <Setter TargetName="Border" Property="BorderBrush" Value="White" />
+                                                                <Setter Property="Foreground" Value="#888888"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
 
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding LayerContent.CanChangeVisibility, Mode=OneTime}" Value="False">
-                                                <Setter Property="Visibility" Value="Collapsed" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </CheckBox.Style>
-                            </CheckBox>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding LayerContent.CanChangeVisibility, Mode=OneTime}" Value="False">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </CheckBox.Style>
+                                </CheckBox>
 
-                            <TextBlock Text="{Binding LayerContent.Name, Mode=OneWay}" Grid.Column="2" VerticalAlignment="Center">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding HasError}" Value="True">
-                                                <Setter Property="Foreground" Value="Red" />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding IsActive}" Value="False">
-                                                <Setter Property="Opacity" Value=".5" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </Grid>
-                    </HierarchicalDataTemplate>
-                </esriUI:TableOfContents.LayerItemTemplate>
+                                <TextBlock Text="{Binding LayerContent.Name, Mode=OneWay}" Grid.Column="2" VerticalAlignment="Center">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding HasError}" Value="True">
+                                                    <Setter Property="Foreground" Value="Red" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsActive}" Value="False">
+                                                    <Setter Property="Opacity" Value=".5" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </HierarchicalDataTemplate>
+                    </esriUI:TableOfContents.LayerItemTemplate>
 
-            </esriUI:TableOfContents>
+                </esriUI:TableOfContents>
             </Border>
         </StackPanel>
         
