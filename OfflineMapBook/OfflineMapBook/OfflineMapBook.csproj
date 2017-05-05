@@ -135,7 +135,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config">
@@ -166,6 +165,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MapPin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BackTransparent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BookmarkTransparent.png" />
+    <Resource Include="Resources\SearchTransparent.png" />
+    <Resource Include="Resources\TocTransparent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CloseTransparent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LeftTransparent.png" />
+    <Resource Include="Resources\RightTransparent.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Esri.ArcGISRuntime.WPF.100.1.0-daily1689\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\packages\Esri.ArcGISRuntime.WPF.100.1.0-daily1689\build\net452\Esri.ArcGISRuntime.WPF.targets')" />

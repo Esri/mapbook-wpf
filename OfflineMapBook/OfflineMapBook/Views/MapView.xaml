@@ -35,7 +35,7 @@
             
             <!-- Back Button -->
             <Button Style="{StaticResource FlatButton}" Command="{Binding BackCommand}" Grid.Column="0">
-                <TextBlock Text="&#xE0A6;" Style="{StaticResource SymbolButton}"/>
+                <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/BackTransparent.png"/>
             </Button>
             
             <!-- Map Title -->
@@ -43,17 +43,17 @@
            
             <!-- Bookmarks Button -->
             <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleBookmarks"  Grid.Column="2">
-                <TextBlock Text="&#xE8A4;" Style="{StaticResource SymbolButton}"/>
+                <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/BookmarkTransparent.png"/>
             </ToggleButton>
             
             <!-- Search Button -->
             <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleSearch"  Grid.Column="3">
-                <TextBlock Text="&#xE721;" Style="{StaticResource SymbolButton}"/>
+                <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/SearchTransparent.png"/>
             </ToggleButton>
             
             <!-- Legend Button -->
             <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleLegend" Grid.Column="4">
-                <TextBlock Text="&#xE81E;" Style="{StaticResource SymbolButton}"/>
+                <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/TocTransparent.png"/>
             </ToggleButton>
         </Grid>
         
@@ -96,7 +96,7 @@
                         <TextBox x:Name="SearchTextBox" Width="260" Height="40" Background="#F4F4F4" BorderBrush="#3F51B5" 
                                  BorderThickness="5" FontSize="20" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Button Style="{StaticResource FlatButton}" Width="40" Height="40" Command="{Binding SearchCommand}" CommandParameter="{Binding SearchText, Mode=TwoWay}">
-                            <TextBlock Text="&#xE721;" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
+                            <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/SearchTransparent.png"/>
                         </Button>
                     </StackPanel>
                 </Border>
@@ -302,16 +302,16 @@
                     <!-- Move to previous feature button -->
                     <Button Style="{StaticResource FlatButton}" Width="60" Height="40" Grid.Column="1" Command="{Binding MovePrevious}"
                             Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=chevron}">
-                        <TextBlock Text="&#xE0E2;" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
+                        <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/LeftTransparent.png"/>
                     </Button>
                     <!-- Move to next feature button -->
                     <Button Style="{StaticResource FlatButton}" Width="60" Height="40" Grid.Column="2" Command="{Binding MoveNext}"
                             Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=chevron}">
-                        <TextBlock Text="&#xE0E3;" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
+                        <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/RightTransparent.png"/>
                     </Button>
                     <!-- Close button -->
                     <Button Style="{StaticResource FlatButton}" Width="60" Height="40" Grid.Column="3" Command="{Binding CloseIdentifyCommand}">
-                        <TextBlock Text="&#xE894;" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
+                        <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/CloseTransparent.png"/>
                     </Button>
                 </Grid>
             </Border>
