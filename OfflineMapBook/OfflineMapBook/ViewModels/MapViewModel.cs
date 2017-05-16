@@ -24,15 +24,12 @@ namespace OfflineMapBook.ViewModels
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Media;
     using Commands;
     using Esri.ArcGISRuntime.Data;
     using Esri.ArcGISRuntime.Mapping;
     using Esri.ArcGISRuntime.Symbology;
     using Esri.ArcGISRuntime.Tasks.Geocoding;
     using Esri.ArcGISRuntime.UI;
-    using System.Drawing;
-    using System.Windows.Media.Imaging;
 
     /// <summary>
     /// View model performs logic related to the map screen
@@ -45,6 +42,7 @@ namespace OfflineMapBook.ViewModels
         private List<SuggestResult> suggestionsList;
         private Viewpoint viewPoint;
         private ICommand backCommand;
+        private ICommand clearCommand;
         private ICommand searchCommand;
         private ICommand identifyCommand;
         private ICommand zoomToBookmarkCommand;
@@ -233,6 +231,11 @@ namespace OfflineMapBook.ViewModels
         }
 
         /// <summary>
+        /// Screen DPI used to calculate pin offset
+        /// </summary>
+        public double DpiY { get; set; }
+
+        /// <summary>
         /// Gets the command to go back to the main screen
         /// </summary>
         public ICommand BackCommand
@@ -240,6 +243,17 @@ namespace OfflineMapBook.ViewModels
             get
             {
                 return this.backCommand ?? (this.backCommand = new SimpleCommand(() => this.BackToMainView(), true));
+            }
+        }
+
+        /// <summary>
+        /// Gets the command to go back to the main screen
+        /// </summary>
+        public ICommand ClearCommand
+        {
+            get
+            {
+                return this.clearCommand ?? (this.clearCommand = new SimpleCommand(() => this.ClearGraphicsAndSelections(), true));
             }
         }
 
@@ -398,7 +412,13 @@ namespace OfflineMapBook.ViewModels
                     }
 
                     var mapPin = new PictureMarkerSymbol(new Uri("pack://application:,,,/OfflineMapBook;component/Resources/MapPin.png"));
-                    mapPin.OffsetY = 17;
+
+                    // Set marker size and offset so the tip of the pin points to the feature
+                    // TODO: Remove workaround when Anchoring functionality becomes available
+                    mapPin.Height = Properties.Settings.Default.MapPinHeight;
+                    mapPin.Width = Properties.Settings.Default.MapPinHeight / 2;
+                    mapPin.OffsetY = mapPin.Height / 2;
+
                     var graphic = new Graphic(bestMatch.DisplayLocation, mapPin);
                     this.GraphicsOverlays["PinsGraphicsOverlay"].Graphics.Clear();
                     this.GraphicsOverlays["PinsGraphicsOverlay"].Graphics.Add(graphic);
@@ -513,6 +533,25 @@ namespace OfflineMapBook.ViewModels
         private void BackToMainView()
         {
             AppViewModel.Instance.DisplayViewModel = new MainViewModel();
+        }
+
+        /// <summary>
+        /// Command attached to the Clear button to clear map pins and selections
+        /// </summary>
+        private void ClearGraphicsAndSelections()
+        {
+            foreach (var graphicsOverlay in this.GraphicsOverlays)
+            {
+                graphicsOverlay.Graphics.Clear();
+            }
+
+            foreach (var featureLayer in this.Map.OperationalLayers.OfType<FeatureLayer>())
+            {
+                featureLayer.ClearSelection();
+            }
+
+            this.IdentifyModelsList.Clear();
+            this.SearchText = string.Empty;
         }
     }
 }

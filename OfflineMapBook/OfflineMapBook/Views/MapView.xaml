@@ -7,7 +7,7 @@
              xmlns:converters="clr-namespace:OfflineMapBook.Converters"
              xmlns:esriUI="http://schemas.esri.com/arcgis/runtime/2013" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="400">
+             d:DesignHeight="300" d:DesignWidth="800">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:BooleanToVisibilityInverseConverter x:Key="BooleanToVisibilityInverseConverter"/>
@@ -21,44 +21,50 @@
         </Grid.RowDefinitions>
         
         <!-- Set mapview with map -->
-        <esriUI:MapView x:Name="MapBookMapView" Map="{Binding Map}" GraphicsOverlays="{Binding GraphicsOverlays}" Grid.Row="1"/>
+        <esriUI:MapView x:Name="MapBookMapView" Map="{Binding Map}" GraphicsOverlays="{Binding GraphicsOverlays}" Grid.Row="2"/>
 
         <!-- Make top bar with buttons -->
-        <Grid Background="#3F51B5">
+        <Grid Background="#3F51B5" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            
+
             <!-- Back Button -->
-            <Button Style="{StaticResource FlatButton}" Command="{Binding BackCommand}" Grid.Column="0">
+            <Button Style="{StaticResource FlatButton}" Command="{Binding BackCommand}" Grid.Column="0" ToolTip="Back to Main Screen">
                 <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/BackTransparent.png"/>
             </Button>
-            
+
             <!-- Map Title -->
             <TextBlock Text="{Binding Map.Item.Title}" VerticalAlignment="Center" Style="{StaticResource WhiteText}" FontSize="30" Grid.Column="1"/>
-           
+
+            <!-- Clear Button -->
+            <Button Style="{StaticResource FlatButton}" Grid.Column="2" Command="{Binding ClearCommand}" ToolTip="Clear Graphics and Selection">
+                <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/ClearTransparent.png"/>
+            </Button>
+
             <!-- Bookmarks Button -->
-            <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleBookmarks"  Grid.Column="2">
+            <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleBookmarks"  Grid.Column="3" ToolTip="Bookmarks">
                 <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/BookmarkTransparent.png"/>
             </ToggleButton>
-            
+
             <!-- Search Button -->
-            <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleSearch"  Grid.Column="3">
+            <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleSearch"  Grid.Column="4" ToolTip="Search">
                 <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/SearchTransparent.png"/>
             </ToggleButton>
-            
+
             <!-- Legend Button -->
-            <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleLegend" Grid.Column="4">
+            <ToggleButton Style="{StaticResource FlatToggleButton}" x:Name="toggleLegend" Grid.Column="5" ToolTip="Table of Contents">
                 <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/TocTransparent.png"/>
             </ToggleButton>
         </Grid>
-        
+
         <!-- Right panel area opening over the map -->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
              <!--Bookmarks Panel-->
             <StackPanel Orientation="Vertical">
                 <ListView Width="300" ItemsSource="{Binding Map.Bookmarks}" Background="#3F51B5" Visibility="{Binding IsChecked, ElementName=toggleBookmarks, 
@@ -276,13 +282,12 @@
                             </Grid>
                         </HierarchicalDataTemplate>
                     </esriUI:TableOfContents.LayerItemTemplate>
-
                 </esriUI:TableOfContents>
             </Border>
         </StackPanel>
         
         <!-- Left Identify Panel area opening over map -->
-        <StackPanel Grid.Row="1" HorizontalAlignment="Left" Background="#3F51B5" Width="300" Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}}">
+        <StackPanel Grid.Row="2" HorizontalAlignment="Left" Background="#3F51B5" Width="300" Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}}">
             <Border BorderBrush="White" BorderThickness="0,1,0,0" >
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -302,16 +307,18 @@
                     </StackPanel>
                     <!-- Move to previous feature button -->
                     <Button Style="{StaticResource FlatButton}" Width="60" Height="40" Grid.Column="1" Command="{Binding MovePrevious}"
-                            Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=chevron}">
+                            Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=chevron}"
+                            ToolTip="Previous Feature">
                         <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/LeftTransparent.png"/>
                     </Button>
                     <!-- Move to next feature button -->
                     <Button Style="{StaticResource FlatButton}" Width="60" Height="40" Grid.Column="2" Command="{Binding MoveNext}"
-                            Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=chevron}">
+                            Visibility="{Binding IdentifyModelsList.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=chevron}"
+                            ToolTip="Next Feature">
                         <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/RightTransparent.png"/>
                     </Button>
                     <!-- Close button -->
-                    <Button Style="{StaticResource FlatButton}" Width="60" Height="40" Grid.Column="3" Command="{Binding CloseIdentifyCommand}">
+                    <Button Style="{StaticResource FlatButton}" Width="60" Height="40" Grid.Column="3" Command="{Binding CloseIdentifyCommand}" ToolTip="Close Identify Panel">
                         <Image Source="pack://application:,,,/OfflineMapBook;component/Resources/CloseTransparent.png"/>
                     </Button>
                 </Grid>
