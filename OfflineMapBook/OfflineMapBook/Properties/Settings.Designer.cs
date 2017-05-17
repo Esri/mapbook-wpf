@@ -61,7 +61,7 @@ namespace OfflineMapBook.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("769c9e16b2ed43dbbd2d95b43ae3d54c")]
+        [global::System.Configuration.DefaultSettingValueAttribute("700c2669976749d6abb323743256f6ae")]
         public string PortalItemID {
             get {
                 return ((string)(this["PortalItemID"]));
@@ -80,6 +80,18 @@ namespace OfflineMapBook.Properties {
             }
             set {
                 this["DownloadPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int MapPinHeight {
+            get {
+                return ((int)(this["MapPinHeight"]));
+            }
+            set {
+                this["MapPinHeight"] = value;
             }
         }
     }

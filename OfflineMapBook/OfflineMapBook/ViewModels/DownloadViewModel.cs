@@ -113,22 +113,24 @@ namespace OfflineMapBook.ViewModels
                                 using (var file = File.Create(tempFile))
                                 {
                                     await stream.CopyToAsync(file).ConfigureAwait(false);
-                                    Settings.Default.MmpkDownloadDate = DateTime.Now;
-                                    Settings.Default.Save();
-                                    Settings.Default.Reload();
                                 }
                             }
 
                             this.StatusMessage = "Finalizing download ...";
 
                             // Once download was successful, delete mmpk file if it already exists
-                            if (File.Exists(Settings.Default.MmpkFileName))
+                            if (File.Exists(mmpkFullPath))
                             {
-                                File.Delete(Settings.Default.MmpkFileName);
+                                File.Delete(mmpkFullPath);
                             }
 
                             // Rename temp file to replace the mmpk file
                             File.Move(tempFile, mmpkFullPath);
+
+                            // Set and save the download date
+                            Settings.Default.MmpkDownloadDate = DateTime.Now;
+                            Settings.Default.Save();
+                            Settings.Default.Reload();
                         }
                         catch (Exception ex)
                         {

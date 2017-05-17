@@ -12,10 +12,13 @@
       <Value Profile="(Default)">https://rpubs120027.ags.esri.com/portal/sharing/rest</Value>
     </Setting>
     <Setting Name="PortalItemID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">769c9e16b2ed43dbbd2d95b43ae3d54c</Value>
+      <Value Profile="(Default)">700c2669976749d6abb323743256f6ae</Value>
     </Setting>
     <Setting Name="DownloadPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MapPinHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">30</Value>
     </Setting>
   </Settings>
 </SettingsFile>
