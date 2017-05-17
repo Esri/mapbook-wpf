@@ -231,11 +231,6 @@ namespace OfflineMapBook.ViewModels
         }
 
         /// <summary>
-        /// Screen DPI used to calculate pin offset
-        /// </summary>
-        public double DpiY { get; set; }
-
-        /// <summary>
         /// Gets the command to go back to the main screen
         /// </summary>
         public ICommand BackCommand

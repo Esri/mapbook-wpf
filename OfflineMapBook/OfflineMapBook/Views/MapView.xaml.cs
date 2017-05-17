@@ -47,7 +47,6 @@ namespace OfflineMapBook
                 {
                     this.ViewModel = this.DataContext as MapViewModel;
                     this.ViewModel.PropertyChanged += this.ViewModel_PropertyChanged;
-                    this.ViewModel.DpiY = SystemParameters.PrimaryScreenHeight;
                 }
             };
 
