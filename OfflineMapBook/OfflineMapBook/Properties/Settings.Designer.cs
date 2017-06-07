@@ -49,7 +49,7 @@ namespace OfflineMapBook.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://rpubs120027.ags.esri.com/portal/sharing/rest")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://runtime.maps.arcgis.com/sharing/rest")]
         public string PortalUri {
             get {
                 return ((string)(this["PortalUri"]));
@@ -61,7 +61,7 @@ namespace OfflineMapBook.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("700c2669976749d6abb323743256f6ae")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5ca1aba9eb05490f84b66bf9bbe4cc10")]
         public string PortalItemID {
             get {
                 return ((string)(this["PortalItemID"]));
@@ -92,6 +92,66 @@ namespace OfflineMapBook.Properties {
             }
             set {
                 this["MapPinHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("OAuth")]
+        public string AuthenticationType {
+            get {
+                return ((string)(this["AuthenticationType"]));
+            }
+            set {
+                this["AuthenticationType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("fibBFbcGmC5Tyk7r")]
+        public string OAuthClientID {
+            get {
+                return ((string)(this["OAuthClientID"]));
+            }
+            set {
+                this["OAuthClientID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8dda995e9c094c199418ee73ff0338aa")]
+        public string OAuthClientSecret {
+            get {
+                return ((string)(this["OAuthClientSecret"]));
+            }
+            set {
+                this["OAuthClientSecret"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://developers.arcgis.com")]
+        public string OAuthRedirectUri {
+            get {
+                return ((string)(this["OAuthRedirectUri"]));
+            }
+            set {
+                this["OAuthRedirectUri"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OAuthRefreshToken {
+            get {
+                return ((string)(this["OAuthRefreshToken"]));
+            }
+            set {
+                this["OAuthRefreshToken"] = value;
             }
         }
     }

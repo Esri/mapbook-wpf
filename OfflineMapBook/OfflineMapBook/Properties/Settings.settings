@@ -9,16 +9,31 @@
       <Value Profile="(Default)">OfflineMapbookTest.mmpk</Value>
     </Setting>
     <Setting Name="PortalUri" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://rpubs120027.ags.esri.com/portal/sharing/rest</Value>
+      <Value Profile="(Default)">http://runtime.maps.arcgis.com/sharing/rest</Value>
     </Setting>
     <Setting Name="PortalItemID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">700c2669976749d6abb323743256f6ae</Value>
+      <Value Profile="(Default)">5ca1aba9eb05490f84b66bf9bbe4cc10</Value>
     </Setting>
     <Setting Name="DownloadPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="MapPinHeight" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="AuthenticationType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">OAuth</Value>
+    </Setting>
+    <Setting Name="OAuthClientID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">fibBFbcGmC5Tyk7r</Value>
+    </Setting>
+    <Setting Name="OAuthClientSecret" Type="System.String" Scope="User">
+      <Value Profile="(Default)">8dda995e9c094c199418ee73ff0338aa</Value>
+    </Setting>
+    <Setting Name="OAuthRedirectUri" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://developers.arcgis.com</Value>
+    </Setting>
+    <Setting Name="OAuthRefreshToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

@@ -101,7 +101,7 @@ namespace OfflineMapBook
                         "No Folder Selected",
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
-                    Environment.Exit(0);
+                    System.Windows.Application.Current.Shutdown();
                 }
             }
         }
