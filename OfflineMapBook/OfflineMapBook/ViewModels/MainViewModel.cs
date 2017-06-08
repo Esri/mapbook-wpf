@@ -18,9 +18,14 @@
 namespace OfflineMapBook.ViewModels
 {
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Windows;
     using System.Windows.Input;
     using Commands;
+    using Esri.ArcGISRuntime.Data;
     using Esri.ArcGISRuntime.Mapping;
+    using Properties;
 
     /// <summary>
     /// Main view model handles logic for the main window
@@ -29,6 +34,7 @@ namespace OfflineMapBook.ViewModels
     {
         private IReadOnlyList<Map> mapItems;
         private ICommand openMapCommand;
+        private ICommand logoutCommand;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
@@ -69,6 +75,52 @@ namespace OfflineMapBook.ViewModels
             get
             {
                 return this.openMapCommand ?? (this.openMapCommand = new ParameterCommand((x) => this.OpenMapAction((Map)x), true));
+            }
+        }
+
+        /// <summary>
+        /// Gets command called by logout button
+        /// </summary>
+        public ICommand LogoutCommand
+        {
+            get
+            {
+                return this.logoutCommand ?? (this.logoutCommand = new SimpleCommand(
+                    () =>
+                {
+                    // Release and delete mmpk
+                    var mmpkFullPath = Path.Combine(Settings.Default.DownloadPath, Settings.Default.MmpkFileName);
+
+                    foreach (var map in AppViewModel.Instance.Mmpk.Maps)
+                    {
+                        foreach (var layer in map.AllLayers.OfType<FeatureLayer>())
+                        {
+                            if (layer.FeatureTable is GeodatabaseFeatureTable)
+                            {
+                                ((GeodatabaseFeatureTable)layer.FeatureTable).Geodatabase.Close();
+                            }
+                        }
+                        foreach (var table in map.Tables)
+                        {
+                            if (table is GeodatabaseFeatureTable)
+                            {
+                                ((GeodatabaseFeatureTable)table).Geodatabase.Close();
+                            }
+                        }
+                    }
+
+                    if (File.Exists(mmpkFullPath))
+                    {
+                        File.Delete(mmpkFullPath);
+                    }
+
+                    // Delete user settings
+                    Settings.Default.OAuthRefreshToken = string.Empty;
+                    Settings.Default.DownloadPath = string.Empty;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                    Application.Current.Shutdown();
+                }, true));
             }
         }
 
