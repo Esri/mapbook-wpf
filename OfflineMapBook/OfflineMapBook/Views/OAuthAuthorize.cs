@@ -171,10 +171,9 @@ namespace OfflineMapBook.Views
                 this.taskCompletionSource.TrySetResult(authResponse);
 
                 // Close window
+                webBrowser.Navigating -= this.WebBrowserOnNavigating;
                 ((Window)webBrowser.Parent)?.Close();
             }
-
-            webBrowser.Navigating -= this.WebBrowserOnNavigating;
         }
 
         /// <summary>
