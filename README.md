@@ -1,5 +1,5 @@
 # Offline Mapbook WPF
-This repo provides an example app called Offline Mapbook built in WPF with the [ArcGIS Runtime SDK for .NET](https://developers.arcgis.com/net/). With verry little customization, you can change the app to use your own data. Screenshots of the app and more detailed documentation can be found in the [Wiki](https://github.com/Esri/mapbook-wpf/wiki)
+This repo provides an example app called Offline Mapbook built in WPF with the [ArcGIS Runtime SDK for .NET](https://developers.arcgis.com/net/). With very little customization, you can change the app to use your own data. Screenshots of the app and more detailed documentation can be found on the [Developers Site](https://developers.arcgis.com/example-apps/mapbook-wpf/)
 
 ## Features
 
@@ -10,7 +10,7 @@ This repo provides an example app called Offline Mapbook built in WPF with the [
 - Legend
 - Locators with autosuggestions
 - Bookmarks
-- Portal Authentication using IWA
+- Portal Authentication using IWA and OAuth2
 
 ## Development Instructions
 
@@ -48,11 +48,12 @@ If there are changes made in the Original repository, you can sync the fork to k
 
 - [Visual Studio 2015 or higher](https://www.visualstudio.com/downloads/)
 - [.NET Framework 4.5.2 or higher](https://www.microsoft.com/net/download)
-- [ArcGIS Runtime SDK for .NET 100.1 or higher](https://developers.arcgis.com/net/)
+- [ArcGIS Runtime SDK for .NET 100.2 or higher](https://developers.arcgis.com/net/)
+- ArcGIS Runtime Toolkit for WPF v100.2.0-beta3.42.g654578e5e6. This is a nuget package hosted on AppVeyor. To add it to your project, add https://ci.appveyor.com/nuget/arcgis-toolkit-dotnet/ to your available package sources.
 
 ### Resources
 
-- Offline Mapbook
+- [Offline Mapbook documentation on Developers Site](https://developers.arcgis.com/example-apps/mapbook-wpf/)
 - [ArcGIS Runtime SDK for .NET Developers Site](https://developers.arcgis.com/net/)
 - [ArcGIS Developer Blog](http://blogs.esri.com/esri/arcgis/category/developer/)
 - [twitter@ArcGISRuntime](https://twitter.com/ArcGISRuntime)
@@ -73,7 +74,7 @@ Anyone and everyone is welcome to [contribute](https://github.com/Esri/mapbook-w
 
 ### Licensing
 
-Copyright 2017 Esri
+Copyright 2017-2018 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
