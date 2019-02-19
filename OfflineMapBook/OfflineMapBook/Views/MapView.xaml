@@ -132,7 +132,7 @@
             </StackPanel>
 
             <!-- Table of Contents Panel -->
-            <Border BorderBrush="White" BorderThickness="0.5">
+            <Border BorderBrush="White" BorderThickness="0.5" Background="#3F51B5">
                 <esriUI:TableOfContents GeoView="{Binding ElementName=MapBookMapView}" ShowLegend="True"  
                                     Visibility="{Binding IsChecked, ElementName=toggleLegend, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Width="300" Style="{StaticResource TOC}">

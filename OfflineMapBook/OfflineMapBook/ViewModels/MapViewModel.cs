@@ -493,9 +493,6 @@ namespace OfflineMapBook.ViewModels
                     catch { }
                 }
 
-                // Set selection parameters
-                featureLayer.SelectionWidth = 5;
-
                 // Select feature
                 featureLayer.SelectFeature(feature);
             }
