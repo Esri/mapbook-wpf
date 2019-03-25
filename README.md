@@ -1,5 +1,5 @@
 # Offline Mapbook WPF
-This repo provides an example app called Offline Mapbook built in WPF with the [ArcGIS Runtime SDK for .NET](https://developers.arcgis.com/net/). With very little customization, you can change the app to use your own data. Screenshots of the app and more detailed documentation can be found on the [Developers Site](https://developers.arcgis.com/example-apps/mapbook-wpf/)
+This repo provides an open source app called Offline Mapbook built in WPF with the [ArcGIS Runtime SDK for .NET](https://developers.arcgis.com/net/). With very little customization, you can change the app to use your own data. Screenshots of the app and more detailed documentation can be found on the [Developers Site](https://developers.arcgis.com/example-apps/mapbook-wpf/)
 
 ## Features
 
@@ -14,7 +14,7 @@ This repo provides an example app called Offline Mapbook built in WPF with the [
 
 ## Development Instructions
 
-This Offline Mapbook repo is a Visual Studion 2015 Project that can be directly cloned and imported into  Visual Studio 2015 or higher.
+This Offline Mapbook repo is a Visual Studion 2017 Project that can be directly cloned and imported into  Visual Studio 2017 or higher.
 
 ### Fork the repo
 
@@ -46,10 +46,10 @@ If there are changes made in the Original repository, you can sync the fork to k
 
 ### Requirements
 
-- [Visual Studio 2015 or higher](https://www.visualstudio.com/downloads/)
-- [.NET Framework 4.5.2 or higher](https://www.microsoft.com/net/download)
-- [ArcGIS Runtime SDK for .NET 100.2 or higher](https://developers.arcgis.com/net/)
-- ArcGIS Runtime Toolkit for WPF v100.2.0-beta3.42.g654578e5e6. This is a nuget package hosted on AppVeyor. To add it to your project, add https://ci.appveyor.com/nuget/arcgis-toolkit-dotnet/ to your available package sources.
+- [Visual Studio 2017 or higher](https://www.visualstudio.com/downloads/)
+- [.NET Framework 4.6.1 or higher](https://www.microsoft.com/net/download)
+- [ArcGIS Runtime SDK for .NET 100.4 or higher](https://developers.arcgis.com/net/)
+- [ArcGIS Runtime Toolkit for WPF v100.4 or higher](https://www.esri.com/arcgis-blog/products/developers/uncategorized/toolkit-for-arcgis-runtime-sdk-for-net-now-available/)
 
 ### Resources
 
@@ -74,7 +74,7 @@ Anyone and everyone is welcome to [contribute](https://github.com/Esri/mapbook-w
 
 ### Licensing
 
-Copyright 2017-2018 Esri
+Copyright 2017-2019 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
