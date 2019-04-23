@@ -1,5 +1,6 @@
 # Offline Mapbook WPF
-This repo provides an open source app called Offline Mapbook built in WPF with the [ArcGIS Runtime SDK for .NET](https://developers.arcgis.com/net/). With very little customization, you can change the app to use your own data. Screenshots of the app and more detailed documentation can be found on the [Developers Site](https://developers.arcgis.com/example-apps/mapbook-wpf/)
+
+This repo provides an open source app called Offline Mapbook built in WPF with the [ArcGIS Runtime SDK for .NET](https://developers.arcgis.com/net/). With very little customization, you can change the app to use your own data. Screenshots of the app and more detailed documentation can be found on the [Developers Site](https://developers.arcgis.com/example-apps/mapbook-wpf/).
 
 ## Features
 
@@ -14,7 +15,7 @@ This repo provides an open source app called Offline Mapbook built in WPF with t
 
 ## Development Instructions
 
-This Offline Mapbook repo is a Visual Studion 2017 Project that can be directly cloned and imported into  Visual Studio 2017 or higher.
+This Offline Mapbook repo is a Visual Studio 2017 Project that can be directly cloned and imported into Visual Studio 2017 or higher.
 
 ### Fork the repo
 
@@ -22,7 +23,7 @@ This Offline Mapbook repo is a Visual Studion 2017 Project that can be directly 
 
 ### Clone the repo
 
-Once you have forked the repo, you can make a clone
+Once you have forked the repo, you can make a clone.
 
 #### Command line Git
 
@@ -48,7 +49,7 @@ If there are changes made in the Original repository, you can sync the fork to k
 
 - [Visual Studio 2017 or higher](https://www.visualstudio.com/downloads/)
 - [.NET Framework 4.6.1 or higher](https://www.microsoft.com/net/download)
-- [ArcGIS Runtime SDK for .NET 100.4 or higher](https://developers.arcgis.com/net/)
+- [ArcGIS Runtime SDK for .NET 100.5 or higher](https://developers.arcgis.com/net/)
 - [ArcGIS Runtime Toolkit for WPF v100.4 or higher](https://www.esri.com/arcgis-blog/products/developers/uncategorized/toolkit-for-arcgis-runtime-sdk-for-net-now-available/)
 
 ### Resources
