@@ -34,7 +34,7 @@ namespace OfflineMapBook.ViewModels
     {
         private IReadOnlyList<Map> mapItems;
         private ICommand openMapCommand;
-        private ICommand logoutCommand;
+        private ICommand signOutCommand;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
@@ -79,13 +79,13 @@ namespace OfflineMapBook.ViewModels
         }
 
         /// <summary>
-        /// Gets command called by logout button
+        /// Gets command called by sign out button
         /// </summary>
-        public ICommand LogoutCommand
+        public ICommand SignOutCommand
         {
             get
             {
-                return this.logoutCommand ?? (this.logoutCommand = new SimpleCommand(
+                return this.signOutCommand ?? (this.signOutCommand = new SimpleCommand(
                     () =>
                 {
                     // Release and delete mmpk
