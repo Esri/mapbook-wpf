@@ -89,29 +89,11 @@ namespace OfflineMapBook.ViewModels
                     () =>
                 {
                     // Release and delete mmpk
-                    var mmpkFullPath = Path.Combine(Settings.Default.DownloadPath, Settings.Default.MmpkFileName);
+                    AppViewModel.Instance.Mmpk.Close();                    
 
-                    foreach (var map in AppViewModel.Instance.Mmpk.Maps)
+                    if (File.Exists(AppViewModel.Instance.Mmpk.Path))
                     {
-                        foreach (var layer in map.AllLayers.OfType<FeatureLayer>())
-                        {
-                            if (layer.FeatureTable is GeodatabaseFeatureTable)
-                            {
-                                ((GeodatabaseFeatureTable)layer.FeatureTable).Geodatabase.Close();
-                            }
-                        }
-                        foreach (var table in map.Tables)
-                        {
-                            if (table is GeodatabaseFeatureTable)
-                            {
-                                ((GeodatabaseFeatureTable)table).Geodatabase.Close();
-                            }
-                        }
-                    }
-
-                    if (File.Exists(mmpkFullPath))
-                    {
-                        File.Delete(mmpkFullPath);
+                        File.Delete(AppViewModel.Instance.Mmpk.Path);
                     }
 
                     // Delete user settings
