@@ -441,15 +441,15 @@ The name of the mobile map package as it appears in ArcGIS Online. This will inc
 
 The URL of the sharing REST endpoint ArcGIS Online or Portal instance that stores the mobile map package. Example, if you access the mmpk in the browser by going to
 
-> http://runtime.maps.arcgis.com/home/item.html?id=219e6bc23dc64b3696ab6bc4f09deadb
+> https://arcgisruntime.maps.arcgis.com/home/item.html?id=b5d32c90c9384187b4b8f041bd698c42
 
 then your `PortalUri` will be
 
-> http://runtime.maps.arcgis.com/sharing/rest
+> http://arcgisruntime.maps.arcgis.com/sharing/rest
 
 ### `PortalItemID`
 
-The ID of the mmpk as it is stored in ArcGIS Online or Portal. In the above example the ID is *219e6bc23dc64b3696ab6bc4f09deadb*.
+The ID of the mmpk as it is stored in ArcGIS Online or Portal. In the above example the ID is *b5d32c90c9384187b4b8f041bd698c42*.
 
 ### `AuthenticationType`
 
