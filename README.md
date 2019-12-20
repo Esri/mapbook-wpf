@@ -49,7 +49,7 @@ If there are changes made in the Original repository, you can sync the fork to k
 
 - [Visual Studio 2017 or higher](https://www.visualstudio.com/downloads/)
 - [.NET Framework 4.6.1 or higher](https://www.microsoft.com/net/download)
-- [ArcGIS Runtime SDK for .NET 100.5 or higher](https://developers.arcgis.com/net/)
+- [ArcGIS Runtime SDK for .NET 100.7 or higher](https://developers.arcgis.com/net/)
 - [ArcGIS Runtime Toolkit for WPF v100.4 or higher](https://www.esri.com/arcgis-blog/products/developers/uncategorized/toolkit-for-arcgis-runtime-sdk-for-net-now-available/)
 
 ### Resources
