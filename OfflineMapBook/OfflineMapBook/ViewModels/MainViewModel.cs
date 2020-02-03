@@ -15,7 +15,7 @@
 // </copyright>
 // <author>Mara Stoica</author>
 
-namespace OfflineMapBook.ViewModels
+namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.ViewModels
 {
     using System.Collections.Generic;
     using System.IO;
