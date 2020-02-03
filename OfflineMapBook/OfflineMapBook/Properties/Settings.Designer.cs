@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OfflineMapBook.Properties {
+namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

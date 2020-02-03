@@ -1,9 +1,9 @@
-﻿<Window x:Class="OfflineMapBook.MainWindow"
+﻿<Window x:Class="Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:esriUI="http://schemas.esri.com/arcgis/runtime/2013" 
-        xmlns:viewmodels="clr-namespace:OfflineMapBook.ViewModels"
-        xmlns:local="clr-namespace:OfflineMapBook"
+        xmlns:viewmodels="clr-namespace:Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.ViewModels"
+        xmlns:local="clr-namespace:Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook"
         Title="Mapbook"
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
         ResizeMode="CanMinimize">

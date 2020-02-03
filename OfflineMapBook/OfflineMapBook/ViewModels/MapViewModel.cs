@@ -15,7 +15,7 @@
 // </copyright>
 // <author>Mara Stoica</author>
 
-namespace OfflineMapBook.ViewModels
+namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -406,7 +406,7 @@ namespace OfflineMapBook.ViewModels
                         });
                     }
 
-                    var mapPin = new PictureMarkerSymbol(new Uri("pack://application:,,,/OfflineMapBook;component/Resources/MapPin.png"));
+                    var mapPin = new PictureMarkerSymbol(new Uri("pack://application:,,,/Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook;component/Resources/MapPin.png"));
 
                     // Set marker size and offset so the tip of the pin points to the feature
                     // TODO: Remove workaround when Anchoring functionality becomes available

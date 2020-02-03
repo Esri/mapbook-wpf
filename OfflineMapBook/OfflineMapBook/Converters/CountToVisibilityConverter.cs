@@ -15,7 +15,7 @@
 // </copyright>
 // <author>Mara Stoica</author>
 
-namespace OfflineMapBook.Converters
+namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.Converters
 {
     using System;
     using System.Globalization;

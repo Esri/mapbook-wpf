@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace OfflineMapBook
+namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook
 {
     /// <summary>
     /// Interaction logic for DownloadView.xaml

@@ -15,7 +15,7 @@
 // </copyright>
 // <author>Mara Stoica</author>
 
-namespace OfflineMapBook
+namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook
 {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;

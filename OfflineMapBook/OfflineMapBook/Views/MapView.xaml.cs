@@ -14,7 +14,7 @@
 //      limitations under the License.
 // </copyright>
 // <author>Mara Stoica</author>
-namespace OfflineMapBook
+namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook
 {
     using System;
     using System.Collections.Generic;

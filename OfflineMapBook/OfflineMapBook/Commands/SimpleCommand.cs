@@ -15,7 +15,7 @@
 // </copyright>
 // <author>Mara Stoica</author>
 
-namespace OfflineMapBook.Commands
+namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.Commands
 {
     using System;
     using System.Windows.Input;
