@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfflineMapBook", "OfflineMapBook\OfflineMapBook.csproj", "{39DE280E-2709-4C05-8F0C-01F8774D73C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfflineMapBook (.NET Core)", "OfflineMapBook\OfflineMapBook (.NET Core).csproj", "{1B55AF8C-463B-451F-8C2D-AE4FC5F45F11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{39DE280E-2709-4C05-8F0C-01F8774D73C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39DE280E-2709-4C05-8F0C-01F8774D73C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39DE280E-2709-4C05-8F0C-01F8774D73C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B55AF8C-463B-451F-8C2D-AE4FC5F45F11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B55AF8C-463B-451F-8C2D-AE4FC5F45F11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B55AF8C-463B-451F-8C2D-AE4FC5F45F11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B55AF8C-463B-451F-8C2D-AE4FC5F45F11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64E25C57-F46E-4F2C-8DF3-E377EB3E5A4A}
 	EndGlobalSection
 EndGlobal
