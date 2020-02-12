@@ -62,7 +62,7 @@ namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.ViewModels
             this.Map = map;
             this.Locator = AppViewModel.Instance.Mmpk.LocatorTask;
             this.GraphicsOverlays = new GraphicsOverlayCollection();
-            this.GetInfoFromLocatorAsync();
+            _ = this.GetInfoFromLocatorAsync();
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.ViewModels
                     this.OnPropertyChanged(nameof(this.SearchText));
 
                     // Call method to get location suggestions
-                    this.GetLocationSuggestionsAsync(this.SearchText);
+                    _ = this.GetLocationSuggestionsAsync(this.SearchText);
                 }
             }
         }
@@ -260,10 +260,7 @@ namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.ViewModels
             get
             {
                 return this.searchCommand ?? (this.searchCommand = new ParameterCommand(
-                    (x) =>
-                    {
-                        this.GetSearchedLocationAsync((string)x);
-                    }, true));
+                    (x) => _ = this.GetSearchedLocationAsync((string)x), true));
             }
         }
 
@@ -453,10 +450,12 @@ namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.ViewModels
                         if (geoelement is Feature)
                         {
                             // Set the layer name
-                            var identifyModel = new IdentifyModel();
-                            identifyModel.LayerName = result.LayerContent.Name;
+                            var identifyModel = new IdentifyModel
+                            {
+                                LayerName = result.LayerContent.Name,
 
-                            identifyModel.IdentifiedFeature = (Feature)geoelement;
+                                IdentifiedFeature = (Feature)geoelement
+                            };
 
                             // Add new value to the list
                             this.IdentifyModelsList.Add(identifyModel);
@@ -479,10 +478,8 @@ namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.ViewModels
         /// <param name="feature">Feature to be selected</param>
         private void SelectFeature(Feature feature)
         {
-            if (feature != null)
+            if (feature?.FeatureTable.Layer is FeatureLayer featureLayer)
             {
-                var featureLayer = feature.FeatureTable.FeatureLayer;
-
                 // Clear all selected features in all map feature layers
                 foreach (var layer in this.Map.OperationalLayers.OfType<FeatureLayer>())
                 {

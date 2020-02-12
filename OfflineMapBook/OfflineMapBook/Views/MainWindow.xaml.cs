@@ -35,8 +35,8 @@ namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook
         /// </summary>
         public MainWindow()
         {
-            this.InitializeComponent();
-            this.InitializeAsync();
+            InitializeComponent();
+            _ = InitializeAsync();
         }
 
         private async Task InitializeAsync()
