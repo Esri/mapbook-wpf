@@ -133,12 +133,12 @@
 
             <!-- Table of Contents Panel -->
             <Border BorderBrush="White" BorderThickness="0.5" Background="#3F51B5">
-                <esriUI:TableOfContents GeoView="{Binding ElementName=MapBookMapView}" ShowLegend="True"  
+                <esriUI:TableOfContents GeoView="{Binding ElementName=MapBookMapView}" ShowLegend="False" Margin="0,15,0,0"
                                     Visibility="{Binding IsChecked, ElementName=toggleLegend, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Width="300" Style="{StaticResource TOC}">
                     <!-- Explicit styling of the checkbox required due to toolkit code overwriting any implicit styling  -->
-                    <esriUI:TableOfContents.LayerItemTemplate>
-                        <HierarchicalDataTemplate ItemsSource="{Binding Sublayers}">
+                    <esriUI:TableOfContents.SublayerItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                             <Grid Margin="0,2">
                                 <Grid.Resources>
                                     <Style TargetType="MenuItem" x:Key="HideMenuItemWhenDisabled">
@@ -152,29 +152,15 @@
                                 <Grid.Style>
                                     <Style TargetType="Grid">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsInScaleRange, Mode=OneWay}" Value="false">
+                                            <DataTrigger Binding="{Binding Content.IsInScaleRange, Mode=OneWay}" Value="false">
                                                 <Setter Property="Opacity" Value=".5" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Grid.Style>
-                                <!--Useful for debugging purposes:-->
-                                <!--<Grid.ToolTip>
-                            <StackPanel>
-                                <TextBlock Text="IsActive" />
-                                <TextBlock Text="{Binding IsActive}" />
-                                <TextBlock Text="HasError" />
-                                <TextBlock Text="{Binding HasError}" />
-                                <TextBlock Text="{Binding Error}" />
-                                <TextBlock Text="IsLoading" />
-                                <TextBlock Text="{Binding IsLoading}" />
-                                <TextBlock Text="IsInScaleRange" />
-                                <TextBlock Text="{Binding IsInScaleRange}" />
-                            </StackPanel>
-                        </Grid.ToolTip>-->
                                 <Grid.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem IsCheckable="True" IsChecked="{Binding LayerContent.IsVisible, Mode=TwoWay}" Header="Enabled" IsEnabled="{Binding LayerContent.CanChangeVisibility}" Style="{StaticResource HideMenuItemWhenDisabled}" />
+                                        <MenuItem IsCheckable="True" IsChecked="{Binding Content.IsVisible, Mode=TwoWay}" Header="Enabled" IsEnabled="{Binding LayerContent.CanChangeVisibility}" Style="{StaticResource HideMenuItemWhenDisabled}" />
                                         <MenuItem Command="{Binding ZoomToCommand}" Header="Zoom to" Style="{StaticResource HideMenuItemWhenDisabled}" />
                                         <MenuItem Command="{Binding ReloadCommand}" Header="Reload" Style="{StaticResource HideMenuItemWhenDisabled}" />
                                     </ContextMenu>
@@ -188,19 +174,7 @@
                                     <RowDefinition />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <esriUI:SymbolDisplay Symbol="{Binding Symbol, Mode=OneTime}" Margin="0,0,5,0" >
-                                    <esriUI:SymbolDisplay.Style>
-                                        <Style TargetType="esriUI:SymbolDisplay">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Symbol, Mode=OneTime}" Value="{x:Null}">
-                                                    <Setter Property="Visibility" Value="Collapsed" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </esriUI:SymbolDisplay.Style>
-                                </esriUI:SymbolDisplay>
-
-                                <CheckBox Grid.Column="1" IsChecked="{Binding LayerContent.IsVisible, Mode=TwoWay}">
+                                <CheckBox Grid.Column="1" IsChecked="{Binding Content.IsVisible, Mode=TwoWay}">
                                     <CheckBox.LayoutTransform>
                                         <ScaleTransform ScaleX="2.5" ScaleY="2.5" />
                                     </CheckBox.LayoutTransform>
@@ -257,7 +231,7 @@
                                             </Setter>
 
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding LayerContent.CanChangeVisibility, Mode=OneTime}" Value="False">
+                                                <DataTrigger Binding="{Binding Content.CanChangeVisibility, Mode=OneTime}" Value="False">
                                                     <Setter Property="Visibility" Value="Collapsed" />
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -265,7 +239,7 @@
                                     </CheckBox.Style>
                                 </CheckBox>
 
-                                <TextBlock Text="{Binding LayerContent.Name, Mode=OneWay}" Grid.Column="2" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Content.Name, Mode=OneWay}" Grid.Column="2" VerticalAlignment="Center">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
                                             <Style.Triggers>
@@ -281,7 +255,7 @@
                                 </TextBlock>
                             </Grid>
                         </HierarchicalDataTemplate>
-                    </esriUI:TableOfContents.LayerItemTemplate>
+                    </esriUI:TableOfContents.SublayerItemTemplate>
                 </esriUI:TableOfContents>
             </Border>
         </StackPanel>
