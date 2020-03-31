@@ -239,7 +239,9 @@
                                     </CheckBox.Style>
                                 </CheckBox>
 
-                                <TextBlock Text="{Binding Content.Name, Mode=OneWay}" Grid.Column="2" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Content.Name, Mode=OneWay}" 
+                                           Grid.Column="2" VerticalAlignment="Center"
+                                           Foreground="White">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
                                             <Style.Triggers>
