@@ -12,6 +12,10 @@
     <ApplicationIcon>Resources\ArcGIS_Open_Source_Apps.ico</ApplicationIcon>
     <NoWarn>67</NoWarn>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <Version>1.0.3</Version>
+    <Authors />
+    <Company>Esri</Company>
+    <Product>Open Source Apps</Product>
   </PropertyGroup>
 
   <ItemGroup>
