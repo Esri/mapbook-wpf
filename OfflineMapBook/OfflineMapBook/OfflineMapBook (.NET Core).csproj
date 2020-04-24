@@ -12,17 +12,21 @@
     <ApplicationIcon>Resources\ArcGIS_Open_Source_Apps.ico</ApplicationIcon>
     <NoWarn>67</NoWarn>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-    <Version>1.0.3</Version>
-    <Authors />
-    <Company>Esri</Company>
-    <Product>Open Source Apps</Product>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="bin\**" />
+    <Compile Remove="Debug\**" />
     <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="Debug\**" />
     <None Remove="bin\**" />
+    <None Remove="Debug\**" />
     <Page Remove="bin\**" />
+    <Page Remove="Debug\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>
