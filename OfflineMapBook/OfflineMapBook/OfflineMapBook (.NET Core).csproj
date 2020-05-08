@@ -16,9 +16,17 @@
 
   <ItemGroup>
     <Compile Remove="bin\**" />
+    <Compile Remove="Debug\**" />
     <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="Debug\**" />
     <None Remove="bin\**" />
+    <None Remove="Debug\**" />
     <Page Remove="bin\**" />
+    <Page Remove="Debug\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,13 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit">
-      <Version>100.7.0</Version>
+      <Version>100.8.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Preview">
-      <Version>100.7.0</Version>
+      <Version>100.8.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.WPF">
-      <Version>100.7.0</Version>
+      <Version>100.8.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
