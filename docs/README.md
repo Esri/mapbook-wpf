@@ -1,4 +1,43 @@
-# Description
+# Contents
+
+<!-- MDTOC maxdepth:6 firsth1:0 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+- [Data scenario](#data-scenario)   
+- [Authoring the data for viewing](#authoring-the-data-for-viewing)   
+   - [Setting symbology](#setting-symbology)   
+   - [Creating a reference backdrop](#creating-a-reference-backdrop)   
+   - [Creating locators](#creating-locators)   
+   - [Setting bookmarks](#setting-bookmarks)   
+   - [Metadata and thumbnails](#metadata-and-thumbnails)   
+   - [Packaging for consumption](#packaging-for-consumption)   
+   - [Including multiple maps](#including-multiple-maps)   
+   - [Including the locator](#including-the-locator)   
+- [Sharing the mobile map package](#sharing-the-mobile-map-package)   
+   - [Using the ArcGIS Pro 'Share Package' tool](#using-the-arcgis-pro-share-package-tool)   
+   - [Uploading directly from the 'My Content' page](#uploading-directly-from-the-my-content-page)   
+- [Authentication](#authentication)   
+   - [IWA](#iwa)   
+   - [OAuth 2.0](#oauth-20)   
+- [Mobile map packages](#mobile-map-packages)   
+- [Identify](#identify)   
+- [Identify side panel](#identify-side-panel)   
+- [TOC and legend](#toc-and-legend)   
+- [Locator & search](#locator-search)   
+- [Clearing graphics](#clearing-graphics)   
+- [Bookmarks](#bookmarks)   
+- [Customizable](#customizable)   
+   - [`MmpkFileName`](#mmpkfilename)   
+   - [`PortalUri`](#portaluri)   
+   - [`PortalItemID`](#portalitemid)   
+   - [`AuthenticationType`](#authenticationtype)   
+   - [`OAuthClientID`, `OAuthClientSecret` and `OAuthRedirectUri`](#oauthclientid-oauthclientsecret-and-oauthredirecturi)   
+- [Not customizable](#not-customizable)   
+   - [`DownloadPath`](#downloadpath)   
+   - [`MapPinHeight`](#mappinheight)   
+   - [`OAuthRefreshToken`](#oauthrefreshtoken)   
+
+<!-- /MDTOC -->
+---
 
 Learn how to create and share mobile map packages so that you can take your organization's maps offline and view them in the field with a WPF application.  This example demonstrates how to:
 

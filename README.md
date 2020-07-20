@@ -2,6 +2,25 @@
 
 This repo provides an open source app called Offline Mapbook built in WPF with the [ArcGIS Runtime SDK for .NET](https://developers.arcgis.com/net/). With very little customization, you can change the app to use your own data. Screenshots of the app and more detailed documentation can be found on the [Developers Site](https://developers.arcgis.com/example-apps/mapbook-wpf/).
 
+<!-- MDTOC maxdepth:6 firsth1:0 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+- [Features](#features)   
+- [Detailed Documentation](#detailed-documentation)   
+- [Development Instructions](#development-instructions)   
+   - [Fork the repo](#fork-the-repo)   
+   - [Clone the repo](#clone-the-repo)   
+      - [Command line Git](#command-line-git)   
+      - [Configuring a Remote for a Fork](#configuring-a-remote-for-a-fork)   
+   - [Requirements](#requirements)   
+   - [Resources](#resources)   
+   - [Issues](#issues)   
+   - [Contributing](#contributing)   
+- [MDTOC](#mdtoc)   
+   - [Licensing](#licensing)   
+
+<!-- /MDTOC -->
+---
+
 ## Features
 
 - Mobile map packages
@@ -12,6 +31,10 @@ This repo provides an open source app called Offline Mapbook built in WPF with t
 - Locators with autosuggestions
 - Bookmarks
 - Portal Authentication using IWA and OAuth2
+
+## Detailed Documentation
+
+Read the [docs](./docs/README.md) for a detailed explanation of the application, including its architecture and how it leverages the ArcGIS platform, as well as how you can begin using the app right away.
 
 ## Development Instructions
 
@@ -73,6 +96,10 @@ Anyone and everyone is welcome to [contribute](https://github.com/Esri/mapbook-w
 2. Report issues
 3. Contribute code
 4. Improve documentation
+
+## MDTOC
+
+Generation of this and other document's table of contents in this repository was performed using the [MDTOC package for Atom](https://atom.io/packages/atom-mdtoc).
 
 ### Licensing
 
