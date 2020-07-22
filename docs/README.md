@@ -1,4 +1,4 @@
-# Contents
+# Documentation
 
 <!-- MDTOC maxdepth:6 firsth1:0 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
@@ -258,23 +258,42 @@ The mobile map package contents can be accessed after the mobile map package has
 ```xml
 <!-- Mmpk Thumbnail area -->
 <Grid>
-  <Image Name="Thumbnail" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Height="100"
-     Source="{Binding MmpkItem.Thumbnail, Converter={StaticResource RuntimeImageConverter}}"
-     Grid.Row="0"/>
+  <Image Name="Thumbnail"
+         VerticalAlignment="Center"
+         HorizontalAlignment="Center"
+         Width="300"
+         Height="100"
+         Source="{Binding MmpkItem.Thumbnail, Converter={StaticResource RuntimeImageConverter}}"
+         Grid.Row="0" />
 </Grid>
 
 <!-- Mmpk name area-->
-<TextBlock Text="{Binding MmpkItem.Title}" Grid.Row="1" Style="{StaticResource WhiteText}"
-    FontSize="27" FontWeight="Bold" VerticalAlignment="Top" TextWrapping="Wrap"
-         Margin="10,20,10,20" Foreground="#3F51B5"/>
+<TextBlock Text="{Binding MmpkItem.Title}"
+           Grid.Row="1"
+           Style="{StaticResource WhiteText}"
+           FontSize="27"
+           FontWeight="Bold"
+           VerticalAlignment="Top"
+           TextWrapping="Wrap"
+           Margin="10,20,10,20"
+           Foreground="#3F51B5" />
 
 <!-- Mmpk Description Area -->
-<StackPanel Orientation="Vertical" Margin="10,0,10,0" Grid.Row="2">
-  <TextBlock Text="{Binding MmpkItem.Description}" TextWrapping="Wrap"
-       Style="{StaticResource GrayText}" Margin="0,20,0,0" />
-  <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-    <TextBlock Text="Maps: " Style="{StaticResource GrayText}" FontStyle="Italic"/>
-    <TextBlock Text="{Binding MapItems.Count}" Style="{StaticResource GrayText}" FontStyle="Italic"/>
+<StackPanel Orientation="Vertical"
+            Margin="10,0,10,0"
+            Grid.Row="2" >
+  <TextBlock Text="{Binding MmpkItem.Description}"
+             TextWrapping="Wrap"
+             Style="{StaticResource GrayText}"
+             Margin="0,20,0,0" />
+  <StackPanel Orientation="Horizontal"
+              Margin="0,20,0,0" >
+    <TextBlock Text="Maps: "
+               Style="{StaticResource GrayText}"
+               FontStyle="Italic" />
+    <TextBlock Text="{Binding MapItems.Count}"
+               Style="{StaticResource GrayText}"
+              FontStyle="Italic" />
   </StackPanel>
 </StackPanel>
 ```
@@ -311,10 +330,11 @@ A second vertical `StackPanel`, contained within the previously mentioned `Stack
 For the purpose of this app, the Table of Contents and the Legend have been combined into one control. Using the WPF toolkit, a TOC with legend is implemented by binding the `TableOfContents` toolkit control to the `MapView` containing the active map. The `ShowLegend` boolean attribute determined if the legend (symbology) is displayed within the Table of Contents. By default, the TOC toolkit control has the default WPF style but it can be styled to match the application's Modern UI style.
 
 ```xml
-<esriUI:TableOfContents GeoView="{Binding ElementName=MapBookMapView}" ShowLegend="True"
-                                  Visibility="{Binding IsChecked, ElementName=toggleLegend,
-                                  Converter={StaticResource BooleanToVisibilityConverter}}"
-                                  Width="300" Style="{StaticResource TOC}"/>
+<esriUI:TableOfContents GeoView="{Binding ElementName=MapBookMapView}"
+                        ShowLegend="True"
+                        Visibility="{Binding IsChecked, ElementName=toggleLegend, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Width="300"
+                        Style="{StaticResource TOC}"/>
 ```
 
 ### Locator & search
@@ -341,13 +361,16 @@ The list of suggestions returned from the locator is presented to the user in a 
 
 ```xml
 <!-- Search Autocomplete Listbox-->
-<ListView Width="300" ItemsSource="{Binding SuggestionsList}" Background="#3F51B5">
+<ListView Width="300"
+          ItemsSource="{Binding SuggestionsList}"
+          Background="#3F51B5" >
     <ListView.ItemTemplate>
         <DataTemplate>
-            <Button Content="{Binding Label}" Style="{StaticResource ListViewButton}" FontSize="20"
-                    Command="{Binding DataContext.SearchCommand,
-                    RelativeSource={RelativeSource AncestorType=UserControl}}"
-                    CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Content="{Binding Label}"
+                    Style="{StaticResource ListViewButton}"
+                    FontSize="20"
+                    Command="{Binding DataContext.SearchCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}" />
         </DataTemplate>
     </ListView.ItemTemplate>
 </ListView>
@@ -398,12 +421,16 @@ private void ClearGraphicsAndSelections()
 The bookmarks implementation is very straight forward. A `ListView` is bound to the `Bookmarks` property of the active `Map`. When a bookmark is selected, the `ZoomToBookmarkCommand` on the `MapViewModel` sets the `Viewpoint` property to the bookmark's viewpoint.
 
 ```xml
-<ListView Width="300" ItemsSource="{Binding Map.Bookmarks}" Background="#3F51B5"
+<ListView Width="300"
+          ItemsSource="{Binding Map.Bookmarks}"
+          Background="#3F51B5"
           Visibility="{Binding IsChecked, ElementName=toggleBookmarks,
           Converter={StaticResource BooleanToVisibilityConverter}}">
     <ListView.ItemTemplate>
         <DataTemplate>
-            <Button Content="{Binding Name}" Style="{StaticResource ListViewButton}" FontSize="20"
+            <Button Content="{Binding Name}"
+                    Style="{StaticResource ListViewButton}"
+                    FontSize="20"
                     Command="{Binding DataContext.ZoomToBookmarkCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
                     CommandParameter="{Binding Path=Viewpoint}"/>
         </DataTemplate>
