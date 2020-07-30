@@ -7,16 +7,16 @@ This repo provides an open source app called Offline Mapbook built in WPF with t
 - [Features](#features)   
 - [Detailed Documentation](#detailed-documentation)   
 - [Development Instructions](#development-instructions)   
-   - [Fork the repo](#fork-the-repo)   
-   - [Clone the repo](#clone-the-repo)   
-      - [Command line Git](#command-line-git)   
-      - [Configuring a Remote for a Fork](#configuring-a-remote-for-a-fork)   
-   - [Requirements](#requirements)   
-   - [Resources](#resources)   
-   - [Issues](#issues)   
-   - [Contributing](#contributing)   
+- [Fork the repo](#fork-the-repo)   
+- [Clone the repo](#clone-the-repo)   
+   - [Command line Git](#command-line-git)   
+   - [Configuring a Remote for a Fork](#configuring-a-remote-for-a-fork)   
+- [Requirements](#requirements)   
+- [Resources](#resources)   
+- [Issues](#issues)   
+- [Contributing](#contributing)   
 - [MDTOC](#mdtoc)   
-   - [Licensing](#licensing)   
+- [Licensing](#licensing)   
 
 <!-- /MDTOC -->
 ---
@@ -40,21 +40,21 @@ Read the [docs](./docs/README.md) for a detailed explanation of the application,
 
 This Offline Mapbook repo is a Visual Studio 2017 Project that can be directly cloned and imported into Visual Studio 2017 or higher.
 
-### Fork the repo
+## Fork the repo
 
 [Fork](https://github.com/Esri/mapbook-wpf/fork) the Offline Mapbook WPF repo.
 
-### Clone the repo
+## Clone the repo
 
 Once you have forked the repo, you can make a clone.
 
-#### Command line Git
+### Command line Git
 
 1. [Clone](https://help.github.com/articles/fork-a-repo#step-2-clone-your-fork) the Offline Mapbook repo
 2. cd into the ```mapbook-wpf``` folder
 3. Make your changes and create a [pull request](https://help.github.com/articles/creating-a-pull-request)
 
-#### Configuring a Remote for a Fork
+### Configuring a Remote for a Fork
 
 If you make changes in the fork and would like to [sync](https://help.github.com/articles/syncing-a-fork/) those changes with the upstream repository, you must first [configure the remote](https://help.github.com/articles/configuring-a-remote-for-a-fork/). This will be required when you have created local branches and would like to make a [pull request](https://help.github.com/articles/creating-a-pull-request) to your upstream branch.
 
@@ -68,7 +68,7 @@ If there are changes made in the Original repository, you can sync the fork to k
 3. ```git checkout master``` to checkout your fork's local master branch.
 4. ```git merge upstream/master``` to sync your local master' branch withupstream/master. Note: Your local changes will be retained and your fork's master branch will be in sync with the upstream repository.
 
-### Requirements
+## Requirements
 
 - [Visual Studio 2017 or higher](https://www.visualstudio.com/downloads/)
     - Visual Studio 2019 is required if you want to use the .NET Core version.
@@ -76,7 +76,7 @@ If there are changes made in the Original repository, you can sync the fork to k
 - [ArcGIS Runtime SDK for .NET 100.8 or higher](https://developers.arcgis.com/net/)
 - [ArcGIS Runtime Toolkit for WPF v100.4 or higher](https://www.esri.com/arcgis-blog/products/developers/uncategorized/toolkit-for-arcgis-runtime-sdk-for-net-now-available/)
 
-### Resources
+## Resources
 
 - [Offline Mapbook documentation on Developers Site](https://developers.arcgis.com/example-apps/mapbook-wpf/)
 - [ArcGIS Runtime SDK for .NET Developers Site](https://developers.arcgis.com/net/)
@@ -84,11 +84,11 @@ If there are changes made in the Original repository, you can sync the fork to k
 - [twitter@ArcGISRuntime](https://twitter.com/ArcGISRuntime)
 - [twitter@esri](http://twitter.com/esri)
 
-### Issues
+## Issues
 
 Find a bug or want to request a new feature enhancement? Let us know by submitting an issue.
 
-### Contributing
+## Contributing
 
 Anyone and everyone is welcome to [contribute](https://github.com/Esri/mapbook-wpf/blob/master/CONTRIBUTING.md). We do accept pull requests.
 
@@ -101,7 +101,7 @@ Anyone and everyone is welcome to [contribute](https://github.com/Esri/mapbook-w
 
 Generation of this and other documents' table of contents in this repository was performed using the [MDTOC package for Atom](https://atom.io/packages/atom-mdtoc).
 
-### Licensing
+## Licensing
 
 Copyright 2017-2019 Esri
 
