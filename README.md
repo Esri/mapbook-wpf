@@ -7,10 +7,10 @@ This repo provides an open source app called Offline Mapbook built in WPF with t
 - [Features](#features)   
 - [Detailed Documentation](#detailed-documentation)   
 - [Development Instructions](#development-instructions)   
-- [Fork the repo](#fork-the-repo)   
-- [Clone the repo](#clone-the-repo)   
-   - [Command line Git](#command-line-git)   
-   - [Configuring a Remote for a Fork](#configuring-a-remote-for-a-fork)   
+   - [Fork the repo](#fork-the-repo)   
+   - [Clone the repo](#clone-the-repo)   
+      - [Command line Git](#command-line-git)   
+      - [Configuring a Remote for a Fork](#configuring-a-remote-for-a-fork)   
 - [Requirements](#requirements)   
 - [Resources](#resources)   
 - [Issues](#issues)   
@@ -40,21 +40,21 @@ Read the [docs](./docs/README.md) for a detailed explanation of the application,
 
 This Offline Mapbook repo is a Visual Studio 2017 Project that can be directly cloned and imported into Visual Studio 2017 or higher.
 
-## Fork the repo
+### Fork the repo
 
 [Fork](https://github.com/Esri/mapbook-wpf/fork) the Offline Mapbook WPF repo.
 
-## Clone the repo
+### Clone the repo
 
 Once you have forked the repo, you can make a clone.
 
-### Command line Git
+#### Command line Git
 
 1. [Clone](https://help.github.com/articles/fork-a-repo#step-2-clone-your-fork) the Offline Mapbook repo
 2. cd into the ```mapbook-wpf``` folder
 3. Make your changes and create a [pull request](https://help.github.com/articles/creating-a-pull-request)
 
-### Configuring a Remote for a Fork
+#### Configuring a Remote for a Fork
 
 If you make changes in the fork and would like to [sync](https://help.github.com/articles/syncing-a-fork/) those changes with the upstream repository, you must first [configure the remote](https://help.github.com/articles/configuring-a-remote-for-a-fork/). This will be required when you have created local branches and would like to make a [pull request](https://help.github.com/articles/creating-a-pull-request) to your upstream branch.
 
