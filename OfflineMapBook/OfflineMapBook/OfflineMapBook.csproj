@@ -16,6 +16,8 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <NoWarn>67</NoWarn>
+    <BaseIntermediateOutputPath>out\OfflineMapBook\obj</BaseIntermediateOutputPath>
+    <ReleaseVersion>1.0.4</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

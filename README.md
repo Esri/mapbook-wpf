@@ -2,6 +2,25 @@
 
 This repo provides an open source app called Offline Mapbook built in WPF with the [ArcGIS Runtime SDK for .NET](https://developers.arcgis.com/net/). With very little customization, you can change the app to use your own data. Screenshots of the app and more detailed documentation can be found on the [Developers Site](https://developers.arcgis.com/example-apps/mapbook-wpf/).
 
+<!-- MDTOC maxdepth:6 firsth1:0 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+- [Features](#features)   
+- [Detailed Documentation](#detailed-documentation)   
+- [Development Instructions](#development-instructions)   
+   - [Fork the repo](#fork-the-repo)   
+   - [Clone the repo](#clone-the-repo)   
+      - [Command line Git](#command-line-git)   
+      - [Configuring a Remote for a Fork](#configuring-a-remote-for-a-fork)   
+- [Requirements](#requirements)   
+- [Resources](#resources)   
+- [Issues](#issues)   
+- [Contributing](#contributing)   
+- [MDTOC](#mdtoc)   
+- [Licensing](#licensing)   
+
+<!-- /MDTOC -->
+---
+
 ## Features
 
 - Mobile map packages
@@ -12,6 +31,10 @@ This repo provides an open source app called Offline Mapbook built in WPF with t
 - Locators with autosuggestions
 - Bookmarks
 - Portal Authentication using IWA and OAuth2
+
+## Detailed Documentation
+
+Read the [docs](./docs/README.md) for a detailed explanation of the application, including its architecture and how it leverages the ArcGIS platform, as well as how you can begin using the app right away.
 
 ## Development Instructions
 
@@ -45,7 +68,7 @@ If there are changes made in the Original repository, you can sync the fork to k
 3. ```git checkout master``` to checkout your fork's local master branch.
 4. ```git merge upstream/master``` to sync your local master' branch withupstream/master. Note: Your local changes will be retained and your fork's master branch will be in sync with the upstream repository.
 
-### Requirements
+## Requirements
 
 - [Visual Studio 2017 or higher](https://www.visualstudio.com/downloads/)
     - Visual Studio 2019 is required if you want to use the .NET Core version.
@@ -53,7 +76,7 @@ If there are changes made in the Original repository, you can sync the fork to k
 - [ArcGIS Runtime SDK for .NET 100.8 or higher](https://developers.arcgis.com/net/)
 - [ArcGIS Runtime Toolkit for WPF v100.4 or higher](https://www.esri.com/arcgis-blog/products/developers/uncategorized/toolkit-for-arcgis-runtime-sdk-for-net-now-available/)
 
-### Resources
+## Resources
 
 - [Offline Mapbook documentation on Developers Site](https://developers.arcgis.com/example-apps/mapbook-wpf/)
 - [ArcGIS Runtime SDK for .NET Developers Site](https://developers.arcgis.com/net/)
@@ -61,11 +84,11 @@ If there are changes made in the Original repository, you can sync the fork to k
 - [twitter@ArcGISRuntime](https://twitter.com/ArcGISRuntime)
 - [twitter@esri](http://twitter.com/esri)
 
-### Issues
+## Issues
 
 Find a bug or want to request a new feature enhancement? Let us know by submitting an issue.
 
-### Contributing
+## Contributing
 
 Anyone and everyone is welcome to [contribute](https://github.com/Esri/mapbook-wpf/blob/master/CONTRIBUTING.md). We do accept pull requests.
 
@@ -74,7 +97,11 @@ Anyone and everyone is welcome to [contribute](https://github.com/Esri/mapbook-w
 3. Contribute code
 4. Improve documentation
 
-### Licensing
+## MDTOC
+
+Generation of this and other documents' table of contents in this repository was performed using the [MDTOC package for Atom](https://atom.io/packages/atom-mdtoc).
+
+## Licensing
 
 Copyright 2017-2019 Esri
 
