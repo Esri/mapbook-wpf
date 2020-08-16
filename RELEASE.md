@@ -1,5 +1,9 @@
 # Release notes
 
+## Release 1.0.5
+
+- Updated for ArcGIS Runtime 100.9
+
 ## Release 1.0.4
 
 - Adds doc table of contents to root README.md and docs/index.md

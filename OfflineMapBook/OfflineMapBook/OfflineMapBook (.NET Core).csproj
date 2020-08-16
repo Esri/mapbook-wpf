@@ -12,7 +12,7 @@
     <ApplicationIcon>Resources\ArcGIS_Open_Source_Apps.ico</ApplicationIcon>
     <NoWarn>67</NoWarn>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-    <ReleaseVersion>1.0.4</ReleaseVersion>
+    <ReleaseVersion>1.0.5</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -49,12 +49,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Toolkit" Version="100.8.0">
-    </PackageReference>
-    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Preview" Version="100.8.0">
-    </PackageReference>
-    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="100.8.0">
-    </PackageReference>
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit" Version="100.9.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Preview" Version="100.9.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="100.9.0" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\BackTransparent.png">
