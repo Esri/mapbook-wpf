@@ -3,6 +3,7 @@
 ## Release 1.0.5
 
 - Updated for ArcGIS Runtime 100.9
+- Moved the WPF (.NET Core) project to a separate folder to prevent possible build issues
 
 ## Release 1.0.4
 

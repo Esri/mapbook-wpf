@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook</RootNamespace>
+    <AssemblyName>Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook</AssemblyName>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <DefineConstants>WPF;NET_CORE</DefineConstants>
+    <DefaultItemExcludes>$(DefaultItemExcludes);netframework\**;obj\**;netcore\**;out\**;bin\**</DefaultItemExcludes>
+    <ApplicationIcon>..\OfflineMapBook_NetFramework\Resources\ArcGIS_Open_Source_Apps.ico</ApplicationIcon>
+    <NoWarn>67</NoWarn>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <ReleaseVersion>1.0.5</ReleaseVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\OfflineMapBook_NetFramework\**\*.cs" />
+    <Page Include="..\OfflineMapBook_NetFramework\**\*.xaml" />
+    <Resource Include="..\OfflineMapBook_NetFramework\**\*.png" />
+    <Compile Remove="..\OfflineMapBook_NetFramework\obj\Debug\**" />
+    <Compile Remove="..\OfflineMapBook_NetFramework\Properties\AssemblyInfo.cs" />
+    <ApplicationDefinition Include="..\OfflineMapBook_NetFramework\App.xaml" />
+    <!-- Needed for App.xaml to appear in Solution explorer -->
+    <None Include="..\OfflineMapBook_NetFramework\App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit" Version="100.9.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Preview" Version="100.9.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="100.9.0" />
+  </ItemGroup>
+</Project>
