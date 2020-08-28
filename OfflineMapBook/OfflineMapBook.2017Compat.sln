@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfflineMapBook", "OfflineMapBook\OfflineMapBook.csproj", "{39DE280E-2709-4C05-8F0C-01F8774D73C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfflineMapBook (.NET Framework)", "OfflineMapBook_NetFramework\OfflineMapBook_NetFramework.csproj", "{39DE280E-2709-4C05-8F0C-01F8774D73C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
