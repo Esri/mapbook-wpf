@@ -49,7 +49,7 @@ namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://runtime.maps.arcgis.com/sharing/rest")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://runtime.maps.arcgis.com/sharing/rest")]
         public string PortalUri {
             get {
                 return ((string)(this["PortalUri"]));
