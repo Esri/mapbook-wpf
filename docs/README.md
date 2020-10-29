@@ -129,11 +129,11 @@ It was important that each map be made to look unique and effectively convey its
 
 #### Creating a reference backdrop
 
-To keep the mobile map package (.mmpk) as small as possible, the reference layer was packaged into a .vtpk or [vector tile package](http://pro.arcgis.com/en/pro-app/help/sharing/overview/vector-tile-package.htm) and used as basemap within each map. For more information about how to create a vector tile package, see the help topic for the [Create Vector Tile Package](http://pro.arcgis.com/en/pro-app/tool-reference/data-management/create-vector-tile-package.htm) geoprocessing tool.
+To keep the mobile map package (.mmpk) as small as possible, the reference layer was packaged into a .vtpk or [vector tile package](https://pro.arcgis.com/en/pro-app/help/sharing/overview/vector-tile-package.htm) and used as basemap within each map. For more information about how to create a vector tile package, see the help topic for the [Create Vector Tile Package](https://pro.arcgis.com/en/pro-app/tool-reference/data-management/create-vector-tile-package.htm) geoprocessing tool.
 
 #### Creating locators
 
-The Offline Mapbook app supports geocoding and search so a [locator](http://desktop.arcgis.com/en/arcmap/10.3/guide-books/geocoding/essential-geocoding-vocabulary.htm) was built for each layer in the app by using the [Create Address Locator](http://pro.arcgis.com/en/pro-app/tool-reference/geocoding/create-address-locator.htm) geoprocessing tool once per layer. Most crucial to this part of the workflow was that 'General - Single Field' was chosen for the "Address Locator Style". This style is useful for allowing searching of the contents within a single field, which was sufficient for the purpose of app.
+The Offline Mapbook app supports geocoding and search so a [locator](https://desktop.arcgis.com/en/arcmap/10.3/guide-books/geocoding/essential-geocoding-vocabulary.htm) was built for each layer in the app by using the [Create Address Locator](https://pro.arcgis.com/en/pro-app/tool-reference/geocoding/create-address-locator.htm) geoprocessing tool once per layer. Most crucial to this part of the workflow was that 'General - Single Field' was chosen for the "Address Locator Style". This style is useful for allowing searching of the contents within a single field, which was sufficient for the purpose of app.
 
 The following layers in the app are searchable:
 
@@ -142,11 +142,11 @@ The following layers in the app are searchable:
 - Water System Valves
 - Address Points
 
-Once individual address locators, or .loc files, are created for each layer, the it [Create Composite Address Locator](http://pro.arcgis.com/en/pro-app/tool-reference/geocoding/create-composite-address-locator.htm) geoprocessing tool is ran to combine the locators into one Composite Locator. Worth noting is that a composite address locator does not store the address indexing information as would a standalone .loc file, but rather references the data from the input locators that are specified when it's generated. This composite locator (.loc) file is later specified when building the mobile map package.
+Once individual address locators, or .loc files, are created for each layer, the it [Create Composite Address Locator](https://pro.arcgis.com/en/pro-app/tool-reference/geocoding/create-composite-address-locator.htm) geoprocessing tool is ran to combine the locators into one Composite Locator. Worth noting is that a composite address locator does not store the address indexing information as would a standalone .loc file, but rather references the data from the input locators that are specified when it's generated. This composite locator (.loc) file is later specified when building the mobile map package.
 
 #### Setting bookmarks
 
-The Offline Mapbook app supports viewing of predefined, bookmarked locations. [Bookmarks](http://pro.arcgis.com/en/pro-app/help/mapping/navigation/bookmarks.htm) were set in ArcGIS Pro for each map and are included in the mobile map package. When a given map is opened in the app, clicking the 'Bookmark' icon in the upper right corner will open a side pane which presents a list of all bookmarks saved within that map. Clicking a bookmark will zoom to its extent. To highlight this capability, two bookmarks were saved for each of the three maps.
+The Offline Mapbook app supports viewing of predefined, bookmarked locations. [Bookmarks](https://pro.arcgis.com/en/pro-app/help/mapping/navigation/bookmarks.htm) were set in ArcGIS Pro for each map and are included in the mobile map package. When a given map is opened in the app, clicking the 'Bookmark' icon in the upper right corner will open a side pane which presents a list of all bookmarks saved within that map. Clicking a bookmark will zoom to its extent. To highlight this capability, two bookmarks were saved for each of the three maps.
 
 #### Metadata and thumbnails
 
@@ -154,7 +154,7 @@ Before finalizing the maps for publishing, metadata was created for each map. Th
 
 #### Packaging for consumption
 
-In order for this data to be consumed within the Mapbook app, it had to first be published as an .mmpk or ([mobile map package](http://pro.arcgis.com/en/pro-app/help/sharing/overview/mobile-map-package.htm)). An .mmpk file can either be hosted on a portal and downloaded automatically prior to running the app or loaded onto the machine and placed into the user selected folder. This subsection describes using the [Create Mobile Map Package](http://pro.arcgis.com/en/pro-app/tool-reference/data-management/create-mobile-map-package.htm) geoprocessing tool specifically for the purpose of packaging the data that was created for the Offline Mapbook app.
+In order for this data to be consumed within the Mapbook app, it had to first be published as an .mmpk or ([mobile map package](https://pro.arcgis.com/en/pro-app/help/sharing/overview/mobile-map-package.htm)). An .mmpk file can either be hosted on a portal and downloaded automatically prior to running the app or loaded onto the machine and placed into the user selected folder. This subsection describes using the [Create Mobile Map Package](https://pro.arcgis.com/en/pro-app/tool-reference/data-management/create-mobile-map-package.htm) geoprocessing tool specifically for the purpose of packaging the data that was created for the Offline Mapbook app.
 
 #### Including multiple maps
 
@@ -172,11 +172,11 @@ Once the .mmpk file has been created, ArcGIS provides two possible mechanisms fo
 
 #### Using the ArcGIS Pro 'Share Package' tool
 
-The first method for getting a locally-saved mobile map package to ArcGIS Enterprise portal or on ArcGIS Online is to 'push' it using a dedicated geoprocessing tool. This tool, called the [Share Package](http://pro.arcgis.com/en/pro-app/tool-reference/data-management/share-package.htm) tool takes an input .mmpk file (as well as a host of other types of package files created using ArcGIS) and uploads it to the desired destination. In lieu of the tool requesting credentials, these are instead retrieved from ArcGIS Pro itself. Since the credentials passed in to the current session of Pro dictate the destination Portal to which the package will be shared, it's helpful to be aware of with which credentials you're signed in before running the tool!
+The first method for getting a locally-saved mobile map package to ArcGIS Enterprise portal or on ArcGIS Online is to 'push' it using a dedicated geoprocessing tool. This tool, called the [Share Package](https://pro.arcgis.com/en/pro-app/tool-reference/data-management/share-package.htm) tool takes an input .mmpk file (as well as a host of other types of package files created using ArcGIS) and uploads it to the desired destination. In lieu of the tool requesting credentials, these are instead retrieved from ArcGIS Pro itself. Since the credentials passed in to the current session of Pro dictate the destination Portal to which the package will be shared, it's helpful to be aware of with which credentials you're signed in before running the tool!
 
 #### Uploading directly from the 'My Content' page
 
-The second method for getting a locally-saved mobile map package to ArcGIS Enterprise portal or on ArcGIS Online is to 'pull' it using the [Add Item](http://doc.arcgis.com/en/arcgis-online/share-maps/add-items.htm) tool. This can be found from the 'My Content' page and is as simple as browsing for the local file, providing a title and some tags, and clicking 'ADD ITEM'.
+The second method for getting a locally-saved mobile map package to ArcGIS Enterprise portal or on ArcGIS Online is to 'pull' it using the [Add Item](https://doc.arcgis.com/en/arcgis-online/share-maps/add-items.htm) tool. This can be found from the 'My Content' page and is as simple as browsing for the local file, providing a title and some tags, and clicking 'ADD ITEM'.
 
 ## App developer patterns
 
@@ -208,7 +208,7 @@ switch (Settings.Default.AuthenticationType)
 
 #### IWA
 
-When [Portal is set up using IWA](http://server.arcgis.com/en/portal/latest/administer/windows/use-integrated-windows-authentication-with-your-portal.htm), users do not have to sign in to the app, they are automatically signed in using the same accounts they used to sign in to Windows.
+When [Portal is set up using IWA](https://server.arcgis.com/en/portal/latest/administer/windows/use-integrated-windows-authentication-with-your-portal.htm), users do not have to sign in to the app, they are automatically signed in using the same accounts they used to sign in to Windows.
 The app grabs the authenticated Windows credential and passes it to the ArcGIS Authentication Manager together with the Portal URI to authenticate the user
 
 ```csharp
@@ -246,7 +246,7 @@ Settings.Default.Save();
 
 ### Mobile map packages
 
-The offline mapbook in the app uses a [mobile map package](http://pro.arcgis.com/en/pro-app/help/sharing/overview/mobile-map-package.htm) composed of a locator and several maps. Each map contains a vector tile package representing base data, feature layers consisting of feature data about water systems and address points, and bookmarked viewpoints.
+The offline mapbook in the app uses a [mobile map package](https://pro.arcgis.com/en/pro-app/help/sharing/overview/mobile-map-package.htm) composed of a locator and several maps. Each map contains a vector tile package representing base data, feature layers consisting of feature data about water systems and address points, and bookmarked viewpoints.
 
 ```csharp
 var mmpk = await MobileMapPackage.OpenAsync(mmpkFullPath);
@@ -516,7 +516,7 @@ The URL of the sharing REST endpoint ArcGIS Online or Portal instance that store
 
 then your `PortalUri` will be
 
-> http://arcgisruntime.maps.arcgis.com/sharing/rest
+> https://arcgisruntime.maps.arcgis.com/sharing/rest
 
 #### `PortalItemID`
 
