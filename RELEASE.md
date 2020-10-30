@@ -1,5 +1,9 @@
 # Release notes
 
+## Release 1.0.6
+
+- Updates doc, app settings, and many code comments to avoid all use of `http:`
+
 ## Release 1.0.5
 
 - Updated for ArcGIS Runtime 100.9
