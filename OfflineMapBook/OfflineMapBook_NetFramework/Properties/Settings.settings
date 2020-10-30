@@ -9,7 +9,7 @@
       <Value Profile="(Default)">OfflineMapbookTest.mmpk</Value>
     </Setting>
     <Setting Name="PortalUri" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://runtime.maps.arcgis.com/sharing/rest</Value>
+      <Value Profile="(Default)">https://runtime.maps.arcgis.com/sharing/rest</Value>
     </Setting>
     <Setting Name="PortalItemID" Type="System.String" Scope="User">
       <Value Profile="(Default)">5ca1aba9eb05490f84b66bf9bbe4cc10</Value>
