@@ -1,5 +1,9 @@
 # Release notes
 
+## Release 1.0.7
+
+- Resolves an issue affecting deployment of Runtime resources when building with Visual Studio 2017
+
 ## Release 1.0.6
 
 - Updates doc, app settings, and many code comments to avoid all use of `http:`
