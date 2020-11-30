@@ -1,5 +1,9 @@
 # Release notes
 
+## Release 1.0.8
+
+- Updated for ArcGIS Runtime 100.10
+
 ## Release 1.0.7
 
 - Resolves an issue affecting deployment of Runtime resources when building with Visual Studio 2017

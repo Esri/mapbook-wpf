@@ -12,7 +12,7 @@
     <ApplicationIcon>..\OfflineMapBook_NetFramework\Resources\ArcGIS_Open_Source_Apps.ico</ApplicationIcon>
     <NoWarn>67</NoWarn>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-    <ReleaseVersion>1.0.7</ReleaseVersion>
+    <ReleaseVersion>1.0.8</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Toolkit" Version="100.9.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Preview" Version="100.9.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="100.9.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit" Version="100.10.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Preview" Version="100.10.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="100.10.0" />
   </ItemGroup>
 </Project>
