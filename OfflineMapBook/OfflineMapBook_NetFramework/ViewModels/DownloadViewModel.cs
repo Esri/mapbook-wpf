@@ -110,14 +110,9 @@ namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook.ViewModels
         private void UpdateAuthenticationManager(Uri serviceUri, string clientID, string redirectUri, string clientSecret)
         {
             // Register the server information with the AuthenticationManager
-            var serverInfo = new ServerInfo
+            var serverInfo = new ServerInfo(serviceUri)
             {
-                ServerUri = serviceUri,
-                OAuthClientInfo = new OAuthClientInfo
-                {
-                    ClientId = clientID,
-                    RedirectUri = new Uri(redirectUri),
-                },
+                OAuthClientInfo = new OAuthClientInfo(clientID, new Uri(redirectUri))
             };
 
             // Use OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)

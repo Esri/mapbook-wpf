@@ -3,6 +3,7 @@
 ## Release 1.0.8
 
 - Updated for ArcGIS Runtime 100.10
+- Updated to avoid use of some deprecated API features
 
 ## Release 1.0.7
 
