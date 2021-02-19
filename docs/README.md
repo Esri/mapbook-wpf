@@ -228,9 +228,9 @@ Esri.ArcGISRuntime.Security.AuthenticationManager.Current.AddCredential(arcGisCr
 
 #### OAuth 2.0
 
-The default option for the app is OAuth 2.0 authentication. The app prompts the user for their organization’s ArcGIS Online credentials used to obtain a token later consumed by the Portal. The [ArcGIS Runtime API documentation](https://developers.arcgis.com/net/latest/wpf/guide/use-the-authentication-manager.htm) provides a detailed explanation on how to use the Authentication Manager to handle authentication in the app.
+The default option for the app is OAuth 2.0 authentication. The app prompts the user for their organization’s ArcGIS Online credentials used to obtain a token later consumed by the Portal. The [ArcGIS Runtime API documentation](https://developers.arcgis.com/net/security-and-authentication/) provides a detailed explanation on how to use the Authentication Manager to handle authentication in the app.
 
-For an application to use this pattern, follow these [guides](https://developers.arcgis.com/documentation/core-concepts/security-and-authentication/signing-in-arcgis-online-users/) to register your app. Then record the `OAuthClientID`, `OAuthClientSecret` and `OAuthRedirectUri` in the app's Settings file. At the user's first sign in, an `OAuthRefreshToken` is generated. The app encrypts the `OAuthRefreshToken` using a predefined salt and current user scope. This prevents threads not running under the current user from decrypting the data. The encrypted `OAuthRefreshToken` is then stored inside the app's Settings file. The `OAuthRefreshToken` is then used to automatically authenticate the user in future instances of the app, eliminating the need to sign in every time.
+For an application to use this pattern, follow these [guides](https://developers.arcgis.com/documentation/security-and-authentication/arcgis-identity/) to register your app. Then record the `OAuthClientID`, `OAuthClientSecret` and `OAuthRedirectUri` in the app's Settings file. At the user's first sign in, an `OAuthRefreshToken` is generated. The app encrypts the `OAuthRefreshToken` using a predefined salt and current user scope. This prevents threads not running under the current user from decrypting the data. The encrypted `OAuthRefreshToken` is then stored inside the app's Settings file. The `OAuthRefreshToken` is then used to automatically authenticate the user in future instances of the app, eliminating the need to sign in every time.
 
 ```csharp
 // Encrypt and save refresh token
@@ -300,7 +300,7 @@ The mobile map package contents can be accessed after the mobile map package has
 
 ### Identify
 
-As the user taps on a map, the [identify](https://developers.arcgis.com/net/latest/wpf/sample-code/identify-layers/) operation is used to retrieve all of the data for that location from the map's visible feature layers.  In this mobile map package, every map has multiple feature layers and so the method to identify features in all layers is used.  When the `MapBookMapView_GeoViewTapped` event fires, the clicked location is used to identify features in the visible layers.
+As the user taps on a map, the [identify](https://developers.arcgis.com/net/wpf/sample-code/identify-layers/) operation is used to retrieve all of the data for that location from the map's visible feature layers.  In this mobile map package, every map has multiple feature layers and so the method to identify features in all layers is used.  When the `MapBookMapView_GeoViewTapped` event fires, the clicked location is used to identify features in the visible layers.
 
 ```csharp
 // get the tap location in screen units
@@ -528,7 +528,7 @@ Represents the type of authentication used by the app. The supported options are
 
 #### `OAuthClientID`, `OAuthClientSecret` and `OAuthRedirectUri`
 
-Only valid if `AuthenticationType` is set to **OAuth**. These settings are retrieved when the developer [registers the app](https://developers.arcgis.com/applications/new).
+Only valid if `AuthenticationType` is set to **OAuth**. These settings are retrieved when the developer [registers the app](https://developers.arcgis.com/applications).
 
 ### Not customizable
 
