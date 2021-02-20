@@ -528,7 +528,7 @@ Represents the type of authentication used by the app. The supported options are
 
 #### `OAuthClientID`, `OAuthClientSecret` and `OAuthRedirectUri`
 
-Only valid if `AuthenticationType` is set to **OAuth**. These settings are retrieved when the developer [registers the app](https://developers.arcgis.com/applications).
+Only valid if `AuthenticationType` is set to **OAuth**. These settings are retrieved when the developer [registers the app](https://developers.arcgis.com/applications/).
 
 ### Not customizable
 
