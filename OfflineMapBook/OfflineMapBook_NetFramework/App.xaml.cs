@@ -37,7 +37,7 @@ namespace Esri.ArcGISRuntime.OpenSourceApps.OfflineMapBook
 
             try
             {
-                // Deployed applications must be licensed at the Basic level or greater (https://developers.arcgis.com/licensing).
+                // Deployed applications must be licensed at the Basic level or greater (https://developers.arcgis.com/net/license-and-deployment/license/#licensing-capabilities).
                 // To enable Basic level functionality set the Client ID property before initializing the ArcGIS Runtime.
                 //ArcGISRuntimeEnvironment.SetLicense("license key here");
 

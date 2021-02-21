@@ -1,6 +1,6 @@
 # Offline Mapbook WPF
 
-This repo provides an open source app called Offline Mapbook built in WPF with the [ArcGIS Runtime SDK for .NET](https://developers.arcgis.com/net/). With very little customization, you can change the app to use your own data. Screenshots of the app and more detailed documentation can be found on the [Developers Site](https://developers.arcgis.com/example-apps/mapbook-wpf/).
+This repo provides an open source app called Offline Mapbook built in WPF with the [ArcGIS Runtime SDK for .NET](https://developers.arcgis.com/net/). With very little customization, you can change the app to use your own data. Screenshots of the app and more detailed documentation can be found on the [Developers Site](https://developers.arcgis.com/documentation/app-templates-and-builders/open-source-apps/offline-mapbook/).
 
 <!-- MDTOC maxdepth:6 firsth1:0 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
@@ -73,12 +73,12 @@ If there are changes made in the Original repository, you can sync the fork to k
 - [Visual Studio 2017 or higher](https://www.visualstudio.com/downloads/)
     - Visual Studio 2019 is required if you want to use the .NET Core version.
 - [.NET Framework 4.6.1 or higher](https://www.microsoft.com/net/download)
-- [ArcGIS Runtime SDK for .NET 100.8 or higher](https://developers.arcgis.com/net/)
-- [ArcGIS Runtime Toolkit for WPF v100.4 or higher](https://www.esri.com/arcgis-blog/products/developers/uncategorized/toolkit-for-arcgis-runtime-sdk-for-net-now-available/)
+- [ArcGIS Runtime SDK for .NET 100.10 or higher](https://developers.arcgis.com/net/)
+- [ArcGIS Runtime Toolkit for WPF v100.10 or higher](https://www.esri.com/arcgis-blog/products/developers/uncategorized/toolkit-for-arcgis-runtime-sdk-for-net-now-available/)
 
 ## Resources
 
-- [Offline Mapbook documentation on Developers Site](https://developers.arcgis.com/example-apps/mapbook-wpf/)
+- [Offline Mapbook documentation on Developers Site](https://developers.arcgis.com/documentation/app-templates-and-builders/open-source-apps/offline-mapbook/)
 - [ArcGIS Runtime SDK for .NET Developers Site](https://developers.arcgis.com/net/)
 - [ArcGIS Developer Blog](https://www.esri.com/arcgis-blog/developers/)
 - [twitter@ArcGISRuntime](https://twitter.com/ArcGISRuntime)
@@ -113,4 +113,4 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 A copy of the license is available in the repository's [LICENSE](https://github.com/Esri/mapbook-wpf/blob/master/LICENSE) file.
 
-For information about licensing your deployed app, see [License your app](https://developers.arcgis.com/net/latest/ios/guide/license-your-app.htm).
+For information about licensing your deployed app, see [License your app](https://developers.arcgis.com/net/license-and-deployment/license/).
