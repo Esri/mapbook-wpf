@@ -73,8 +73,8 @@ If there are changes made in the Original repository, you can sync the fork to k
 - [Visual Studio 2017 or higher](https://www.visualstudio.com/downloads/)
     - Visual Studio 2019 is required if you want to use the .NET Core version.
 - [.NET Framework 4.6.1 or higher](https://www.microsoft.com/net/download)
-- [ArcGIS Runtime SDK for .NET 100.10 or higher](https://developers.arcgis.com/net/)
-- [ArcGIS Runtime Toolkit for WPF v100.10 or higher](https://www.esri.com/arcgis-blog/products/developers/uncategorized/toolkit-for-arcgis-runtime-sdk-for-net-now-available/)
+- [ArcGIS Runtime SDK for .NET 100.11 or higher](https://developers.arcgis.com/net/)
+- [ArcGIS Runtime Toolkit for WPF v100.11 or higher](https://www.esri.com/arcgis-blog/products/developers/uncategorized/toolkit-for-arcgis-runtime-sdk-for-net-now-available/)
 
 ## Resources
 

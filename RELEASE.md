@@ -1,5 +1,9 @@
 # Release notes
 
+## Release 1.0.9
+
+- Updated for ArcGIS Runtime 100.11
+
 ## Release 1.0.8
 
 - Updated for ArcGIS Runtime 100.10
